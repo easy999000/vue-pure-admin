@@ -17,6 +17,15 @@ export default {
       meta: {
         title: $t("menus.pureAbout")
       }
+    },
+    {
+      path: "/about/index2",
+      redirect: "/about/index3",
+      name: "About2",
+      component: () => import("@/views/about/index.vue"),
+      meta: {
+        title: $t("menus.pureAbout")
+      }
     }
   ]
 } satisfies RouteConfigsTable;
