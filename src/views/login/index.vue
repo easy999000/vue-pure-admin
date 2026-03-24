@@ -70,8 +70,9 @@ const onLogin = async (formEl: FormInstance | undefined) => {
       loading.value = true;
       useUserStoreHook()
         .loginByUsername({
-          username: ruleForm.username,
-          password: ruleForm.password
+          account: ruleForm.username,
+          password: ruleForm.password,
+          verificationCode: ruleForm.verifyCode
         })
         .then(async () => {
           // 获取后端路由
@@ -91,7 +92,11 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     }
   });
 };
+const captchaUrl = ref("/api/home/LoginVerifyImg?t=" + Date.now());
 
+function refreshCaptcha() {
+  captchaUrl.value = "/api/home/LoginVerifyImg?t=" + Date.now();
+}
 const immediateDebounce: any = debounce(
   formRef => onLogin(formRef),
   1000,
@@ -131,37 +136,6 @@ watch(loginDay, value => {
         @change="dataThemeChange"
       />
       <!-- 国际化 -->
-      <el-dropdown trigger="click">
-        <globalization
-          class="hover:text-primary hover:bg-transparent! size-5 ml-1.5 cursor-pointer outline-hidden duration-300"
-        />
-        <template #dropdown>
-          <el-dropdown-menu class="translation">
-            <el-dropdown-item
-              :style="getDropdownItemStyle(locale, 'zh')"
-              :class="['dark:text-white!', getDropdownItemClass(locale, 'zh')]"
-              @click="translationCh"
-            >
-              <IconifyIconOffline
-                v-show="locale === 'zh'"
-                class="check-zh"
-                :icon="Check"
-              />
-              简体中文
-            </el-dropdown-item>
-            <el-dropdown-item
-              :style="getDropdownItemStyle(locale, 'en')"
-              :class="['dark:text-white!', getDropdownItemClass(locale, 'en')]"
-              @click="translationEn"
-            >
-              <span v-show="locale === 'en'" class="check-en">
-                <IconifyIconOffline :icon="Check" />
-              </span>
-              English
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
     </div>
     <div class="login-container">
       <div class="img">
@@ -182,7 +156,6 @@ watch(loginDay, value => {
             v-if="currentPage === 0"
             ref="ruleFormRef"
             :model="ruleForm"
-            :rules="loginRules"
             size="large"
           >
             <Motion :delay="100">
@@ -226,7 +199,11 @@ watch(loginDay, value => {
                   :prefix-icon="useRenderIcon(Keyhole)"
                 >
                   <template v-slot:append>
-                    <ReImageVerify v-model:code="imgCode" />
+                    <img
+                      :src="captchaUrl"
+                      alt="验证码"
+                      @click="refreshCaptcha"
+                    />
                   </template>
                 </el-input>
               </el-form-item>
@@ -234,42 +211,6 @@ watch(loginDay, value => {
 
             <Motion :delay="250">
               <el-form-item>
-                <div class="w-full h-5 flex-bc">
-                  <el-checkbox v-model="checked">
-                    <span class="flex">
-                      <select
-                        v-model="loginDay"
-                        :style="{
-                          width: loginDay < 10 ? '10px' : '16px',
-                          outline: 'none',
-                          background: 'none',
-                          appearance: 'none',
-                          border: 'none'
-                        }"
-                      >
-                        <option value="1">1</option>
-                        <option value="7">7</option>
-                        <option value="30">30</option>
-                      </select>
-                      {{ t("login.pureRemember") }}
-                      <IconifyIconOffline
-                        v-tippy="{
-                          content: t('login.pureRememberInfo'),
-                          placement: 'top'
-                        }"
-                        :icon="Info"
-                        class="ml-1"
-                      />
-                    </span>
-                  </el-checkbox>
-                  <el-button
-                    link
-                    type="primary"
-                    @click="useUserStoreHook().SET_CURRENTPAGE(4)"
-                  >
-                    {{ t("login.pureForget") }}
-                  </el-button>
-                </div>
                 <el-button
                   class="w-full mt-4!"
                   size="default"
@@ -282,61 +223,14 @@ watch(loginDay, value => {
                 </el-button>
               </el-form-item>
             </Motion>
-
-            <Motion :delay="300">
-              <el-form-item>
-                <div class="w-full h-5 flex-bc">
-                  <el-button
-                    v-for="(item, index) in operates"
-                    :key="index"
-                    class="w-full mt-4!"
-                    size="default"
-                    @click="useUserStoreHook().SET_CURRENTPAGE(index + 1)"
-                  >
-                    {{ t(item.title) }}
-                  </el-button>
-                </div>
-              </el-form-item>
-            </Motion>
           </el-form>
-
-          <Motion v-if="currentPage === 0" :delay="350">
-            <el-form-item>
-              <el-divider>
-                <p class="text-gray-500 text-xs">
-                  {{ t("login.pureThirdLogin") }}
-                </p>
-              </el-divider>
-              <div class="w-full flex justify-evenly">
-                <span
-                  v-for="(item, index) in thirdParty"
-                  :key="index"
-                  :title="t(item.title)"
-                >
-                  <IconifyIconOnline
-                    :icon="`ri:${item.icon}-fill`"
-                    width="20"
-                    class="cursor-pointer text-gray-500 hover:text-blue-400"
-                  />
-                </span>
-              </div>
-            </el-form-item>
-          </Motion>
-          <!-- 手机号登录 -->
-          <LoginPhone v-if="currentPage === 1" />
-          <!-- 二维码登录 -->
-          <LoginQrCode v-if="currentPage === 2" />
-          <!-- 注册 -->
-          <LoginRegist v-if="currentPage === 3" />
-          <!-- 忘记密码 -->
-          <LoginUpdate v-if="currentPage === 4" />
         </div>
       </div>
     </div>
     <div
       class="w-full flex-c absolute bottom-3 text-sm text-[rgba(0,0,0,0.6)] dark:text-[rgba(220,220,242,0.8)]"
     >
-      Copyright © 2020-present
+      Copyright © 2025
       <a
         class="hover:text-primary!"
         href="https://github.com/pure-admin"
