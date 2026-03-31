@@ -156,6 +156,7 @@ function addPathMatch() {
 
 /** 处理动态路由（后端返回的路由） */
 function handleAsyncRoutes(routeList) {
+  console.log({ title: "handleAsyncRoutes", routeList });
   if (routeList.length === 0) {
     usePermissionStoreHook().handleWholeMenus(routeList);
   } else {
@@ -224,6 +225,7 @@ function initRouter() {
     return new Promise(resolve => {
       getAsyncRoutes().then(({ code, data }) => {
         if (code === 0) {
+          //  handleAsyncRoutes(testRoute);
           handleAsyncRoutes(cloneDeep(data));
           resolve(router);
         } else {
