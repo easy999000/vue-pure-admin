@@ -40,6 +40,11 @@ export const getRoleIds = (data?: object) => {
 export const getRoleList = (data?: object) => {
   return http.request<ResultTable>("post", "/role", { data });
 };
+export const getRolePage = (data?: object) => {
+  return http.request<ResultTable>("get", "/api/System/GetRolePage", {
+    params: data
+  });
+};
 
 /** 获取系统管理-菜单管理列表 */
 export const getMenuList = (data?: object) => {
