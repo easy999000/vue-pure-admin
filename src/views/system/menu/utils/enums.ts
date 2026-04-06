@@ -6,15 +6,15 @@ const menuTypeOptions: Array<OptionsType> = [
     value: 0
   },
   {
-    label: "iframe",
+    label: "页面",
     value: 1
   },
   {
-    label: "外链",
+    label: "权限",
     value: 2
   },
   {
-    label: "按钮",
+    label: "API",
     value: 3
   }
 ];

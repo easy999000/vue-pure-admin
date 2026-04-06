@@ -42,9 +42,9 @@ function onFullscreen() {
       :model="form"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item label="菜单名称：" prop="title">
+      <el-form-item label="菜单名称：" prop="Name">
         <el-input
-          v-model="form.title"
+          v-model="form.Name"
           placeholder="请输入菜单名称"
           clearable
           class="w-45!"

@@ -11,7 +11,7 @@ import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
 
 export function useMenu() {
   const form = reactive({
-    title: ""
+    Name: ""
   });
 
   const formRef = ref();
@@ -80,7 +80,7 @@ export function useMenu() {
     {
       label: "是否菜单",
       prop: "IsMenu",
-      formatter: ({ IsMenu }) => (IsMenu ? "否" : "是"),
+      formatter: ({ IsMenu }) => (IsMenu ? "是" : "否"),
       width: 100
     },
     {
@@ -118,10 +118,10 @@ export function useMenu() {
     const { code, data } = await getMenuPage({ PageNumber: 1, PageSize: 1000 }); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
     if (code === 0) {
       let newData = data.Data;
-      if (!isAllEmpty(form.title)) {
+      if (!isAllEmpty(form.Name)) {
         // 前端搜索菜单名称
         newData = newData.filter(item =>
-          transformI18n(item.Name).includes(form.title)
+          transformI18n(item.Name).includes(form.Name)
         );
       }
       dataList.value = handleTree(newData); // 处理成树结构
@@ -148,28 +148,20 @@ export function useMenu() {
       title: `${title}菜单`,
       props: {
         formInline: {
-          menuType: row?.menuType ?? 0,
           higherMenuOptions: formatHigherMenuOptions(cloneDeep(dataList.value)),
-          parentId: row?.parentId ?? 0,
-          title: row?.title ?? "",
-          name: row?.name ?? "",
-          path: row?.path ?? "",
-          component: row?.component ?? "",
-          rank: row?.rank ?? 99,
-          redirect: row?.redirect ?? "",
-          icon: row?.icon ?? "",
-          extraIcon: row?.extraIcon ?? "",
-          enterTransition: row?.enterTransition ?? "",
-          leaveTransition: row?.leaveTransition ?? "",
-          activePath: row?.activePath ?? "",
-          auths: row?.auths ?? "",
-          frameSrc: row?.frameSrc ?? "",
-          frameLoading: row?.frameLoading ?? true,
-          keepAlive: row?.keepAlive ?? false,
-          hiddenTag: row?.hiddenTag ?? false,
-          fixedTag: row?.fixedTag ?? false,
-          showLink: row?.showLink ?? true,
-          showParent: row?.showParent ?? false
+          ID: row?.ID ?? "",
+          Action: row?.Action ?? "",
+          Area: row?.Area ?? "",
+          Controller: row?.Controller ?? "",
+          IsMenu: row?.IsMenu ?? false,
+          Name: row?.Name ?? "",
+          Notes: row?.Notes ?? "",
+          ParentID: row?.ParentID ?? 0,
+          Path: row?.Path ?? "",
+          Sort: row?.Sort ?? 0,
+          Type: row?.Type ?? 0,
+          UpdateTime: row?.UpdateTime ?? "",
+          TypeName: row?.TypeName ?? ""
         }
       },
       width: "45%",
