@@ -11,13 +11,13 @@ type ResultTable = {
   message: string;
   data?: {
     /** 列表数据 */
-    list: Array<any>;
+    Data: Array<any>;
     /** 总条目数 */
-    total?: number;
+    PageCount?: number;
     /** 每页显示条目个数 */
-    pageSize?: number;
+    PageSize?: number;
     /** 当前页数 */
-    currentPage?: number;
+    PageNumber?: number;
   };
 };
 
@@ -43,6 +43,16 @@ export const getRoleList = (data?: object) => {
 export const getRolePage = (data?: object) => {
   return http.request<ResultTable>("get", "/api/System/GetRolePage", {
     params: data
+  });
+};
+export const UpdateRolePage = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/System/UpdateRole", {
+    data
+  });
+};
+export const DelRole = (data?: object) => {
+  return http.request<Result>("post", "/api/System/DelRole", {
+    data
   });
 };
 

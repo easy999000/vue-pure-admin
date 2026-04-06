@@ -2,11 +2,11 @@
 
 interface FormItemProps {
   /** 角色名称 */
-  name: string;
+  Name: string;
   /** 角色编号 */
-  code: string;
+  RoleID: string;
   /** 备注 */
-  remark: string;
+  Updatetime: string;
 }
 interface FormProps {
   formInline: FormItemProps;

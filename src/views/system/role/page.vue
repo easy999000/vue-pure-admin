@@ -72,7 +72,8 @@ const {
   // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
-  handleSelectionChange
+  handleSelectionChange,
+  onDel
 } = useRole(treeRef);
 
 onMounted(() => {
@@ -103,25 +104,7 @@ onMounted(() => {
           class="w-45!"
         />
       </el-form-item>
-      <el-form-item label="角色标识：" prop="code">
-        <el-input
-          v-model="form.code"
-          placeholder="请输入角色标识"
-          clearable
-          class="w-45!"
-        />
-      </el-form-item>
-      <el-form-item label="状态：" prop="status">
-        <el-select
-          v-model="form.status"
-          placeholder="请选择状态"
-          clearable
-          class="w-45!"
-        >
-          <el-option label="已启用" value="1" />
-          <el-option label="已停用" value="0" />
-        </el-select>
-      </el-form-item>
+
       <el-form-item>
         <el-button
           type="primary"
@@ -193,6 +176,7 @@ onMounted(() => {
                 修改
               </el-button>
               <el-popconfirm
+                :key="row.RoleID"
                 :title="`是否确认删除角色名称为${row.name}的这条数据`"
                 @confirm="handleDelete(row)"
               >
