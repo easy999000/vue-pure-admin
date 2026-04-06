@@ -60,6 +60,12 @@ export const DelRole = (data?: object) => {
 export const getMenuList = (data?: object) => {
   return http.request<Result>("post", "/menu", { data });
 };
+/** 获取系统管理-菜单管理列表 */
+export const getMenuPage = (params?: object) => {
+  return http.request<ResultTable>("get", "/api/System/GetApiInfoPage", {
+    params
+  });
+};
 
 /** 获取系统管理-部门管理列表 */
 export const getDeptList = (data?: object) => {

@@ -1,7 +1,7 @@
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getMenuList } from "@/api/system";
+import { getMenuList, getMenuPage } from "@/api/system";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
@@ -33,8 +33,12 @@ export function useMenu() {
 
   const columns: TableColumnList = [
     {
+      label: "ID",
+      prop: "ID"
+    },
+    {
       label: "菜单名称",
-      prop: "title",
+      prop: "Name",
       align: "left",
       cellRenderer: ({ row }) => (
         <>
@@ -43,7 +47,7 @@ export function useMenu() {
               style: { paddingTop: "1px" }
             })}
           </span>
-          <span>{transformI18n(row.title)}</span>
+          <span>{transformI18n(row.Name)}</span>
         </>
       )
     },
@@ -52,18 +56,15 @@ export function useMenu() {
       prop: "menuType",
       width: 100,
       cellRenderer: ({ row, props }) => (
-        <el-tag
-          size={props.size}
-          type={getMenuType(row.menuType)}
-          effect="plain"
-        >
-          {getMenuType(row.menuType, true)}
+        <el-tag size={props.size} type={row.TypeName} effect="plain">
+          {row.TypeName}
         </el-tag>
       )
     },
     {
       label: "路由路径",
-      prop: "path"
+      prop: "Path",
+      minWidth: 200
     },
     {
       label: "组件路径",
@@ -72,19 +73,27 @@ export function useMenu() {
         isAllEmpty(component) ? path : component
     },
     {
-      label: "权限标识",
-      prop: "auths"
-    },
-    {
       label: "排序",
-      prop: "rank",
+      prop: "Sort",
       width: 100
     },
     {
-      label: "隐藏",
-      prop: "showLink",
-      formatter: ({ showLink }) => (showLink ? "否" : "是"),
+      label: "是否菜单",
+      prop: "IsMenu",
+      formatter: ({ IsMenu }) => (IsMenu ? "否" : "是"),
       width: 100
+    },
+    {
+      label: "备注",
+      prop: "Notes"
+    },
+    {
+      label: "更新时间",
+      prop: "UpdateTime"
+    },
+    {
+      label: "父ID",
+      prop: "ParentID"
     },
     {
       label: "操作",
@@ -106,13 +115,13 @@ export function useMenu() {
 
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getMenuList(); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
+    const { code, data } = await getMenuPage({ PageNumber: 1, PageSize: 1000 }); // 这里是返回一维数组结构，前端自行处理成树结构，返回格式要求：唯一id加父节点parentId，parentId取父节点id
     if (code === 0) {
-      let newData = data;
+      let newData = data.Data;
       if (!isAllEmpty(form.title)) {
         // 前端搜索菜单名称
         newData = newData.filter(item =>
-          transformI18n(item.title).includes(form.title)
+          transformI18n(item.Name).includes(form.title)
         );
       }
       dataList.value = handleTree(newData); // 处理成树结构
