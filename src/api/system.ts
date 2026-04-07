@@ -67,6 +67,17 @@ export const getMenuPage = (params?: object) => {
   });
 };
 
+export const UpdateMenu = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/System/UpdateApiInfo", {
+    data
+  });
+};
+export const DelMenu = (data?: object) => {
+  return http.request<Result>("post", "/api/System/DelApiInfo", {
+    data
+  });
+};
+
 /** 获取系统管理-部门管理列表 */
 export const getDeptList = (data?: object) => {
   return http.request<Result>("post", "/dept", { data });

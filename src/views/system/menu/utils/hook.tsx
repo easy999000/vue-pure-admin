@@ -1,7 +1,7 @@
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getMenuList, getMenuPage } from "@/api/system";
+import { getMenuList, getMenuPage, UpdateMenu, DelMenu } from "@/api/system";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import { reactive, ref, onMounted, h } from "vue";
@@ -56,7 +56,11 @@ export function useMenu() {
       prop: "menuType",
       width: 100,
       cellRenderer: ({ row, props }) => (
-        <el-tag size={props.size} type={row.TypeName} effect="plain">
+        <el-tag
+          size={props.size}
+          type={getMenuType(row.Type ?? 0)}
+          effect="plain"
+        >
           {row.TypeName}
         </el-tag>
       )
@@ -188,11 +192,15 @@ export function useMenu() {
             console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              chores();
+              UpdateMenu(curData).then(({ res2 }) => {
+                // 实际开发先调用修改接口，再进行下面操作
+                chores();
+              });
             } else {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
+              UpdateMenu(curData).then(({ res2 }) => {
+                // 实际开发先调用修改接口，再进行下面操作
+                chores();
+              });
             }
           }
         });
@@ -201,10 +209,12 @@ export function useMenu() {
   }
 
   function handleDelete(row) {
-    message(`您删除了菜单名称为${transformI18n(row.title)}的这条数据`, {
-      type: "success"
+    DelMenu({ ID: row.ID }).then(() => {
+      message(`您删除了菜单名称为${transformI18n(row.Name)}的这条数据`, {
+        type: "success"
+      });
+      onSearch();
     });
-    onSearch();
   }
 
   onMounted(() => {
