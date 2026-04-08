@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useRole } from "./utils/hook";
+import { useDept } from "./utils/hook";
 import { ref, computed, nextTick, onMounted } from "vue";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -47,34 +47,20 @@ const treeHeight = ref();
 const {
   form,
   isShow,
-  curRow,
   loading,
   columns,
-  rowStyle,
   dataList,
-  treeData,
-  treeProps,
-  isLinkage,
+  rowStyle,
   pagination,
-  isExpandAll,
-  isSelectAll,
-  treeSearchValue,
   // buttonClass,
   onSearch,
   resetForm,
   openDialog,
-  handleMenu,
-  handleSave,
   handleDelete,
-  filterMethod,
-  transformI18n,
-  onQueryChanged,
-  // handleDatabase,
   handleSizeChange,
   handleCurrentChange,
-  handleSelectionChange,
-  onDel
-} = useRole(treeRef);
+  handleSelectionChange
+} = useDept();
 
 onMounted(() => {
   useResizeObserver(contentRef, async () => {
@@ -96,10 +82,10 @@ onMounted(() => {
       :model="form"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item label="角色名称:" prop="name">
+      <el-form-item label="部门名称：" prop="name">
         <el-input
           v-model="form.name"
-          placeholder="请输入角色名称"
+          placeholder="请输入部门名称"
           clearable
           class="w-45!"
         />
@@ -127,7 +113,7 @@ onMounted(() => {
       <PureTableBar
         :class="[isShow && !deviceDetection() ? 'w-[60vw]!' : 'w-full']"
         style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-        title="角色管理"
+        title="部门管理"
         :columns="columns"
         @refresh="onSearch"
       >
@@ -137,7 +123,7 @@ onMounted(() => {
             :icon="useRenderIcon(AddFill)"
             @click="openDialog()"
           >
-            新增角色
+            新增部门
           </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">

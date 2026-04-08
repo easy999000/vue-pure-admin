@@ -82,6 +82,12 @@ export const DelMenu = (data?: object) => {
 export const getDeptList = (data?: object) => {
   return http.request<Result>("post", "/dept", { data });
 };
+/** 获取系统管理-部门管理列表 */
+export const getDeptPage = (params?: object) => {
+  return http.request<ResultTable>("get", "/api/System/GetDepartmentPage", {
+    params
+  });
+};
 
 /** 获取系统监控-在线用户列表 */
 export const getOnlineLogsList = (data?: object) => {
