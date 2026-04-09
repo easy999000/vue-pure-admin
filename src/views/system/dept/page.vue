@@ -84,7 +84,7 @@ onMounted(() => {
     >
       <el-form-item label="部门名称：" prop="name">
         <el-input
-          v-model="form.name"
+          v-model="form.Name"
           placeholder="请输入部门名称"
           clearable
           class="w-45!"
@@ -161,7 +161,7 @@ onMounted(() => {
               >
                 修改
               </el-button>
-              <el-popconfirm
+              <!-- <el-popconfirm
                 :key="row.RoleID"
                 :title="`是否确认删除角色名称为${row.name}的这条数据`"
                 @confirm="handleDelete(row)"
@@ -177,7 +177,7 @@ onMounted(() => {
                     删除
                   </el-button>
                 </template>
-              </el-popconfirm>
+              </el-popconfirm> -->
             </template>
           </pure-table>
         </template>

@@ -88,6 +88,16 @@ export const getDeptPage = (params?: object) => {
     params
   });
 };
+export const UpdateDept = (data?: object) => {
+  return http.request<Result>("post", "/api/System/UpdateDepartment", {
+    data
+  });
+};
+export const DelDept = (data?: object) => {
+  return http.request<Result>("post", "/api/System/DelApiInfo", {
+    data
+  });
+};
 
 /** 获取系统监控-在线用户列表 */
 export const getOnlineLogsList = (data?: object) => {

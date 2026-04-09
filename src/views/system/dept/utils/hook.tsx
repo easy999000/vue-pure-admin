@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import editForm from "../form.vue";
 import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getDeptList, getDeptPage } from "@/api/system";
+import { getDeptList, getDeptPage, UpdateDept } from "@/api/system";
 import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
 import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
@@ -12,8 +12,7 @@ import type { PaginationProps } from "@pureadmin/table";
 
 export function useDept() {
   const form = reactive({
-    Name: "",
-    status: null
+    Name: ""
   });
 
   const pagination = reactive<PaginationProps>({
@@ -35,7 +34,7 @@ export function useDept() {
       align: "left"
     },
     {
-      label: "UpdateTime",
+      label: "更新时间",
       minWidth: 200,
       formatter: ({ createTime }) =>
         dayjs(createTime).format("YYYY-MM-DD HH:mm:ss")
@@ -99,14 +98,9 @@ export function useDept() {
       props: {
         formInline: {
           higherDeptOptions: formatHigherDeptOptions(cloneDeep(dataList.value)),
-          parentId: row?.parentId ?? 0,
-          name: row?.name ?? "",
-          principal: row?.principal ?? "",
-          phone: row?.phone ?? "",
-          email: row?.email ?? "",
-          sort: row?.sort ?? 0,
-          status: row?.status ?? 1,
-          remark: row?.remark ?? ""
+          Name: row?.Name ?? "",
+          UpdateTime: row?.UpdateTime ?? "",
+          ID: row?.ID ?? ""
         }
       },
       width: "40%",
@@ -119,7 +113,7 @@ export function useDept() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了部门名称为${curData.name}的这条数据`, {
+          message(`您${title}了部门名称为${curData.Name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -130,11 +124,15 @@ export function useDept() {
             console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
-              // 实际开发先调用新增接口，再进行下面操作
-              chores();
+              UpdateDept(toRaw(curData)).then(({ res2 }) => {
+                // 实际开发先调用修改接口，再进行下面操作
+                chores();
+              });
             } else {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
+              UpdateDept(toRaw(curData)).then(({ res2 }) => {
+                // 实际开发先调用修改接口，再进行下面操作
+                chores();
+              });
             }
           }
         });
