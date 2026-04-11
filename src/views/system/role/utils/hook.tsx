@@ -232,11 +232,6 @@ export function useRole(treeRef: Ref) {
 
   onMounted(async () => {
     onSearch();
-    const { code, data } = await getRoleMenu();
-    if (code === 0) {
-      treeIds.value = getKeyList(data, "id");
-      treeData.value = handleTree(data);
-    }
   });
 
   watch(isExpandAll, val => {
