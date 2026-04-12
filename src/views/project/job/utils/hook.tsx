@@ -157,9 +157,8 @@ export function useHook() {
       title: `${title}角色`,
       props: {
         formInline: {
-          Name: row?.Name ?? "",
-          RoleID: row?.RoleID ?? "",
-          Updatetime: row?.Updatetime ?? ""
+          ...row,
+          higherDeptOptions: []
         }
       },
       width: "40%",
@@ -172,36 +171,26 @@ export function useHook() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了角色名称为${curData.Name}的这条数据`, {
+          message(`您${title}了任务名称为${curData.Name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        FormRef.validate(valid => {
-          console.log({
-            title: "valid",
-            curData,
-            formRef,
-            value: formRef.value,
-            form2: FormRef
+
+        console.log("curData", curData);
+        // 表单规则校验通过
+        if (title === "新增") {
+          updateProjectItem(toRaw(curData)).then(({ res2 }) => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
           });
-          if (valid) {
-            console.log("curData", curData);
-            // 表单规则校验通过
-            if (title === "新增") {
-              updateProjectItem(toRaw(curData)).then(({ res2 }) => {
-                // 实际开发先调用修改接口，再进行下面操作
-                chores();
-              });
-            } else {
-              updateProjectItem(toRaw(curData)).then(({ res2 }) => {
-                // 实际开发先调用修改接口，再进行下面操作
-                chores();
-              });
-            }
-          }
-        });
+        } else {
+          updateProjectItem(toRaw(curData)).then(({ res2 }) => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
+        }
       }
     });
   }

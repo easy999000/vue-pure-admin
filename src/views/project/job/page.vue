@@ -80,10 +80,10 @@ onMounted(() => {
       :model="form"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item label="角色名称:" prop="name">
+      <el-form-item label="任务名称:" prop="name">
         <el-input
           v-model="form.Name"
-          placeholder="请输入角色名称"
+          placeholder="请输入任务名称"
           clearable
           class="w-45!"
         />
@@ -111,7 +111,7 @@ onMounted(() => {
       <PureTableBar
         :class="['w-full']"
         style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-        title="角色管理"
+        title="任务管理"
         :columns="columns"
         @refresh="onSearch"
       >
@@ -121,7 +121,7 @@ onMounted(() => {
             :icon="useRenderIcon(AddFill)"
             @click="openDialog()"
           >
-            新增角色
+            新增任务
           </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">

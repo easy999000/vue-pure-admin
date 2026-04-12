@@ -29,7 +29,7 @@ export const getProjectItemPage = (params?: object) => {
 };
 /** 更新项目条目 */
 export const updateProjectItem = (data?: object) => {
-  return http.request<ResultTable>("post", "/Project/UpdateProjectItem", {
+  return http.request<ResultTable>("post", "/api/Project/UpdateProjectItem", {
     data
   });
 };
