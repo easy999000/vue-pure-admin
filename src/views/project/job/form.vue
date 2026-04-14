@@ -6,6 +6,7 @@ import {
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
+import { getAccountProjectList } from "@/api/project";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({
     ID: "",
@@ -36,6 +37,18 @@ const state = ref<FieldValues>({
   time: new Date().toString(),
   endTime: []
 });
+// 模拟一个从后端获取下拉数据的API
+const getProjectOptions = async (): Promise<any[]> => {
+  // 这里替换为你的实际请求
+  const selectRes = await getAccountProjectList();
+  var res = selectRes.data.map(item => ({
+    label: item.Name,
+    value: item.ID
+  }));
+
+  return res;
+};
+
 const columns: PlusColumn[] = [
   {
     label: "任务编码",
@@ -55,7 +68,8 @@ const columns: PlusColumn[] = [
   {
     label: "所属项目",
     prop: "ProjectID",
-    valueType: "select"
+    valueType: "select",
+    options: getProjectOptions()
   },
   {
     label: "任务损失率",

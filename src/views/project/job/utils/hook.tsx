@@ -86,7 +86,7 @@ export function useHook() {
     onSearch();
   };
   function handleDelete(row) {
-    onDel(row).then(() => {
+    onDel(row).then(res => {
       onSearch();
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -100,11 +100,11 @@ export function useHook() {
       ///   onSearch(); // 刷新表格数据
     }
 
-    const { code } = await delProjectItemByID(toRaw(row));
-    if (code === 0) {
+    const res = await delProjectItemByID(toRaw(row));
+    if (res.code === 0) {
       chores();
     } else {
-      chores();
+      message(`删除失败，${res.message}`, { type: "error" });
     }
   }
   /** 高亮当前权限选中行 */
