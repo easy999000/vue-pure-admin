@@ -50,3 +50,11 @@
     transform: scale(1);
   }
 }
+// 在全局样式文件（如 src/styles/index.scss）中添加
+.el-table .cell {
+  white-space: normal !important;
+  /* 允许换行，覆盖 nowrap */
+  word-break: break-word;
+  /* 处理长单词/URL 换行，避免撑破容器 */
+  /* 如果想要保留内容中的换行符（\n），可以使用 white-space: pre-line; */
+}
