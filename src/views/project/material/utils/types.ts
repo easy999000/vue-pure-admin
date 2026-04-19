@@ -2,21 +2,16 @@
 
 interface FormItemProps {
   ID: string;
-  ProjectID: string;
-  Code: string;
-  /** 任务名称 */
   Name: string;
-  /** 任务编号 */
-  Describe: string;
-  Ext1: string;
-  Notes: string;
+  Code: string;
+  Specifications: string;
   Unit: string;
-  Loss: number;
-  PreQuantity: number;
-  MaxQuantity: number;
-  PhaseID: string;
-  /** 备注 */
-  Updatetime: string;
+  UpdateTime: string;
+  Type: number;
+  TypeStr: string;
+  Freight: number;
+  Price: number;
+  Taxrate: number;
 }
 interface FormProps {
   formInline: Partial<FormItemProps>;
