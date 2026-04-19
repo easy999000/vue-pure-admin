@@ -3,9 +3,21 @@
 import type { ResultTable, Result } from "./Result";
 
 /** 获取系统管理-用户管理列表 */
+export const getProjectPage = (params?: object) => {
+  return http.request<ResultTable>("get", "/api/Project/GetProjectPage", {
+    params
+  });
+};
+/** 获取系统管理-用户管理列表 */
 export const getProjectItemPage = (params?: object) => {
   return http.request<ResultTable>("get", "/api/Project/GetProjectItemPage", {
     params
+  });
+};
+/** 更新项目条目 */
+export const updateProject = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/Project/ProjectUpdate", {
+    data
   });
 };
 /** 更新项目条目 */

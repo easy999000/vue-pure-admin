@@ -1,8 +1,8 @@
 ﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import {
-  getProjectItemPage,
-  updateProjectItem,
+  getProjectPage,
+  updateProject,
   delProjectItemByID
 } from "@/api/project";
 import type { FormItemProps } from "../utils/types";
@@ -13,10 +13,8 @@ import { getKeyList, deviceDetection } from "@pureadmin/utils";
 export function useHook() {
   const searchForm = reactive({
     Name: "",
-    ID: "",
-    Code: "",
-    PhaseID: "",
-    ProjectID: ""
+    StartDateStart: "",
+    StartDateEnd: ""
   });
   const pagination = reactive<PaginationProps>({
     total: 0,
@@ -31,43 +29,23 @@ export function useHook() {
   const columns: TableColumnList = [
     {
       label: "项目名称",
-      prop: "ProjectName"
-    },
-    {
-      label: "单位工程",
-      prop: "PhaseName"
-    },
-    {
-      label: "编码",
-      prop: "Code"
-    },
-    {
-      label: "名称",
       prop: "Name"
     },
     {
-      label: "项目特征",
-      prop: "Describe"
+      label: "开始日期",
+      prop: "StartDate"
     },
     {
-      label: "单位",
-      prop: "Unit"
+      label: "结束日期",
+      prop: "EndDate"
     },
     {
-      label: "工程量",
-      prop: "PreQuantity"
+      label: "管理费率",
+      prop: "ManageRate"
     },
     {
-      label: "损耗率",
-      prop: "Loss"
-    },
-    {
-      label: "实际用量",
-      prop: "MaxQuantity"
-    },
-    {
-      label: "其他",
-      prop: "Ext1"
+      label: "利率率",
+      prop: "ProfitRate"
     },
     {
       label: "备注",
@@ -94,7 +72,7 @@ export function useHook() {
   async function onDel(row?: FormItemProps) {
     loading.value = true;
     function chores() {
-      message(`您删除了角色名称为${row.Name}的这条数据`, {
+      message(`您删除了'${row.Name}'的这条数据`, {
         type: "success"
       });
       ///   onSearch(); // 刷新表格数据
@@ -119,7 +97,7 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getProjectItemPage({
+    const { code, data } = await getProjectPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -154,7 +132,7 @@ export function useHook() {
 
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
-      title: `${title}角色`,
+      title: `${title}项目`,
       props: {
         formInline: {
           ...row,
@@ -181,12 +159,12 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          updateProjectItem(toRaw(curData)).then(({ res2 }) => {
+          updateProject(toRaw(curData)).then(({ res2 }) => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
         } else {
-          updateProjectItem(toRaw(curData)).then(({ res2 }) => {
+          updateProject(toRaw(curData)).then(({ res2 }) => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
