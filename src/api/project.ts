@@ -63,3 +63,23 @@ export const delMaterial = (data?: object) => {
     }
   );
 };
+//单位工程
+
+/** 获取系统管理-用户管理列表 */
+export const getPhasePage = (params?: object) => {
+  return http.request<ResultTable>("get", "/api/Project/GetProjectPhasePage", {
+    params
+  });
+};
+/** 更新项目条目 */
+export const updatePhase = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/Project/UpdateProjectPhase", {
+    data
+  });
+};
+/** 更新项目条目 */
+export const delPhase = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/Project/DelProjectPhaseByID", {
+    data
+  });
+};
