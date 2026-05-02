@@ -4,6 +4,12 @@
   data?: Array<any>;
 };
 
+export type ResultModel = {
+  code: number;
+  message: string;
+  data?: any;
+};
+
 export type ResultTable = {
   code: number;
   message: string;
