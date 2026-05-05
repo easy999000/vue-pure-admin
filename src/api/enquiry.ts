@@ -26,3 +26,23 @@ export const delEnquiryGroupByID = (data?: object) => {
     data
   });
 };
+///我的询价
+
+/** 获取系统管理-用户管理列表 */
+export const getMyEnquiryInfoPage = (params?: object) => {
+  return http.request<ResultTable>("get", "/api/Enquiry/GetMyEnquiryInfoPage", {
+    params
+  });
+};
+/** 获取系统管理-用户管理列表 */
+export const getEnquiryInfoByID = (params?: object) => {
+  return http.request<ResultModel>("get", "/api/Enquiry/GetEnquiryInfoByID", {
+    params
+  });
+};
+/** 更新项目条目 */
+export const updateEnquiryInfo = (data?: object) => {
+  return http.request<ResultTable>("post", "/api/Enquiry/UpdateEnquiryInfo", {
+    data
+  });
+};
