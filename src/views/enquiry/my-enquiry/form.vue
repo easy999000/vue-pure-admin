@@ -32,6 +32,12 @@ const loadData = async () => {
       // 假设 getTableData 是你的 API 请求函数
       const res = await getEnquiryInfoByID({ ID: newFormInline?.value?.ID });
       Object.assign(newFormInline.value, res.data);
+
+      console.log({
+        title: "loadData",
+        value: newFormInline.value,
+        data: res.data
+      });
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -66,42 +72,38 @@ const getAccountSelect = async (): Promise<any[]> => {
 
 const columns: PlusColumn[] = [
   {
-    label: "名称",
-    prop: "Name",
+    label: "标题",
+    prop: "Title",
     valueType: "input"
   },
   {
-    label: "名称",
-    prop: "Name",
+    label: "项目",
+    prop: "ProjectID",
     valueType: "input"
   },
   {
-    label: "名称",
-    prop: "Name",
+    label: "截止时间",
+    prop: "EndTime",
     valueType: "input"
   },
   {
-    label: "名称",
-    prop: "Name",
+    label: "报价组",
+    prop: "GroupList",
     valueType: "input"
-  },
-  {
-    prop: "EnquiryGroupAccount",
-    label: "分组人员",
-    // 1. 指定组件类型
-    valueType: "checkbox",
-    // 2. 动态加载选项
-    options: getAccountSelect(),
-    fieldProps: {
-      // 3. 可根据条件禁用整个复选框组 (e.g., { disabled: true })
-    }
   },
   {
     label: "关联数据",
-    prop: "relatedItems",
+    prop: "Items",
     // valueType 只需占位，实际渲染由 renderField 接管
     renderField: (value, onChange, row) => {
-      const items = row?.relatedItems?.Items || [];
+      const items = (value as any[]) || [];
+      console.log({
+        title: "关联数据",
+        value,
+        row,
+        items,
+        relatedItems: row?.relatedItems
+      });
       return h(itemList, {
         title: "子表格",
         data: items, // 当前字段的值，比如从后端获取的数组
@@ -111,10 +113,42 @@ const columns: PlusColumn[] = [
     }
   }
 ];
-const subTableColumns = [
-  { label: "ID", prop: "id" },
-  { label: "项目名称", prop: "projectName" }
+const subTableColumns: TableColumnList = [
+  {
+    label: "编码",
+    prop: "Code"
+  },
+  {
+    label: "名称",
+    prop: "Name"
+  },
+  {
+    label: "规格",
+    prop: "Specifications"
+  },
+  {
+    label: "单位",
+    prop: "Unit"
+  },
+  {
+    label: "物料类型",
+    prop: "TypeStr"
+  },
+  {
+    label: "数量",
+    prop: "Quantity"
+  },
+  {
+    label: "备注",
+    prop: "Notes"
+  },
+  {
+    label: "操作",
+    width: 210,
+    slot: "operation"
+  }
 ];
+
 function getRef() {
   console.log({ title: "getRef", newFormInline });
   return ruleFormRef.value;
