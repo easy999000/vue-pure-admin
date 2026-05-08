@@ -23,11 +23,11 @@ interface FormProps {
 }
 interface DataItem {
   ID: string;
-  EnquiryInfoID: string;
-  MaterialID: string;
-  Notes: string;
-  Quantity: number;
-  Material: {
+  EnquiryInfoID?: string;
+  MaterialID?: string;
+  Notes?: string;
+  Quantity?: number;
+  Material?: {
     ID: string;
     Code: string;
     Name: string;
@@ -40,12 +40,12 @@ interface DataItem {
     JobMaterialActualQuantity: number;
     ProjectItemMaterialID: number;
   };
-  Code: string;
-  Name: string;
-  Specifications: string;
-  Unit: string;
-  Type: number;
-  TypeStr: string;
+  Code?: string;
+  Name?: string;
+  Specifications?: string;
+  Unit?: string;
+  Type?: number;
+  TypeStr?: string;
 }
 
 export type { FormItemProps, FormProps };

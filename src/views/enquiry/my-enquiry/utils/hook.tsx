@@ -4,7 +4,8 @@ import { getPhasePage, updatePhase, delPhase } from "@/api/project";
 import {
   getMyEnquiryInfoPage,
   getEnquiryInfoByID,
-  updateEnquiryInfo
+  updateEnquiryInfo,
+  delEnquiryGroupByID
 } from "@/api/enquiry";
 import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
@@ -149,7 +150,7 @@ export function useHook() {
         const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
         function chores() {
-          message(`您${title}了任务名称为${curData.Name}的这条数据`, {
+          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
