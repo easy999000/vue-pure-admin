@@ -33,12 +33,6 @@ const loadData = async () => {
       // 假设 getTableData 是你的 API 请求函数
       const res = await getEnquiryInfoByID({ ID: newFormInline?.value?.ID });
       Object.assign(newFormInline.value, res.data);
-
-      console.log({
-        title: "loadData",
-        value: newFormInline.value,
-        data: res.data
-      });
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
