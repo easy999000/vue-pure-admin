@@ -140,7 +140,7 @@ export function useHook() {
           higherDeptOptions: []
         }
       },
-      width: "40%",
+      width: "80%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,

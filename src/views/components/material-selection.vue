@@ -110,7 +110,8 @@ const columns: TableColumnList = [
   },
   {
     label: "操作",
-    prop: "ID"
+    prop: "ID",
+    slot: "operation"
   }
 ];
 </script>
@@ -145,7 +146,7 @@ const columns: TableColumnList = [
           color: 'var(--el-text-color-primary)'
         }"
       >
-        <template #operation="{ row, $index }">
+        <template #operation="{ row }">
           <el-button
             class="reset-margin"
             link
