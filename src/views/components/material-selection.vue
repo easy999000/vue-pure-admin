@@ -44,6 +44,7 @@ const emit = defineEmits<{
   (e: "row-click", row: any, column: any, event: Event): void;
   (e: "delete-row", row: any): void;
   (e: "add-row"): void;
+  (e: "select", row: any): void;
 }>();
 
 // 表格引用
@@ -56,6 +57,10 @@ const handleSelectionChange = (selection: any[]) => {
 
 const handleRowClick = (row: any, column: any, event: Event) => {
   emit("row-click", row, column, event);
+};
+
+const handleSelect = (row: any) => {
+  emit("select", row);
 };
 
 const curRow = ref();
@@ -151,7 +156,7 @@ const columns: TableColumnList = [
             class="reset-margin"
             link
             type="primary"
-            @click="handleSelectionChange(row)"
+            @click.stop="handleSelect(row)"
           >
             选择</el-button
           >

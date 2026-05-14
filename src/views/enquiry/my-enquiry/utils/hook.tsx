@@ -1,9 +1,7 @@
-﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
+﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
-import { getPhasePage, updatePhase, delPhase } from "@/api/project";
 import {
   getMyEnquiryInfoPage,
-  getEnquiryInfoByID,
   updateEnquiryInfo,
   delEnquiryGroupByID
 } from "@/api/enquiry";
@@ -11,7 +9,7 @@ import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
   const searchForm = reactive({
     Name: "",
@@ -65,7 +63,7 @@ export function useHook() {
     onSearch();
   };
   function handleDelete(row) {
-    onDel(row).then(res => {
+    onDel(row).then(() => {
       onSearch();
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -147,9 +145,13 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as FormItemProps;
-        function chores() {
+        function chores(res2: any) {
+          console.log("res2", res2);
+          if (res2.code !== 0) {
+            message(`操作失败，${res2.message}`, { type: "error" });
+            return;
+          }
           message(`您${title}了任务名称为${curData.Title}的这条数据`, {
             type: "success"
           });
@@ -159,17 +161,10 @@ export function useHook() {
 
         console.log("curData", curData);
         // 表单规则校验通过
-        if (title === "新增") {
-          updateEnquiryInfo(toRaw(curData)).then(({ res2 }) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
-        } else {
-          updateEnquiryInfo(toRaw(curData)).then(({ res2 }) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
-        }
+        updateEnquiryInfo(toRaw(curData)).then(res => {
+          // 实际开发先调用修改接口，再进行下面操作
+          chores(res);
+        });
       }
     });
   }

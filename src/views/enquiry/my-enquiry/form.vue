@@ -9,6 +9,7 @@ import {
 } from "plus-pro-components";
 import { getAccountProjectList } from "@/api/project";
 import { getAccountSelectList } from "@/api/account";
+import { getEnquiryGroupPage } from "@/api/enquiry";
 import ItemList from "@/views/components/item-list.vue";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
 import {
@@ -17,6 +18,7 @@ import {
   updateEnquiryInfo
 } from "@/api/enquiry";
 import MaterialSelection from "@/views/components/material-selection.vue";
+import { addDialog, closeDialog } from "@/components/ReDialog";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
@@ -65,7 +67,31 @@ const getAccountSelect = async (): Promise<any[]> => {
 
   return res;
 };
+// 模拟一个从后端获取下拉数据的API
+const getProjectOptions = async (): Promise<any[]> => {
+  // 这里替换为你的实际请求
+  const selectRes = await getAccountProjectList();
+  var res = selectRes.data.map(item => ({
+    label: item.Name,
+    value: item.ID
+  }));
 
+  return res;
+};
+// 模拟一个从后端获取下拉数据的API
+const getEnquiryGroupSelect = async (): Promise<any[]> => {
+  // 这里替换为你的实际请求
+  const selectRes = await getEnquiryGroupPage({
+    PageNumber: 1,
+    PageSize: 9999
+  });
+  var res = selectRes.data.Data.map(item => ({
+    label: item.Name,
+    value: item.ID
+  }));
+
+  return res;
+};
 const columns: PlusColumn[] = [
   {
     label: "标题",
@@ -73,19 +99,21 @@ const columns: PlusColumn[] = [
     valueType: "input"
   },
   {
-    label: "项目",
+    label: "所属项目",
     prop: "ProjectID",
-    valueType: "input"
+    valueType: "select",
+    options: getProjectOptions()
   },
   {
     label: "截止时间",
     prop: "EndTime",
-    valueType: "input"
+    valueType: "date-picker"
   },
   {
     label: "报价组",
     prop: "GroupList",
-    valueType: "input"
+    valueType: "checkbox",
+    options: getEnquiryGroupSelect()
   },
   {
     label: "关联数据",
@@ -169,16 +197,36 @@ function getRef() {
 }
 defineExpose({ getRef });
 const handleAddRow = () => {
-  console.log({ title: "handleAddRow", data: newFormInline.value.Items });
+  addDialog({
+    title: "选择物料",
+    width: "80%",
+    draggable: true,
+    fullscreen: deviceDetection(),
+    fullscreenIcon: true,
+    closeOnClickModal: false,
+    hideFooter: true,
+    contentRenderer: ({ options, index }) =>
+      h(MaterialSelection, {
+        title: "物料列表",
+        onSelect: row => {
+          handleMaterialSelect(row);
+          closeDialog(options, index, { command: "sure" });
+        }
+      })
+  });
+};
+
+const handleMaterialSelect = row => {
+  if (!Array.isArray(newFormInline.value.Items)) {
+    newFormInline.value.Items = [];
+  }
+
   newFormInline.value.Items.push({
-    ID: "",
-    Code: "",
-    Name: "",
-    Specifications: "",
-    Unit: "",
-    TypeStr: "",
-    Quantity: 0,
-    Notes: ""
+    ...row,
+    MaterialID: row.ID,
+    Quantity: row?.Quantity ?? 0,
+    Notes: row?.Notes ?? "",
+    ID: null
   });
 };
 </script>
