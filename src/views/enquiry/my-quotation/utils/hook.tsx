@@ -1,6 +1,7 @@
 ﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { getPhasePage, updatePhase, delPhase } from "@/api/project";
+import { api } from "@/api";
 import {
   getEnquiryGroupPage,
   updateEnquiryGroup,
@@ -15,10 +16,7 @@ import { getKeyList, deviceDetection } from "@pureadmin/utils";
 export function useHook() {
   const searchForm = reactive({
     Name: "",
-    ID: "",
-    Code: "",
-    PhaseID: "",
-    ProjectID: ""
+    Code: ""
   });
   const pagination = reactive<PaginationProps>({
     total: 0,
@@ -82,17 +80,17 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getEnquiryGroupPage({
+    const { code, data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
       ...toRaw(searchForm)
     });
     if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.Count;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+      dataList.value = data.data.data;
+      pagination.total = data.data.count;
+      pagination.pageSize = data.data.pageSize;
+      pagination.currentPage = data.data.pageNumber;
     }
 
     setTimeout(() => {
