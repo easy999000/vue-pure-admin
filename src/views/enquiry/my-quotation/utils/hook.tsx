@@ -32,7 +32,7 @@ export function useHook() {
   const columns: TableColumnList = [
     {
       label: "名称",
-      prop: "Name"
+      prop: "Title"
     },
     {
       label: "操作",
@@ -55,7 +55,7 @@ export function useHook() {
   async function onDel(row?: FormItemProps) {
     loading.value = true;
     function chores() {
-      message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
+      message(`您删除了${pageName.value}名称为${row.Title}的这条数据`, {
         type: "success"
       });
       ///   onSearch(); // 刷新表格数据
@@ -80,17 +80,18 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
+    const { Code, Data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
       ...toRaw(searchForm)
     });
-    if (code === 0) {
-      dataList.value = data.data.data;
-      pagination.total = data.data.count;
-      pagination.pageSize = data.data.pageSize;
-      pagination.currentPage = data.data.pageNumber;
+    console.log("search data ", { Data, Code });
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.Count;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {

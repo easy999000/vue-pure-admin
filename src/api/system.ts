@@ -1,26 +1,6 @@
 import { http } from "@/utils/http";
 
-type Result = {
-  code: number;
-  message: string;
-  data?: Array<any>;
-};
-
-type ResultTable = {
-  code: number;
-  message: string;
-  data?: {
-    /** 列表数据 */
-    Data: Array<any>;
-    /** 总条目数 */
-    PageCount?: number;
-    /** 每页显示条目个数 */
-    PageSize?: number;
-    /** 当前页数 */
-    PageNumber?: number;
-  };
-};
-
+import type { ResultTable, Result, ResultModel } from "./Result";
 /** 获取系统管理-用户管理列表 */
 export const getUserList = (data?: object) => {
   return http.request<ResultTable>("post", "/user", { data });

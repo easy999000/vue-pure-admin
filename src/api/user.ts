@@ -1,9 +1,11 @@
 import { http } from "@/utils/http";
 
+import type { ResultTable, Result, ResultModel } from "./Result";
+
 export type UserResult = {
-  code: number;
-  message: string;
-  data: {
+  Code: number;
+  Message: string;
+  Data: {
     /** 头像 */
     avatar: string;
     /** 用户名 */
@@ -24,9 +26,9 @@ export type UserResult = {
 };
 
 export type RefreshTokenResult = {
-  code: number;
-  message: string;
-  data: {
+  Code: number;
+  Message: string;
+  Data: {
     /** `token` */
     accessToken: string;
     /** 用于调用刷新`accessToken`的接口时所需的`token` */
@@ -52,24 +54,9 @@ export type UserInfo = {
 };
 
 export type UserInfoResult = {
-  code: number;
-  message: string;
-  data: UserInfo;
-};
-
-type ResultTable = {
-  code: number;
-  message: string;
-  data?: {
-    /** 列表数据 */
-    list: Array<any>;
-    /** 总条目数 */
-    total?: number;
-    /** 每页显示条目个数 */
-    pageSize?: number;
-    /** 当前页数 */
-    currentPage?: number;
-  };
+  Code: number;
+  Message: string;
+  Data: UserInfo;
 };
 
 /** 登录 */

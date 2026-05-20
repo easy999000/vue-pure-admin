@@ -12,2401 +12,2402 @@
 
 export interface Account {
   /** @format int32 */
-  accountID?: number;
-  accountNumber?: string | null;
+  AccountID?: number;
+  AccountNumber?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format date-time */
-  lastLoginTime?: string;
-  password?: string | null;
+  LastLoginTime?: string;
+  Password?: string | null;
   /** @format int32 */
-  status?: number;
+  Status?: number;
 }
 
 export interface AccountPageResult {
   /** @format int32 */
-  accountID?: number;
-  accountNumber?: string | null;
+  AccountID?: number;
+  AccountNumber?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format date-time */
-  lastLoginTime?: string;
+  LastLoginTime?: string;
   /** @format date-time */
-  birthday?: string;
-  name?: string | null;
-  notes?: string | null;
+  Birthday?: string;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  sex?: number;
-  telephone?: string | null;
+  Sex?: number;
+  Telephone?: string | null;
   /** @format int32 */
-  status?: number;
+  Status?: number;
 }
 
 export interface AccountPageResultListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: AccountPageResult[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: AccountPageResult[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface AccountPageResultPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: AccountPageResult[] | null;
+  PageCount?: number;
+  Data?: AccountPageResult[] | null;
 }
 
 export interface AccountPageResultPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: AccountPageResultPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: AccountPageResultPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Accountsetting {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accentID?: number;
-  name?: string | null;
-  type?: string | null;
-  value?: string | null;
+  AccentID?: number;
+  Name?: string | null;
+  Type?: string | null;
+  Value?: string | null;
 }
 
 export interface AccountsettingResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Accountsetting;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Accountsetting;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ApiInfoPageParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
-  isMenu?: boolean | null;
-  name?: string | null;
-  notes?: string | null;
+  ID?: number | null;
+  IsMenu?: boolean | null;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  parentID?: number | null;
-  action?: string | null;
-  area?: string | null;
-  controller?: string | null;
-  path?: string | null;
+  ParentID?: number | null;
+  Action?: string | null;
+  Area?: string | null;
+  Controller?: string | null;
+  Path?: string | null;
   /** @format int32 */
-  type?: number | null;
+  Type?: number | null;
 }
 
 export interface Apiinfo {
   /** @format int32 */
-  id?: number;
-  action?: string | null;
-  area?: string | null;
-  controller?: string | null;
-  isMenu?: boolean;
-  name?: string | null;
-  notes?: string | null;
+  ID?: number;
+  Action?: string | null;
+  Area?: string | null;
+  Controller?: string | null;
+  IsMenu?: boolean;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  parentID?: number;
-  path?: string | null;
+  ParentID?: number;
+  Path?: string | null;
   /** @format int32 */
-  sort?: number;
+  Sort?: number;
   /** @format int32 */
-  type?: number | null;
+  Type?: number | null;
   /** @format date-time */
-  updateTime?: string;
-  typeName?: string | null;
+  UpdateTime?: string;
+  TypeName?: string | null;
 }
 
 export interface ApiinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Apiinfo[] | null;
+  PageCount?: number;
+  Data?: Apiinfo[] | null;
 }
 
 export interface ApiinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ApiinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ApiinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ApiinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Apiinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Apiinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ApprovalRecords {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
-  accountName?: string | null;
+  AccountID?: number;
+  AccountName?: string | null;
   /** @format int32 */
-  approvalID?: number;
+  ApprovalID?: number;
   /** @format int32 */
-  approvalStatus?: number;
+  ApprovalStatus?: number;
   /** @format date-time */
-  approvalTime?: string;
+  ApprovalTime?: string;
   /** @format int32 */
-  flowType?: number;
+  FlowType?: number;
 }
 
 export interface ChangeMyPasswordDTO {
   /** @format int32 */
-  accountID?: number;
-  oldPassword?: string | null;
-  newPassword?: string | null;
+  AccountID?: number;
+  OldPassword?: string | null;
+  NewPassword?: string | null;
 }
 
 export interface ContractInfoParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
+  ID?: number | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  title?: string | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  Title?: string | null;
   /** @format int32 */
-  typeID?: number | null;
-  roleNames?: string[] | null;
+  TypeID?: number | null;
+  RoleNames?: string[] | null;
   /** @format int32 */
-  accountID?: number | null;
+  AccountID?: number | null;
 }
 
 export interface Contractinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /**
    * 申请人
    * @format int32
    */
-  accountID?: number;
-  annex1?: string | null;
-  annex2?: string | null;
+  AccountID?: number;
+  Annex1?: string | null;
+  Annex2?: string | null;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format int32 */
-  assessID6?: number | null;
+  AssessID6?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
+  AssessTime5?: string | null;
   /** @format date-time */
-  assessTime6?: string | null;
+  AssessTime6?: string | null;
   /** @format date-time */
-  createTime?: string;
-  mode?: string | null;
-  notes?: string | null;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  CreateTime?: string;
+  Mode?: string | null;
+  Notes?: string | null;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  payMode?: number | null;
+  PayMode?: number | null;
   /**
    * 合同价格
    * @format double
    */
-  price?: number | null;
+  Price?: number | null;
   /** 签约对象 */
-  signedWith?: string | null;
+  SignedWith?: string | null;
   /**
    * 签约时间
    * @format date-time
    */
-  signingTime?: string;
+  SigningTime?: string;
   /** @format int32 */
-  status?: number;
+  Status?: number;
   /**
    * 税率
    * @format double
    */
-  taxRate?: number | null;
+  TaxRate?: number | null;
   /** 合同期限 */
-  term?: string | null;
+  Term?: string | null;
   /** 标题 */
-  title?: string | null;
+  Title?: string | null;
   /** @format int32 */
-  typeID?: number;
-  typeName?: string | null;
-  statusName?: string | null;
-  approvalRoleName?: string | null;
-  accountName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  TypeID?: number;
+  TypeName?: string | null;
+  StatusName?: string | null;
+  ApprovalRoleName?: string | null;
+  AccountName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface ContractinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Contractinfo[] | null;
+  PageCount?: number;
+  Data?: Contractinfo[] | null;
 }
 
 export interface ContractinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ContractinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ContractinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ContractinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Contractinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Contractinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Contracttype {
   /** @format int32 */
-  id?: number;
-  name?: string | null;
+  ID?: number;
+  Name?: string | null;
 }
 
 export interface ContracttypeListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Contracttype[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Contracttype[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface CreditPayInfoParam {
-  roleNames?: string[] | null;
+  RoleNames?: string[] | null;
   /** @format int32 */
-  accountID?: number | null;
+  AccountID?: number | null;
   /** @format int64 */
-  id?: number | null;
+  ID?: number | null;
   /** @format date-time */
-  createTime?: string | null;
+  CreateTime?: string | null;
   /** @format int32 */
-  creditType?: number | null;
+  CreditType?: number | null;
   /** @format int32 */
-  orderID?: number | null;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  OrderID?: number | null;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  projectID?: number | null;
+  ProjectID?: number | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  title?: string | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  Title?: string | null;
 }
 
 export interface Creditorder {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountId?: number;
+  AccountId?: number;
   /** @format int32 */
-  billID?: number;
+  BillID?: number;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format int32 */
-  creditType?: number;
+  CreditType?: number;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  projectName?: string | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  creditTypeName?: string | null;
+  TotalAmount?: number;
+  ProjectName?: string | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  CreditTypeName?: string | null;
   /** @format double */
-  unpaidAmount?: number;
+  UnpaidAmount?: number;
   /** @format double */
-  tempAmount?: number;
+  TempAmount?: number;
 }
 
 export interface CreditorderPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Creditorder[] | null;
+  PageCount?: number;
+  Data?: Creditorder[] | null;
 }
 
 export interface CreditorderPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: CreditorderPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: CreditorderPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Creditpayinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format int32 */
-  assessID6?: number | null;
+  AssessID6?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
+  AssessTime5?: string | null;
   /** @format date-time */
-  assessTime6?: string | null;
+  AssessTime6?: string | null;
   /** @format date-time */
-  createTime?: string;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  CreateTime?: string;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Creditpayitem[] | null;
-  statusName?: string | null;
-  projectName?: string | null;
-  accountName?: string | null;
+  TotalAmount?: number;
+  Items?: Creditpayitem[] | null;
+  StatusName?: string | null;
+  ProjectName?: string | null;
+  AccountName?: string | null;
   /** @format double */
-  paidAmount?: number;
-  approvalRecordList?: ApprovalRecords[] | null;
+  PaidAmount?: number;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface CreditpayinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Creditpayinfo[] | null;
+  PageCount?: number;
+  Data?: Creditpayinfo[] | null;
 }
 
 export interface CreditpayinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: CreditpayinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: CreditpayinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface CreditpayinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Creditpayinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Creditpayinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Creditpayitem {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format int32 */
-  infoID?: number;
+  InfoID?: number;
   /** @format int64 */
-  orderID?: number;
+  OrderID?: number;
   /** @format double */
-  paidAmount?: number;
+  PaidAmount?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
   /** @format double */
-  alreadyAmount?: number;
-  title?: string | null;
+  AlreadyAmount?: number;
+  Title?: string | null;
   /** @format int32 */
-  creditType?: number;
-  creditTypeName?: string | null;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  CreditType?: number;
+  CreditTypeName?: string | null;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
 }
 
 export interface Department {
   /** @format int32 */
-  id?: number;
-  name?: string | null;
+  ID?: number;
+  Name?: string | null;
   /** @format date-time */
-  updateTime?: string;
+  UpdateTime?: string;
 }
 
 export interface DepartmentPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Department[] | null;
+  PageCount?: number;
+  Data?: Department[] | null;
 }
 
 export interface DepartmentPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: DepartmentPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: DepartmentPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface DepartmentResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Department;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Department;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface EnquiryGroupPageParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int64 */
-  id?: number | null;
-  name?: string | null;
+  ID?: number | null;
+  Name?: string | null;
 }
 
 export interface EnquiryInfoDTO {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  quotationAccountID?: number | null;
+  QuotationAccountID?: number | null;
   /** @format date-time */
-  createTime?: string | null;
+  CreateTime?: string | null;
   /** @format date-time */
-  endTime?: string | null;
+  EndTime?: string | null;
   /** @format int32 */
-  projectID?: number | null;
-  projectName?: string | null;
+  ProjectID?: number | null;
+  ProjectName?: string | null;
   /** @format int32 */
-  status?: number | null;
-  title?: string | null;
-  statusName?: string | null;
-  groupList?: number[] | null;
-  items?: Enquiryitem[] | null;
-  quotationAccount?: Enquiryquotationaccountrelation[] | null;
-  quotationItems?: QuotationItemDTO[] | null;
+  Status?: number | null;
+  Title?: string | null;
+  StatusName?: string | null;
+  GroupList?: number[] | null;
+  Items?: Enquiryitem[] | null;
+  QuotationAccount?: Enquiryquotationaccountrelation[] | null;
+  QuotationItems?: QuotationItemDTO[] | null;
 }
 
 export interface EnquiryInfoDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: EnquiryInfoDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: EnquiryInfoDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface EnquiryItemsDTO {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  enquiryInfoID?: number;
+  EnquiryInfoID?: number;
   /** @format int32 */
-  materialID?: number;
-  notes?: string | null;
+  MaterialID?: number;
+  Notes?: string | null;
   /** @format double */
-  quantity?: number;
-  code?: string | null;
-  name?: string | null;
-  specifications?: string | null;
+  Quantity?: number;
+  Code?: string | null;
+  Name?: string | null;
+  Specifications?: string | null;
   /** @format int32 */
-  type?: number;
-  unit?: string | null;
+  Type?: number;
+  Unit?: string | null;
   /** @format date-time */
-  updateTime?: string;
-  typeStr?: string | null;
-  quotationItemList?: Quotationitem[] | null;
+  UpdateTime?: string;
+  TypeStr?: string | null;
+  QuotationItemList?: Quotationitem[] | null;
 }
 
 export interface Enquirygroup {
   /** @format int32 */
-  id?: number;
-  name?: string | null;
-  account?: Enquirygroupaccountrelation[] | null;
+  ID?: number;
+  Name?: string | null;
+  Account?: Enquirygroupaccountrelation[] | null;
 }
 
 export interface EnquirygroupPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Enquirygroup[] | null;
+  PageCount?: number;
+  Data?: Enquirygroup[] | null;
 }
 
 export interface EnquirygroupPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: EnquirygroupPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: EnquirygroupPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Enquirygroupaccountrelation {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  groupID?: number;
-  account?: Account;
-  enquiryGroup?: Enquirygroup;
+  GroupID?: number;
+  Account?: Account;
+  EnquiryGroup?: Enquirygroup;
 }
 
 export interface Enquiryinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format date-time */
-  endTime?: string;
+  EndTime?: string;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
-  project?: Projectinfo;
-  projectName?: string | null;
-  approvalRoleName?: string | null;
-  projectName2?: string | null;
-  statusName?: string | null;
+  Status?: number;
+  Title?: string | null;
+  Project?: Projectinfo;
+  ProjectName?: string | null;
+  ApprovalRoleName?: string | null;
+  ProjectName2?: string | null;
+  StatusName?: string | null;
   /** @format int32 */
-  quotationStatus?: number;
-  quotationStatusName?: string | null;
+  QuotationStatus?: number;
+  QuotationStatusName?: string | null;
 }
 
 export interface EnquiryinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Enquiryinfo[] | null;
+  PageCount?: number;
+  Data?: Enquiryinfo[] | null;
 }
 
 export interface EnquiryinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: EnquiryinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: EnquiryinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Enquiryitem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  enquiryInfoID?: number;
+  EnquiryInfoID?: number;
   /** @format int32 */
-  materialID?: number;
-  notes?: string | null;
+  MaterialID?: number;
+  Notes?: string | null;
   /** @format double */
-  quantity?: number;
-  material?: Materialinfo;
-  code?: string | null;
-  name?: string | null;
-  specifications?: string | null;
-  unit?: string | null;
+  Quantity?: number;
+  Material?: Materialinfo;
+  Code?: string | null;
+  Name?: string | null;
+  Specifications?: string | null;
+  Unit?: string | null;
   /** @format int32 */
-  type?: number;
-  typeStr?: string | null;
+  Type?: number;
+  TypeStr?: string | null;
 }
 
 export interface Enquiryquotationaccountrelation {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  enquiryInfoID?: number;
+  EnquiryInfoID?: number;
   /** @format int32 */
-  groupID?: number;
+  GroupID?: number;
   /** @format date-time */
-  quotationTime?: string | null;
+  QuotationTime?: string | null;
   /** @format int32 */
-  state?: number;
-  account?: Account;
-  group?: Enquirygroup;
-  groupName?: string | null;
+  State?: number;
+  Account?: Account;
+  Group?: Enquirygroup;
+  GroupName?: string | null;
 }
 
 export interface Int32Result {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
+  Code?: number;
+  Message?: string | null;
   /** @format int32 */
-  data?: number;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Data?: number;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Int64Result {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
+  Code?: number;
+  Message?: string | null;
   /** @format int64 */
-  data?: number;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Data?: number;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LaborInfoParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
+  RoleNames?: string[] | null;
+  /** @format int32 */
+  ID?: number | null;
+  /** @format int32 */
+  AccountID?: number | null;
   roleNames?: string[] | null;
   /** @format int32 */
-  id?: number | null;
+  ProjectID?: number | null;
+  ProjectIDList?: number[] | null;
   /** @format int32 */
-  accountID?: number | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  Title?: string | null;
   /** @format int32 */
-  projectID?: number | null;
-  projectIDList?: number[] | null;
-  /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  title?: string | null;
-  /** @format int32 */
-  winAccountID?: number | null;
+  WinAccountID?: number | null;
 }
 
 export interface LaborPayParam {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  payAmount?: number;
+  PayAmount?: number;
   /** @format int32 */
-  accountID?: number;
-  projectIDList?: number[] | null;
+  AccountID?: number;
+  ProjectIDList?: number[] | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  items?: LaboraPayItem[] | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  Items?: LaboraPayItem[] | null;
 }
 
 export interface LaboraPayInfo {
   /** @format int32 */
-  id?: number;
+  Id?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format int32 */
-  isSettlement?: number;
+  IsSettlement?: number;
   /** @format int32 */
-  laboraId?: number;
+  LaboraId?: number;
   /** @format double */
-  payAmount?: number;
+  PayAmount?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  statusName?: string | null;
-  settlementStatus?: string | null;
-  approvalRoleName?: string | null;
-  title?: string | null;
-  projectName?: string | null;
+  Status?: number;
+  StatusName?: string | null;
+  SettlementStatus?: string | null;
+  ApprovalRoleName?: string | null;
+  Title?: string | null;
+  ProjectName?: string | null;
   /** @format double */
-  frozenAmount?: number;
+  FrozenAmount?: number;
   /** @format double */
-  paidAmount?: number;
+  PaidAmount?: number;
   /** @format double */
-  totalAmount?: number;
-  approvalRecordList?: ApprovalRecords[] | null;
-  items?: LaboraPayItem[] | null;
-  totalQuantity?: LaboraPayItem[] | null;
+  TotalAmount?: number;
+  ApprovalRecordList?: ApprovalRecords[] | null;
+  Items?: LaboraPayItem[] | null;
+  TotalQuantity?: LaboraPayItem[] | null;
   /** @format int32 */
-  totalReviewQuantity?: number;
+  TotalReviewQuantity?: number;
   /** @format double */
-  totalReviewAmount?: number;
+  TotalReviewAmount?: number;
   /** @format double */
-  totalReviewAmountPercent?: number;
+  TotalReviewAmountPercent?: number;
 }
 
 export interface LaboraPayInfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: LaboraPayInfo[] | null;
+  PageCount?: number;
+  Data?: LaboraPayInfo[] | null;
 }
 
 export interface LaboraPayInfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: LaboraPayInfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: LaboraPayInfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LaboraPayInfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: LaboraPayInfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: LaboraPayInfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LaboraPayItem {
   /** @format int32 */
-  id?: number;
+  Id?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  applicationQuantity?: number;
+  ApplicationQuantity?: number;
   /** @format int32 */
-  laboraInfoId?: number;
+  LaboraInfoId?: number;
   /** @format int64 */
-  laboraItemId?: number;
+  LaboraItemId?: number;
   /** @format int32 */
-  laboraPayInfoId?: number;
+  LaboraPayInfoId?: number;
   /**
    * 上期数量
    * @format int32
    */
-  previousQuantity?: number;
+  PreviousQuantity?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  reviewQuantity?: number;
+  ReviewQuantity?: number;
   /** @format double */
-  unitPrice?: number;
-  jobCode?: string | null;
-  jobName?: string | null;
+  UnitPrice?: number;
+  JobCode?: string | null;
+  JobName?: string | null;
   /** @format double */
-  quantity?: number;
-  materialUnit?: string | null;
+  Quantity?: number;
+  MaterialUnit?: string | null;
   /** @format int32 */
-  cumulativeQuantity?: number;
+  CumulativeQuantity?: number;
   /** @format double */
-  totalCumulativeAmount?: number;
+  TotalCumulativeAmount?: number;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
   /** @format double */
-  totalApplicationAmount?: number;
+  TotalApplicationAmount?: number;
   /** @format double */
-  totalReviewAmount?: number;
+  TotalReviewAmount?: number;
   /** @format double */
-  totalPreviousAmount?: number;
+  TotalPreviousAmount?: number;
 }
 
 export interface Laborinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
-  annex1?: string | null;
-  annex2?: string | null;
+  AccountID?: number;
+  Annex1?: string | null;
+  Annex2?: string | null;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
-  content?: string | null;
+  AssessTime5?: string | null;
+  Content?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format double */
-  frozenAmount?: number;
+  FrozenAmount?: number;
   /** @format date-time */
-  meetingTime?: string;
-  notes?: string | null;
+  MeetingTime?: string;
+  Notes?: string | null;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
-  participants?: string | null;
-  partyB?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
+  Participants?: string | null;
+  PartyB?: string | null;
   /** @format int32 */
-  payMode?: number;
-  place?: string | null;
+  PayMode?: number;
+  Place?: string | null;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Laboritem[] | null;
-  projectName?: string | null;
-  partyA?: string | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  payModeName?: string | null;
+  TotalAmount?: number;
+  Items?: Laboritem[] | null;
+  ProjectName?: string | null;
+  PartyA?: string | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  PayModeName?: string | null;
   /** @format int32 */
-  accountStatus?: number;
-  accountStatusName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  AccountStatus?: number;
+  AccountStatusName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
   /** @format double */
-  payAmount?: number;
+  PayAmount?: number;
 }
 
 export interface LaborinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Laborinfo[] | null;
+  PageCount?: number;
+  Data?: Laborinfo[] | null;
 }
 
 export interface LaborinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: LaborinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: LaborinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LaborinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Laborinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Laborinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Laborinfochange {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
-  annex1?: string | null;
-  annex2?: string | null;
+  AccountID?: number;
+  Annex1?: string | null;
+  Annex2?: string | null;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
-  content?: string | null;
+  AssessTime5?: string | null;
+  Content?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format double */
-  frozenAmount?: number;
+  FrozenAmount?: number;
   /** @format date-time */
-  meetingTime?: string;
-  notes?: string | null;
+  MeetingTime?: string;
+  Notes?: string | null;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
-  participants?: string | null;
-  partyB?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
+  Participants?: string | null;
+  PartyB?: string | null;
   /** @format int32 */
-  payMode?: number;
-  place?: string | null;
+  PayMode?: number;
+  Place?: string | null;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  sourceId?: number;
+  SourceId?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Laboritemchange[] | null;
-  projectName?: string | null;
-  partyA?: string | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  payModeName?: string | null;
+  TotalAmount?: number;
+  Items?: Laboritemchange[] | null;
+  ProjectName?: string | null;
+  PartyA?: string | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  PayModeName?: string | null;
   /** @format int32 */
-  accountStatus?: number;
-  accountStatusName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  AccountStatus?: number;
+  AccountStatusName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
   /** @format double */
-  payAmount?: number;
+  PayAmount?: number;
 }
 
 export interface LaborinfochangePageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Laborinfochange[] | null;
+  PageCount?: number;
+  Data?: Laborinfochange[] | null;
 }
 
 export interface LaborinfochangePageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: LaborinfochangePageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: LaborinfochangePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LaborinfochangeResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Laborinfochange;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Laborinfochange;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Laboritem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  infoID?: number;
-  materialCode?: string | null;
+  InfoID?: number;
+  MaterialCode?: string | null;
   /** @format int32 */
-  materialID?: number;
-  materialName?: string | null;
-  materialSpecifications?: string | null;
-  materialUnit?: string | null;
-  notes?: string | null;
+  MaterialID?: number;
+  MaterialName?: string | null;
+  MaterialSpecifications?: string | null;
+  MaterialUnit?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format double */
-  unitPrice?: number;
-  jobCode?: string | null;
-  jobName?: string | null;
+  UnitPrice?: number;
+  JobCode?: string | null;
+  JobName?: string | null;
   /** @format double */
-  preQuantity?: number;
+  PreQuantity?: number;
   /** @format double */
-  previousQuantity?: number;
-  payModeStr?: string | null;
+  PreviousQuantity?: number;
+  PayModeStr?: string | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
   /** @format int32 */
-  payQuantity?: number;
+  PayQuantity?: number;
   /** @format double */
-  totalPayAmount?: number;
+  TotalPayAmount?: number;
   /** @format double */
-  previousQuantityAmount?: number;
+  PreviousQuantityAmount?: number;
 }
 
 export interface Laboritemchange {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  infoID?: number;
-  materialCode?: string | null;
+  InfoID?: number;
+  MaterialCode?: string | null;
   /** @format int32 */
-  materialID?: number;
-  materialName?: string | null;
-  materialSpecifications?: string | null;
-  materialUnit?: string | null;
-  notes?: string | null;
+  MaterialID?: number;
+  MaterialName?: string | null;
+  MaterialSpecifications?: string | null;
+  MaterialUnit?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format double */
-  unitPrice?: number;
-  jobCode?: string | null;
-  jobName?: string | null;
+  UnitPrice?: number;
+  JobCode?: string | null;
+  JobName?: string | null;
   /** @format double */
-  preQuantity?: number;
-  payModeStr?: string | null;
+  PreQuantity?: number;
+  PayModeStr?: string | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
 }
 
 export interface LeaseParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
+  ID?: number | null;
   /** @format int32 */
-  accountID?: number | null;
-  roleNames?: string[] | null;
+  AccountID?: number | null;
+  RoleNames?: string[] | null;
   /** @format int32 */
-  projectID?: number | null;
-  projectIDList?: number[] | null;
-  title?: string | null;
+  ProjectID?: number | null;
+  ProjectIDList?: number[] | null;
+  Title?: string | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
   /** @format int32 */
-  completionStatus?: number | null;
-  completionStatusList?: number[] | null;
+  CompletionStatus?: number | null;
+  CompletionStatusList?: number[] | null;
 }
 
 export interface Leaseinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
-  annex1?: string | null;
-  annex2?: string | null;
+  AccountID?: number;
+  Annex1?: string | null;
+  Annex2?: string | null;
   /** @format int32 */
-  completionStatus?: number;
+  CompletionStatus?: number;
   /**
    * 施工时间
    * @format date-time
    */
-  constructionTime?: string | null;
+  ConstructionTime?: string | null;
   /** @format date-time */
-  createTime?: string;
-  notes?: string | null;
+  CreateTime?: string;
+  Notes?: string | null;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Leaseitem[] | null;
-  projectName?: string | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  completionStatusName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
-  approvalCompletionRecordList?: ApprovalRecords[] | null;
+  TotalAmount?: number;
+  Items?: Leaseitem[] | null;
+  ProjectName?: string | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  CompletionStatusName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
+  ApprovalCompletionRecordList?: ApprovalRecords[] | null;
 }
 
 export interface LeaseinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Leaseinfo[] | null;
+  PageCount?: number;
+  Data?: Leaseinfo[] | null;
 }
 
 export interface LeaseinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: LeaseinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: LeaseinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface LeaseinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Leaseinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Leaseinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Leaseitem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  completionQuantity?: number;
+  CompletionQuantity?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  infoID?: number;
-  materialCode?: string | null;
+  InfoID?: number;
+  MaterialCode?: string | null;
   /** @format int32 */
-  materialID?: number;
-  materialName?: string | null;
-  materialSpecifications?: string | null;
+  MaterialID?: number;
+  MaterialName?: string | null;
+  MaterialSpecifications?: string | null;
   /** @format int32 */
-  materialType?: number;
-  materialUnit?: string | null;
-  notes?: string | null;
+  MaterialType?: number;
+  MaterialUnit?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format double */
-  unitPrice?: number;
-  materialTypeStr?: string | null;
-  jobItemCode?: string | null;
-  jobItemName?: string | null;
-  jobItemDescribe?: string | null;
+  UnitPrice?: number;
+  MaterialTypeStr?: string | null;
+  JobItemCode?: string | null;
+  JobItemName?: string | null;
+  JobItemDescribe?: string | null;
   /** @format double */
-  jobPreQuantity?: number;
-  payModeStr?: string | null;
+  JobPreQuantity?: number;
+  PayModeStr?: string | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
 }
 
 export interface LoginDTO {
-  account?: string | null;
-  password?: string | null;
-  verificationCode?: string | null;
+  Account?: string | null;
+  Password?: string | null;
+  VerificationCode?: string | null;
 }
 
 export interface MatchPriceDTO {
   /** @format int64 */
-  procureID?: number;
+  ProcureID?: number;
   /** @format double */
-  unitPrice?: number;
+  UnitPrice?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
 }
 
 export interface MatchPriceDTOListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: MatchPriceDTO[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: MatchPriceDTO[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface MaterialInfoDTO {
   /** @format int32 */
-  id?: number | null;
-  name?: string | null;
-  code?: string | null;
-  specifications?: string | null;
-  unit?: string | null;
+  ID?: number | null;
+  Name?: string | null;
+  Code?: string | null;
+  Specifications?: string | null;
+  Unit?: string | null;
   /** @format date-time */
-  updateTime?: string | null;
+  UpdateTime?: string | null;
   /** @format int32 */
-  type?: number | null;
-  typeStr?: string | null;
+  Type?: number | null;
+  TypeStr?: string | null;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format double */
-  price?: number;
+  Price?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
 }
 
 export interface MaterialInfoDTOPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: MaterialInfoDTO[] | null;
+  PageCount?: number;
+  Data?: MaterialInfoDTO[] | null;
 }
 
 export interface MaterialInfoDTOPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: MaterialInfoDTOPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: MaterialInfoDTOPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface MaterialInfoDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: MaterialInfoDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: MaterialInfoDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface MaterialInfoPageParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
-  name?: string | null;
+  ID?: number | null;
+  Name?: string | null;
   /** @format int32 */
-  type?: number | null;
+  Type?: number | null;
   /** @format int32 */
-  projectID?: number | null;
-  typeList?: number[] | null;
-  code?: string | null;
-  specifications?: string | null;
-  unit?: string | null;
+  ProjectID?: number | null;
+  TypeList?: number[] | null;
+  Code?: string | null;
+  Specifications?: string | null;
+  Unit?: string | null;
   /** @format int32 */
-  jobID?: number | null;
+  JobID?: number | null;
 }
 
 export interface Materialinfo {
   /** @format int32 */
-  id?: number;
-  code?: string | null;
-  name?: string | null;
-  specifications?: string | null;
+  ID?: number;
+  Code?: string | null;
+  Name?: string | null;
+  Specifications?: string | null;
   /** @format int32 */
-  type?: number;
-  unit?: string | null;
+  Type?: number;
+  Unit?: string | null;
   /** @format date-time */
-  updateTime?: string;
-  typeStr?: string | null;
+  UpdateTime?: string;
+  TypeStr?: string | null;
   /** @format double */
-  jobMaterialPreQuantity?: number;
+  JobMaterialPreQuantity?: number;
   /** @format double */
-  jobMaterialActualQuantity?: number;
+  JobMaterialActualQuantity?: number;
   /** @format int64 */
-  projectItemMaterialID?: number;
+  ProjectItemMaterialID?: number;
 }
 
 export interface MaterialinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Materialinfo[] | null;
+  PageCount?: number;
+  Data?: Materialinfo[] | null;
 }
 
 export interface MaterialinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: MaterialinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: MaterialinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface MaterialinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Materialinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Materialinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface OfficeParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
+  ID?: number | null;
   /** @format int32 */
-  accountID?: number | null;
+  AccountID?: number | null;
   roleNames?: string[] | null;
-  title?: string | null;
+  Title?: string | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  statusName?: string | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  StatusName?: string | null;
 }
 
 export interface Officeinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format int32 */
-  assessID6?: number | null;
+  AssessID6?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
+  AssessTime5?: string | null;
   /** @format date-time */
-  assessTime6?: string | null;
+  AssessTime6?: string | null;
   /** @format date-time */
-  createTime?: string;
-  notes?: string | null;
+  CreateTime?: string;
+  Notes?: string | null;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Officeitem[] | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  TotalAmount?: number;
+  Items?: Officeitem[] | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface OfficeinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Officeinfo[] | null;
+  PageCount?: number;
+  Data?: Officeinfo[] | null;
 }
 
 export interface OfficeinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: OfficeinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: OfficeinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface OfficeinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Officeinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Officeinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Officeitem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  infoID?: number;
-  materialCode?: string | null;
+  InfoID?: number;
+  MaterialCode?: string | null;
   /** @format int32 */
-  materialID?: number;
-  materialName?: string | null;
-  materialSpecifications?: string | null;
+  MaterialID?: number;
+  MaterialName?: string | null;
+  MaterialSpecifications?: string | null;
   /** @format int32 */
-  materialType?: number;
-  materialUnit?: string | null;
-  notes?: string | null;
+  MaterialType?: number;
+  MaterialUnit?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format double */
-  unitPrice?: number;
-  materialTypeStr?: string | null;
-  payModeStr?: string | null;
+  UnitPrice?: number;
+  MaterialTypeStr?: string | null;
+  PayModeStr?: string | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
 }
 
 export interface OfficialInfoParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
+  ID?: number | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  title?: string | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  Title?: string | null;
   /** @format int32 */
-  typeID?: number | null;
-  roleNames?: string[] | null;
+  TypeID?: number | null;
+  RoleNames?: string[] | null;
   /** @format int32 */
-  accountID?: number | null;
+  AccountID?: number | null;
 }
 
 export interface Officialinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /**
    * 申请人
    * @format int32
    */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
+  AssessTime5?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** 送达单位 */
-  deliveryCompany?: string | null;
+  DeliveryCompany?: string | null;
   /** 送达人 */
-  deliveryPerson?: string | null;
-  fileName?: string | null;
-  fileUsage?: string | null;
-  notes?: string | null;
+  DeliveryPerson?: string | null;
+  FileName?: string | null;
+  FileUsage?: string | null;
+  Notes?: string | null;
   /** 签约对象 */
-  signedWith?: string | null;
+  SignedWith?: string | null;
   /**
    * 签约时间
    * @format date-time
    */
-  signingTime?: string;
+  SigningTime?: string;
   /** @format int32 */
-  status?: number;
+  Status?: number;
   /** 标题 */
-  title?: string | null;
+  Title?: string | null;
   /** @format int32 */
-  typeID?: number;
-  typeName?: string | null;
-  statusName?: string | null;
-  approvalRoleName?: string | null;
-  accountName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  TypeID?: number;
+  TypeName?: string | null;
+  StatusName?: string | null;
+  ApprovalRoleName?: string | null;
+  AccountName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface OfficialinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Officialinfo[] | null;
+  PageCount?: number;
+  Data?: Officialinfo[] | null;
 }
 
 export interface OfficialinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: OfficialinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: OfficialinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface OfficialinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Officialinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Officialinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProcureMaterialApplyDTO {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number | null;
-  annex1?: string | null;
-  annex2?: string | null;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  AccountID?: number | null;
+  Annex1?: string | null;
+  Annex2?: string | null;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  payMode?: number | null;
+  PayMode?: number | null;
   /** @format int32 */
-  projectID?: number | null;
-  title?: string | null;
-  items?: Procurematerialitem[] | null;
+  ProjectID?: number | null;
+  Title?: string | null;
+  Items?: Procurematerialitem[] | null;
   /** @format double */
-  totalAmount?: number | null;
+  TotalAmount?: number | null;
 }
 
 export interface ProcureParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int32 */
-  id?: number | null;
+  ID?: number | null;
   /** @format int32 */
-  accountID?: number | null;
-  roleNames?: string[] | null;
+  AccountID?: number | null;
+  RoleNames?: string[] | null;
   /** @format int32 */
-  projectID?: number | null;
-  projectIDList?: number[] | null;
-  title?: string | null;
+  ProjectID?: number | null;
+  ProjectIDList?: number[] | null;
+  Title?: string | null;
   /** @format int32 */
-  status?: number | null;
-  statusList?: number[] | null;
-  statusName?: string | null;
+  Status?: number | null;
+  StatusList?: number[] | null;
+  StatusName?: string | null;
 }
 
 export interface Procurematerialinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
-  annex1?: string | null;
-  annex2?: string | null;
+  AccountID?: number;
+  Annex1?: string | null;
+  Annex2?: string | null;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format int32 */
-  assessID4?: number | null;
+  AssessID4?: number | null;
   /** @format int32 */
-  assessID5?: number | null;
+  AssessID5?: number | null;
   /** @format int32 */
-  assessID6?: number | null;
+  AssessID6?: number | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format date-time */
-  assessTime4?: string | null;
+  AssessTime4?: string | null;
   /** @format date-time */
-  assessTime5?: string | null;
+  AssessTime5?: string | null;
   /** @format date-time */
-  assessTime6?: string | null;
+  AssessTime6?: string | null;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format double */
-  paidAmount?: number;
-  partBBank?: string | null;
-  partBBankAccount?: string | null;
-  partBBankUser?: string | null;
-  partBName?: string | null;
+  PaidAmount?: number;
+  PartBBank?: string | null;
+  PartBBankAccount?: string | null;
+  PartBBankUser?: string | null;
+  PartBName?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  status?: number;
-  title?: string | null;
+  Status?: number;
+  Title?: string | null;
   /** @format double */
-  totalAmount?: number;
-  items?: Procurematerialitem[] | null;
-  projectName?: string | null;
-  approvalRoleName?: string | null;
-  statusName?: string | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  TotalAmount?: number;
+  Items?: Procurematerialitem[] | null;
+  ProjectName?: string | null;
+  ApprovalRoleName?: string | null;
+  StatusName?: string | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface ProcurematerialinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Procurematerialinfo[] | null;
+  PageCount?: number;
+  Data?: Procurematerialinfo[] | null;
 }
 
 export interface ProcurematerialinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProcurematerialinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProcurematerialinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProcurematerialinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Procurematerialinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Procurematerialinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Procurematerialitem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  infoID?: number;
-  materialCode?: string | null;
+  InfoID?: number;
+  MaterialCode?: string | null;
   /** @format int32 */
-  materialID?: number;
-  materialName?: string | null;
-  materialSpecifications?: string | null;
+  MaterialID?: number;
+  MaterialName?: string | null;
+  MaterialSpecifications?: string | null;
   /** @format int32 */
-  materialType?: number;
-  materialUnit?: string | null;
-  notes?: string | null;
+  MaterialType?: number;
+  MaterialUnit?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  payMode?: number;
+  PayMode?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format int64 */
-  projectItemMaterialID?: number;
+  ProjectItemMaterialID?: number;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format double */
-  unitPrice?: number;
-  materialTypeStr?: string | null;
-  jobItemCode?: string | null;
-  jobItemName?: string | null;
-  jobItemDescribe?: string | null;
+  UnitPrice?: number;
+  MaterialTypeStr?: string | null;
+  JobItemCode?: string | null;
+  JobItemName?: string | null;
+  JobItemDescribe?: string | null;
   /** @format double */
-  jobMaterialActualQuantity?: number;
+  JobMaterialActualQuantity?: number;
   /** @format double */
-  jobMaterialPreQuantity?: number;
+  JobMaterialPreQuantity?: number;
   /** @format double */
-  jobPreQuantity?: number;
+  JobPreQuantity?: number;
   /** @format double */
-  enquiryPrice?: number;
-  payModeStr?: string | null;
+  EnquiryPrice?: number;
+  PayModeStr?: string | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
   /** @format double */
-  lastQuotationPrice?: number | null;
+  LastQuotationPrice?: number | null;
   /** @format date-time */
-  lastQuotationTime?: string | null;
+  LastQuotationTime?: string | null;
 }
 
 export interface ProjectItemMaterialResult {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  actualQuantity?: number;
+  ActualQuantity?: number;
   /** @format double */
-  loss?: number;
+  Loss?: number;
   /** @format int32 */
-  materialID?: number;
+  MaterialID?: number;
   /** @format double */
-  preMaterialUnitPrice?: number;
+  PreMaterialUnitPrice?: number;
   /** @format double */
-  preQuantity?: number;
+  PreQuantity?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format double */
-  unitPrice?: number;
-  jobCode?: string | null;
-  code?: string | null;
-  name?: string | null;
-  specifications?: string | null;
+  UnitPrice?: number;
+  JobCode?: string | null;
+  Code?: string | null;
+  Name?: string | null;
+  Specifications?: string | null;
   /** @format int32 */
-  type?: number;
-  typeStr?: string | null;
-  unit?: string | null;
-  jobItemCode?: string | null;
-  jobItemName?: string | null;
-  jobItemDescribe?: string | null;
+  Type?: number;
+  TypeStr?: string | null;
+  Unit?: string | null;
+  JobItemCode?: string | null;
+  JobItemName?: string | null;
+  JobItemDescribe?: string | null;
 }
 
 export interface ProjectItemMaterialResultPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: ProjectItemMaterialResult[] | null;
+  PageCount?: number;
+  Data?: ProjectItemMaterialResult[] | null;
 }
 
 export interface ProjectItemMaterialResultPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProjectItemMaterialResultPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectItemMaterialResultPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectItemPageParam {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
+  PageCount?: number;
   /** @format int64 */
-  id?: number | null;
-  code?: string | null;
-  describe?: string | null;
-  name?: string | null;
+  ID?: number | null;
+  Code?: string | null;
+  Describe?: string | null;
+  Name?: string | null;
   /** @format int32 */
-  phaseID?: number | null;
+  PhaseID?: number | null;
   /** @format int32 */
-  projectID?: number | null;
-  unit?: string | null;
+  ProjectID?: number | null;
+  Unit?: string | null;
 }
 
 export interface ProjectItemStatistics {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int32 */
-  materialID?: number;
-  rowType?: string | null;
-  serialNumber?: string | null;
-  code?: string | null;
-  name?: string | null;
-  describe?: string | null;
-  notes?: string | null;
+  MaterialID?: number;
+  RowType?: string | null;
+  SerialNumber?: string | null;
+  Code?: string | null;
+  Name?: string | null;
+  Describe?: string | null;
+  Notes?: string | null;
   /** @format double */
-  preQuantity?: number;
-  ext1?: string | null;
+  PreQuantity?: number;
+  Ext1?: string | null;
   /** @format double */
-  loss?: number;
+  Loss?: number;
   /** @format double */
-  maxQuantity?: number;
-  unit?: string | null;
+  MaxQuantity?: number;
+  Unit?: string | null;
   /** @format double */
-  preMaterialUnitPrice?: number;
+  PreMaterialUnitPrice?: number;
   /** @format double */
-  preMaterialTotalPrice?: number;
+  PreMaterialTotalPrice?: number;
   /** @format double */
-  materialUnitPrice?: number;
+  MaterialUnitPrice?: number;
   /** @format double */
-  materialTotalPrice?: number;
+  MaterialTotalPrice?: number;
   /** @format double */
-  materialTotalPrice_baoxiao?: number;
+  MaterialTotalPrice_baoxiao?: number;
   /** @format double */
-  materialTotalPrice_guazhang?: number;
+  MaterialTotalPrice_guazhang?: number;
   /** @format double */
-  preAuxiliaryUnitPrice?: number;
+  PreAuxiliaryUnitPrice?: number;
   /** @format double */
-  preAuxiliaryTotalPrice?: number;
+  PreAuxiliaryTotalPrice?: number;
   /** @format double */
-  auxiliaryUnitPrice?: number;
+  AuxiliaryUnitPrice?: number;
   /** @format double */
-  auxiliaryTotalPrice?: number;
+  AuxiliaryTotalPrice?: number;
   /** @format double */
-  auxiliaryTotalPrice_baoxiao?: number;
+  AuxiliaryTotalPrice_baoxiao?: number;
   /** @format double */
-  auxiliaryTotalPrice_guazhang?: number;
+  AuxiliaryTotalPrice_guazhang?: number;
   /** @format double */
-  preInstrumentUnitPrice?: number;
+  PreInstrumentUnitPrice?: number;
   /** @format double */
-  preInstrumentTotalPrice?: number;
+  PreInstrumentTotalPrice?: number;
   /** @format double */
-  instrumentUnitPrice?: number;
+  InstrumentUnitPrice?: number;
   /** @format double */
-  instrumentTotalPrice?: number;
+  InstrumentTotalPrice?: number;
   /** @format double */
-  instrumentTotalPrice_baoxiao?: number;
+  InstrumentTotalPrice_baoxiao?: number;
   /** @format double */
-  instrumentTotalPrice_guazhang?: number;
+  InstrumentTotalPrice_guazhang?: number;
   /** @format double */
-  preLaborUnitPrice?: number;
+  PreLaborUnitPrice?: number;
   /** @format double */
-  preLaborTotalPrice?: number;
+  PreLaborTotalPrice?: number;
   /** @format double */
-  laborUnitPrice?: number;
+  LaborUnitPrice?: number;
   /** @format double */
-  laborTotalPrice?: number;
+  LaborTotalPrice?: number;
   /** @format double */
-  laborTotalPrice_baoxiao?: number;
+  LaborTotalPrice_baoxiao?: number;
   /** @format double */
-  laborTotalPrice_guazhang?: number;
+  LaborTotalPrice_guazhang?: number;
   /** @format double */
-  leaseUnitPrice?: number;
+  LeaseUnitPrice?: number;
   /** @format double */
-  leaseTotalPrice?: number;
+  LeaseTotalPrice?: number;
   /** @format double */
-  leaseTotalPrice_baoxiao?: number;
+  LeaseTotalPrice_baoxiao?: number;
   /** @format double */
-  leaseTotalPrice_guazhang?: number;
+  LeaseTotalPrice_guazhang?: number;
   /** @format double */
-  coordinationUnitPrice?: number;
+  CoordinationUnitPrice?: number;
   /** @format double */
-  coordinationTotalPrice?: number;
+  CoordinationTotalPrice?: number;
   /** @format double */
-  coordinationTotalPrice_baoxiao?: number;
+  CoordinationTotalPrice_baoxiao?: number;
   /** @format double */
-  coordinationTotalPrice_guazhang?: number;
+  CoordinationTotalPrice_guazhang?: number;
   /** @format double */
-  manageRate?: number;
+  ManageRate?: number;
   /** @format double */
-  profitRate?: number;
+  ProfitRate?: number;
   /** @format double */
-  managePrice?: number;
+  ManagePrice?: number;
   /** @format double */
-  profit?: number;
+  Profit?: number;
   /** @format double */
-  unitPrice?: number;
+  UnitPrice?: number;
   /** @format double */
-  totalPrice?: number;
+  TotalPrice?: number;
   /** @format date-time */
-  updateTime?: string;
+  UpdateTime?: string;
 }
 
 export interface ProjectItemStatisticsListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProjectItemStatistics[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectItemStatistics[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectAccountRelation {
   /** @format int32 */
-  id?: number;
+  Id?: number;
   /** @format int32 */
-  accountId?: number;
+  AccountId?: number;
   /** @format int32 */
-  projectId?: number;
-  name?: string | null;
+  ProjectId?: number;
+  Name?: string | null;
 }
 
 export interface Projectinfo {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format date-time */
-  endDate?: string | null;
+  EndDate?: string | null;
   /** @format double */
-  manageRate?: number;
-  name?: string | null;
-  notes?: string | null;
+  ManageRate?: number;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format double */
-  profitRate?: number;
+  ProfitRate?: number;
   /** @format date-time */
-  startDate?: string;
-  accountList?: ProjectAccountRelation[] | null;
+  StartDate?: string;
+  AccountList?: ProjectAccountRelation[] | null;
 }
 
 export interface ProjectinfoListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Projectinfo[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Projectinfo[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectinfoPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Projectinfo[] | null;
+  PageCount?: number;
+  Data?: Projectinfo[] | null;
 }
 
 export interface ProjectinfoPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProjectinfoPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectinfoPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectinfoResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Projectinfo;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Projectinfo;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Projectitem {
   /** @format int64 */
-  id?: number;
-  code?: string | null;
-  describe?: string | null;
-  ext1?: string | null;
+  ID?: number;
+  Code?: string | null;
+  Describe?: string | null;
+  Ext1?: string | null;
   /** @format double */
-  loss?: number;
+  Loss?: number;
   /** @format double */
-  maxQuantity?: number;
-  name?: string | null;
-  notes?: string | null;
+  MaxQuantity?: number;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  phaseID?: number | null;
+  PhaseID?: number | null;
   /** @format double */
-  preAuxiliaryUnitPrice?: number;
+  PreAuxiliaryUnitPrice?: number;
   /** @format double */
-  preInstrumentUnitPrice?: number;
+  PreInstrumentUnitPrice?: number;
   /** @format double */
-  preLaborUnitPrice?: number;
+  PreLaborUnitPrice?: number;
   /** @format double */
-  preMaterialUnitPrice?: number;
+  PreMaterialUnitPrice?: number;
   /** @format double */
-  preQuantity?: number;
+  PreQuantity?: number;
   /** @format int32 */
-  projectID?: number;
-  unit?: string | null;
+  ProjectID?: number;
+  Unit?: string | null;
   /** @format date-time */
-  updateTime?: string;
-  uploadSerialNumber?: string | null;
-  materialItems?: Projectitemmaterial[] | null;
-  projectName?: string | null;
-  phaseName?: string | null;
+  UpdateTime?: string;
+  UploadSerialNumber?: string | null;
+  MaterialItems?: Projectitemmaterial[] | null;
+  ProjectName?: string | null;
+  PhaseName?: string | null;
 }
 
 export interface ProjectitemPageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Projectitem[] | null;
+  PageCount?: number;
+  Data?: Projectitem[] | null;
 }
 
 export interface ProjectitemPageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProjectitemPageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectitemPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectitemResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Projectitem;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Projectitem;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Projectitemmaterial {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  actualQuantity?: number;
+  ActualQuantity?: number;
   /** @format double */
-  loss?: number;
+  Loss?: number;
   /** @format int32 */
-  materialID?: number;
+  MaterialID?: number;
   /** @format double */
-  preMaterialUnitPrice?: number;
+  PreMaterialUnitPrice?: number;
   /** @format double */
-  preQuantity?: number;
+  PreQuantity?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format int64 */
-  projectItemID?: number;
+  ProjectItemID?: number;
   /** @format double */
-  unitPrice?: number;
-  jobCode?: string | null;
-  code?: string | null;
-  name?: string | null;
-  specifications?: string | null;
+  UnitPrice?: number;
+  JobCode?: string | null;
+  Code?: string | null;
+  Name?: string | null;
+  Specifications?: string | null;
   /** @format int32 */
-  type?: number;
-  typeStr?: string | null;
-  unit?: string | null;
+  Type?: number;
+  TypeStr?: string | null;
+  Unit?: string | null;
 }
 
 export interface Projectphase {
   /** @format int32 */
-  id?: number;
-  name?: string | null;
+  ID?: number;
+  Name?: string | null;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format date-time */
-  updateTime?: string;
-  projectName?: string | null;
+  UpdateTime?: string;
+  ProjectName?: string | null;
 }
 
 export interface ProjectphaseListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Projectphase[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Projectphase[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectphasePageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Projectphase[] | null;
+  PageCount?: number;
+  Data?: Projectphase[] | null;
 }
 
 export interface ProjectphasePageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: ProjectphasePageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectphasePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface ProjectphaseResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: Projectphase;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: Projectphase;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface PureMenuDTO {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  parentID?: number;
+  ParentID?: number;
   path?: string | null;
   name?: string | null;
   redirect?: string | null;
@@ -2416,13 +2417,13 @@ export interface PureMenuDTO {
 
 export interface PureMenuDTOListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: PureMenuDTO[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: PureMenuDTO[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface PureMetaDTO {
@@ -2438,423 +2439,423 @@ export interface PureMetaDTO {
 
 export interface QuotationAssessDTO {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format date-time */
-  createTime?: string;
+  CreateTime?: string;
   /** @format date-time */
-  endTime?: string;
+  EndTime?: string;
   /** @format int32 */
-  projectID?: number;
-  projectName?: string | null;
+  ProjectID?: number;
+  ProjectName?: string | null;
   /** @format int32 */
-  status?: number;
-  statusName?: string | null;
-  title?: string | null;
+  Status?: number;
+  StatusName?: string | null;
+  Title?: string | null;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
+  AssessTime3?: string | null;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
-  assessName1?: string | null;
-  assessName2?: string | null;
-  assessName3?: string | null;
-  items?: EnquiryItemsDTO[] | null;
-  approvalRecordList?: ApprovalRecords[] | null;
+  AssessID3?: number | null;
+  AssessName1?: string | null;
+  AssessName2?: string | null;
+  AssessName3?: string | null;
+  Items?: EnquiryItemsDTO[] | null;
+  ApprovalRecordList?: ApprovalRecords[] | null;
 }
 
 export interface QuotationAssessDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: QuotationAssessDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: QuotationAssessDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface QuotationAssessUpdateParam {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   roleNames?: string[] | null;
   items?: Quotationitem[] | null;
 }
 
 export interface QuotationItemDTO {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  enquiryInfoID?: number;
+  EnquiryInfoID?: number;
   /** @format int64 */
-  enquiryItemID?: number;
+  EnquiryItemID?: number;
   /** @format int32 */
-  materialID?: number;
+  MaterialID?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format double */
-  unitPrice?: number;
+  UnitPrice?: number;
   /** @format date-time */
-  updateTime?: string;
-  telephone?: string | null;
-  contact?: string | null;
-  code?: string | null;
-  materialName?: string | null;
-  specifications?: string | null;
+  UpdateTime?: string;
+  Telephone?: string | null;
+  Contact?: string | null;
+  Code?: string | null;
+  MaterialName?: string | null;
+  Specifications?: string | null;
   /** @format int32 */
-  type?: number;
-  unit?: string | null;
-  typeStr?: string | null;
-  notes?: string | null;
+  Type?: number;
+  Unit?: string | null;
+  TypeStr?: string | null;
+  Notes?: string | null;
   /** @format double */
-  quantity?: number;
+  Quantity?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format double */
-  taxrate?: number;
+  Taxrate?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
+  AssessID3?: number | null;
   /** @format double */
-  totalAmount?: number;
+  TotalAmount?: number;
 }
 
 export interface QuotationStatistics {
   /** @format int32 */
-  accountID?: number;
-  userName?: string | null;
+  AccountID?: number;
+  UserName?: string | null;
   /** @format int32 */
-  totalNum?: number;
+  TotalNum?: number;
   /** @format int32 */
-  successNum?: number;
+  SuccessNum?: number;
   /** @format int32 */
-  state?: number;
+  State?: number;
   /** @format double */
-  successProportion?: number;
-  successProportionStr?: string | null;
+  SuccessProportion?: number;
+  SuccessProportionStr?: string | null;
 }
 
 export interface QuotationStatisticsListResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: QuotationStatistics[] | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: QuotationStatistics[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Quotationitem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format int32 */
-  assessID1?: number | null;
+  AssessID1?: number | null;
   /** @format int32 */
-  assessID2?: number | null;
+  AssessID2?: number | null;
   /** @format int32 */
-  assessID3?: number | null;
-  assessNotes?: string | null;
+  AssessID3?: number | null;
+  AssessNotes?: string | null;
   /**
    * 0未被选中,1报价选中
    * @format int32
    */
-  assessState?: number;
+  AssessState?: number;
   /** @format date-time */
-  assessTime1?: string | null;
+  AssessTime1?: string | null;
   /** @format date-time */
-  assessTime2?: string | null;
+  AssessTime2?: string | null;
   /** @format date-time */
-  assessTime3?: string | null;
-  contact?: string | null;
+  AssessTime3?: string | null;
+  Contact?: string | null;
   /** @format int32 */
-  enquiryInfoID?: number;
+  EnquiryInfoID?: number;
   /** @format int64 */
-  enquiryItemID?: number;
+  EnquiryItemID?: number;
   /** @format double */
-  freight?: number;
+  Freight?: number;
   /** @format int32 */
-  materialID?: number;
+  MaterialID?: number;
   /** @format int32 */
-  projectID?: number;
+  ProjectID?: number;
   /** @format double */
-  taxrate?: number;
-  telephone?: string | null;
+  Taxrate?: number;
+  Telephone?: string | null;
   /** @format double */
-  unitPrice?: number;
+  UnitPrice?: number;
   /** @format date-time */
-  updateTime?: string;
-  check?: boolean;
+  UpdateTime?: string;
+  Check?: boolean;
   /** @format double */
-  parentQuantity?: number;
+  ParentQuantity?: number;
   /** @format double */
-  totalAmount?: number;
-  accountName?: string | null;
+  TotalAmount?: number;
+  AccountName?: string | null;
 }
 
 export interface Result {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: string | null;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: string | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Role {
   /** @format int32 */
-  roleID?: number;
-  name?: string | null;
+  RoleID?: number;
+  Name?: string | null;
   /** @format date-time */
-  updatetime?: string;
-  roleAPIRelation1?: Roleapirelation[] | null;
+  Updatetime?: string;
+  RoleAPIRelation1?: Roleapirelation[] | null;
 }
 
 export interface RolePageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Role[] | null;
+  PageCount?: number;
+  Data?: Role[] | null;
 }
 
 export interface RolePageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: RolePageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: RolePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface RoleUpdateParam {
   /** @format int32 */
-  roleID?: number;
-  name?: string | null;
+  RoleID?: number;
+  Name?: string | null;
   /** @format date-time */
-  updatetime?: string;
-  roleApiList?: Apiinfo[] | null;
+  Updatetime?: string;
+  RoleApiList?: Apiinfo[] | null;
 }
 
 export interface RoleUpdateParamResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: RoleUpdateParam;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: RoleUpdateParam;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Roleapirelation {
   /** @format int32 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  apiid?: number;
+  APIID?: number;
   /** @format int32 */
-  roleID?: number;
-  type?: boolean;
-  apiInfo1?: Apiinfo;
+  RoleID?: number;
+  Type?: boolean;
+  APIInfo1?: Apiinfo;
 }
 
 export interface SysMessageResult {
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  id?: number;
+  ID?: number;
 }
 
 export interface SysMessageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: SysMessageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: SysMessageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Sysmessage {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format int32 */
-  accountID?: number;
+  AccountID?: number;
   /** @format date-time */
-  createTime?: string;
-  msg?: string | null;
+  CreateTime?: string;
+  Msg?: string | null;
   /** @format int32 */
-  status?: number;
-  statusName?: string | null;
+  Status?: number;
+  StatusName?: string | null;
 }
 
 export interface SysmessagePageResult {
   /** @format int32 */
-  pageNumber?: number;
+  PageNumber?: number;
   /** @format int32 */
-  pageSize?: number;
+  PageSize?: number;
   /** @format int64 */
-  count?: number;
+  Count?: number;
   /** @format int64 */
-  pageCount?: number;
-  data?: Sysmessage[] | null;
+  PageCount?: number;
+  Data?: Sysmessage[] | null;
 }
 
 export interface SysmessagePageResultResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: SysmessagePageResult;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: SysmessagePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface UpdateAccountDTO {
   /** @format int32 */
-  accountID?: number;
-  accountNumber?: string | null;
+  AccountID?: number;
+  AccountNumber?: string | null;
   /** @format date-time */
-  birthday?: string | null;
-  name?: string | null;
-  notes?: string | null;
-  sex?: boolean | null;
-  telephone?: string | null;
+  Birthday?: string | null;
+  Name?: string | null;
+  Notes?: string | null;
+  Sex?: boolean | null;
+  Telephone?: string | null;
   test?: string | null;
   /** @format int32 */
-  status?: number | null;
-  accountRoles?: number[] | null;
-  accountDepartments?: number[] | null;
+  Status?: number | null;
+  AccountRoles?: number[] | null;
+  AccountDepartments?: number[] | null;
 }
 
 export interface UpdateAccountDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: UpdateAccountDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: UpdateAccountDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface UpdateApiInfoDTO {
   /** @format int32 */
-  id?: number;
-  action?: string | null;
-  area?: string | null;
-  controller?: string | null;
-  isMenu?: boolean;
-  name?: string | null;
-  notes?: string | null;
+  ID?: number;
+  Action?: string | null;
+  Area?: string | null;
+  Controller?: string | null;
+  IsMenu?: boolean;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format int32 */
-  parentID?: number;
+  ParentID?: number;
   /** @format int32 */
-  sort?: number;
+  Sort?: number;
   /** @format date-time */
-  updateTime?: string;
-  path?: string | null;
+  UpdateTime?: string;
+  Path?: string | null;
   /** @format int32 */
-  type?: number;
+  Type?: number;
 }
 
 export interface UpdateEnquiryGroupDTO {
   /** @format int32 */
-  id?: number | null;
-  name?: string | null;
-  enquiryGroupAccount?: number[] | null;
+  ID?: number | null;
+  Name?: string | null;
+  EnquiryGroupAccount?: number[] | null;
 }
 
 export interface UpdateEnquiryGroupDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: UpdateEnquiryGroupDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: UpdateEnquiryGroupDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface UploadFileDTO {
-  oldName?: string | null;
-  newFullPath?: string | null;
+  OldName?: string | null;
+  NewFullPath?: string | null;
 }
 
 export interface UploadFileDTOResult {
   /** @format int32 */
-  code?: number;
-  message?: string | null;
-  data?: UploadFileDTO;
-  ext1?: string | null;
-  ext2?: string | null;
-  ext3?: any | null;
-  ext4?: any | null;
+  Code?: number;
+  Message?: string | null;
+  Data?: UploadFileDTO;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface UploadProjectItem {
   /** @format int64 */
-  id?: number;
+  ID?: number;
   /** @format double */
-  auxiliaryUnitPrice?: number | null;
-  code?: string | null;
-  describe?: string | null;
-  ext1?: string | null;
+  AuxiliaryUnitPrice?: number | null;
+  Code?: string | null;
+  Describe?: string | null;
+  Ext1?: string | null;
   /** @format double */
-  instrumentUnitPrice?: number | null;
+  InstrumentUnitPrice?: number | null;
   /** @format double */
-  laborUnitPrice?: number | null;
+  LaborUnitPrice?: number | null;
   /** @format double */
-  loss?: number | null;
+  Loss?: number | null;
   /** @format double */
-  managePrice?: number | null;
+  ManagePrice?: number | null;
   /** @format double */
-  materialUnitPrice?: number | null;
+  MaterialUnitPrice?: number | null;
   /** @format double */
-  maxQuantity?: number | null;
-  name?: string | null;
-  notes?: string | null;
+  MaxQuantity?: number | null;
+  Name?: string | null;
+  Notes?: string | null;
   /** @format double */
-  preQuantity?: number | null;
+  PreQuantity?: number | null;
   /** @format double */
-  profit?: number | null;
+  Profit?: number | null;
   /** @format int32 */
-  projectID?: number | null;
+  ProjectID?: number | null;
   /** @format int32 */
-  phaseID?: number | null;
-  unit?: string | null;
+  PhaseID?: number | null;
+  Unit?: string | null;
   /** @format double */
-  unitPrice?: number | null;
+  UnitPrice?: number | null;
   /** @format date-time */
-  updateTime?: string | null;
-  materialItems?: Projectitemmaterial[] | null;
+  UpdateTime?: string | null;
+  MaterialItems?: Projectitemmaterial[] | null;
 }
 
 export interface GetAccount1GetAccountPageParams {
@@ -4745,7 +4746,6 @@ export interface GetSystemGetDepartmentByIdParams {
 import type {
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosResponse,
   HeadersDefaults,
   ResponseType,
 } from "axios";
@@ -4876,7 +4876,7 @@ export class HttpClient<SecurityDataType = unknown> {
     format,
     body,
     ...params
-  }: FullRequestParams): Promise<AxiosResponse<T>> => {
+  }: FullRequestParams): Promise<T> => {
     const secureParams =
       ((typeof secure === "boolean" ? secure : this.secure) &&
         this.securityWorker &&
@@ -4903,17 +4903,19 @@ export class HttpClient<SecurityDataType = unknown> {
       body = JSON.stringify(body);
     }
 
-    return this.instance.request({
-      ...requestParams,
-      headers: {
-        ...(requestParams.headers || {}),
-        ...(type ? { "Content-Type": type } : {}),
-      },
-      params: query,
-      responseType: responseFormat,
-      data: body,
-      url: path,
-    });
+    return this.instance
+      .request({
+        ...requestParams,
+        headers: {
+          ...(requestParams.headers || {}),
+          ...(type ? { "Content-Type": type } : {}),
+        },
+        params: query,
+        responseType: responseFormat,
+        data: body,
+        url: path,
+      })
+      .then((response) => response.data);
   };
 }
 

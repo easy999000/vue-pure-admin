@@ -1,9 +1,9 @@
 ﻿// src/api/index.ts
-import { Api } from "./processApi"; // 从生成的文件导入
+import { Api } from "./processApi";
 
 const api = new Api({
+  // 建议取消注释 baseURL，或通过环境变量配置
   // baseURL: import.meta.env.VITE_API_BASE_URL || "http://localhost:5141",
-  // 也可以直接传入 Axios 配置，例如超时时间
   timeout: 10000
 });
 

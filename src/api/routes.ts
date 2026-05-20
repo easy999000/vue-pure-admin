@@ -1,10 +1,6 @@
 import { http } from "@/utils/http";
 
-type Result = {
-  code: number;
-  message: string;
-  data: Array<any>;
-};
+import type { ResultTable, Result, ResultModel } from "./Result";
 
 export const getAsyncRoutes = () => {
   return http.request<Result>("get", "/api/System/GetAccountMenuTree");

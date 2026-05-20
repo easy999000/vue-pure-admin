@@ -10,6 +10,7 @@ generateApi({
   httpClientType: "axios",
   modular: false,
   extractRequestParams: true,
+  unwrapResponseData: true,
   hooks: {
     onFormatRouteName: (routeName, rawRouteInfo) => {
       const { route, method } = routeName;

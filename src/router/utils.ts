@@ -210,10 +210,11 @@ function initRouter() {
       });
     } else {
       return new Promise(resolve => {
-        getAsyncRoutes().then(({ code, data }) => {
-          if (code === 0) {
-            handleAsyncRoutes(cloneDeep(data));
-            storageLocal().setItem(key, data);
+        getAsyncRoutes().then(({ Code, Data }) => {
+          console.log({ title: "getAsyncRoutes1111", Code, Data });
+          if (Code === 0) {
+            handleAsyncRoutes(cloneDeep(Data));
+            storageLocal().setItem(key, Data);
             resolve(router);
           } else {
             resolve(router);
@@ -223,10 +224,11 @@ function initRouter() {
     }
   } else {
     return new Promise(resolve => {
-      getAsyncRoutes().then(({ code, data }) => {
-        if (code === 0) {
-          //  handleAsyncRoutes(testRoute);
-          handleAsyncRoutes(cloneDeep(data));
+      getAsyncRoutes().then(({ Code, Data }) => {
+        console.log({ title: "getAsyncRoutes3333", Code, Data });
+        if (Code === 0) {
+          console.log({ title: "getAsyncRoutes4444", Code, Data });
+          handleAsyncRoutes(cloneDeep(Data));
           resolve(router);
         } else {
           resolve(router);

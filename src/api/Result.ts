@@ -1,19 +1,19 @@
 ﻿export type Result = {
-  code: number;
-  message: string;
-  data?: Array<any>;
+  Code: number;
+  Message: string;
+  Data?: Array<any>;
 };
 
 export type ResultModel = {
-  code: number;
-  message: string;
-  data?: any;
+  Code: number;
+  Message: string;
+  Data?: any;
 };
 
 export type ResultTable = {
-  code: number;
-  message: string;
-  data?: {
+  Code: number;
+  Message: string;
+  Data?: {
     /** 列表数据 */
     Data: Array<any>;
     /** 每页显示条目个数 */
