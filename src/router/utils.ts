@@ -178,12 +178,14 @@ function handleAsyncRoutes(routeList) {
           const flattenRouters: any = router
             .getRoutes()
             .find(n => n.path === "/");
+          debugger;
           // 保持router.options.routes[0].children与path为"/"的children一致，防止数据不一致导致异常
           flattenRouters.children = router.options.routes[0].children;
           router.addRoute(flattenRouters);
         }
       }
     );
+    debugger;
     usePermissionStoreHook().handleWholeMenus(routeList);
   }
   if (!useMultiTagsStoreHook().getMultiTagsCache) {
@@ -228,7 +230,10 @@ function initRouter() {
         console.log({ title: "getAsyncRoutes3333", Code, Data });
         if (Code === 0) {
           console.log({ title: "getAsyncRoutes4444", Code, Data });
-          handleAsyncRoutes(cloneDeep(Data));
+          const menuList = cloneDeep(Data);
+          const formattedMenu = formatMenu(menuList);
+          console.log({ title: "getAsyncRoutes555", formattedMenu, Data });
+          handleAsyncRoutes(formattedMenu);
           resolve(router);
         } else {
           resolve(router);
@@ -236,6 +241,29 @@ function initRouter() {
       });
     });
   }
+}
+
+function formatMenu(menus: any[]): any[] {
+  return menus.map(item => {
+    // 构建基础项（先不处理 children）
+    const formatted: any = {
+      ...item,
+      path: item.path.startsWith("/") ? item.path : "/" + item.path,
+      component:
+        item.children?.length > 0
+          ? undefined
+          : `/${item.path.replace(/^\//, "")}/index`
+    };
+
+    // 只有当 children 真实存在且非空数组时才递归处理，否则直接移除
+    if (item.children && item.children.length > 0) {
+      formatted.children = formatMenu(item.children);
+    } else {
+      delete formatted.children; // 彻底移除 children 属性
+    }
+
+    return formatted;
+  });
 }
 
 /**
