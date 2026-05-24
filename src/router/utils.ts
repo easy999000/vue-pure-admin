@@ -178,14 +178,13 @@ function handleAsyncRoutes(routeList) {
           const flattenRouters: any = router
             .getRoutes()
             .find(n => n.path === "/");
-          debugger;
+
           // 保持router.options.routes[0].children与path为"/"的children一致，防止数据不一致导致异常
           flattenRouters.children = router.options.routes[0].children;
           router.addRoute(flattenRouters);
         }
       }
     );
-    debugger;
     usePermissionStoreHook().handleWholeMenus(routeList);
   }
   if (!useMultiTagsStoreHook().getMultiTagsCache) {
@@ -248,11 +247,7 @@ function formatMenu(menus: any[]): any[] {
     // 构建基础项（先不处理 children）
     const formatted: any = {
       ...item,
-      path: item.path.startsWith("/") ? item.path : "/" + item.path,
-      component:
-        item.children?.length > 0
-          ? undefined
-          : `/${item.path.replace(/^\//, "")}/index`
+      path: item.path.startsWith("/") ? item.path : "/" + item.path
     };
 
     // 只有当 children 真实存在且非空数组时才递归处理，否则直接移除

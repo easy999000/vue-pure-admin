@@ -1,7 +1,7 @@
 ﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { getPhasePage, updatePhase, delPhase } from "@/api/project";
-import { api } from "@/api";
+import { api, EnquiryInfoDTO } from "@/api";
 import {
   getEnquiryGroupPage,
   updateEnquiryGroup,
@@ -28,11 +28,31 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("询价组");
+  const pageName = ref("我的报价");
   const columns: TableColumnList = [
     {
-      label: "名称",
+      label: "标题",
       prop: "Title"
+    },
+    {
+      label: "项目",
+      prop: "ProjectName2"
+    },
+    {
+      label: "创建时间",
+      prop: "CreateTime"
+    },
+    {
+      label: "报价截至时间",
+      prop: "EndTime"
+    },
+    {
+      label: "询价状态",
+      prop: "StatusName"
+    },
+    {
+      label: "报价状态",
+      prop: "QuotationStatusName"
     },
     {
       label: "操作",
@@ -62,10 +82,10 @@ export function useHook() {
     }
 
     const res = await delEnquiryGroupByID(toRaw(row));
-    if (res.code === 0) {
+    if (res.Code === 0) {
       chores();
     } else {
-      message(`删除失败，${res.message}`, { type: "error" });
+      message(`删除失败，${res.Message}`, { type: "error" });
     }
   }
   /** 高亮当前权限选中行 */
@@ -123,7 +143,7 @@ export function useHook() {
           higherDeptOptions: []
         }
       },
-      width: "40%",
+      width: "80%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
@@ -131,9 +151,9 @@ export function useHook() {
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
+        const curData = options.props.formInline as EnquiryInfoDTO;
         function chores() {
-          message(`您${title}了任务名称为${curData.Name}的这条数据`, {
+          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
@@ -143,15 +163,19 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          updateEnquiryGroup(toRaw(curData)).then(({ res2 }) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
+          api.api
+            .post_Enquiry_QuotationUpdate(toRaw(curData))
+            .then(({ res2 }) => {
+              // 实际开发先调用修改接口，再进行下面操作
+              chores();
+            });
         } else {
-          updateEnquiryGroup(toRaw(curData)).then(({ res2 }) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
+          api.api
+            .post_Enquiry_QuotationUpdate(toRaw(curData))
+            .then(({ res2 }) => {
+              // 实际开发先调用修改接口，再进行下面操作
+              chores();
+            });
         }
       }
     });

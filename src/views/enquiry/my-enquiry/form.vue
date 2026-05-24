@@ -35,7 +35,7 @@ const loadData = async () => {
     try {
       // 假设 getTableData 是你的 API 请求函数
       const res = await getEnquiryInfoByID({ ID: newFormInline?.value?.ID });
-      Object.assign(newFormInline.value, res.data);
+      Object.assign(newFormInline.value, res.Data);
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -60,7 +60,7 @@ const state = ref<FieldValues>({
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
   const selectRes = await getAccountSelectList();
-  var res = selectRes.data.map(item => ({
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID
   }));
@@ -71,7 +71,7 @@ const getAccountSelect = async (): Promise<any[]> => {
 const getProjectOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
   const selectRes = await getAccountProjectList();
-  var res = selectRes.data.map(item => ({
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.ID
   }));
@@ -85,7 +85,7 @@ const getEnquiryGroupSelect = async (): Promise<any[]> => {
     PageNumber: 1,
     PageSize: 9999
   });
-  var res = selectRes.data.Data.map(item => ({
+  var res = selectRes.Data.Data.map(item => ({
     label: item.Name,
     value: item.ID
   }));

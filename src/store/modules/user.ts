@@ -111,11 +111,11 @@ export const useUserStore = defineStore("pure-user", {
       return new Promise<RefreshTokenResult>((resolve, reject) => {
         refreshTokenApi(data)
           .then(data => {
-            if (data.code === 0) {
-              setToken(data.data);
+            if (data.Code === 0) {
+              setToken(data.Data);
               resolve(data);
             } else {
-              reject(data.message);
+              reject(data.Message);
             }
           })
           .catch(error => {

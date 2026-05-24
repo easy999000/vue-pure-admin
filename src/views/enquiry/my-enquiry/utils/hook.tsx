@@ -71,17 +71,17 @@ export function useHook() {
   async function onDel(row?: FormItemProps) {
     loading.value = true;
     function chores() {
-      message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
+      message(`您删除了${pageName.value}名称为${row.Title}的这条数据`, {
         type: "success"
       });
       ///   onSearch(); // 刷新表格数据
     }
 
     const res = await delEnquiryGroupByID(toRaw(row));
-    if (res.code === 0) {
+    if (res.Code === 0) {
       chores();
     } else {
-      message(`删除失败，${res.message}`, { type: "error" });
+      message(`删除失败，${res.Message}`, { type: "error" });
     }
   }
   /** 高亮当前权限选中行 */
@@ -96,17 +96,17 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getMyEnquiryInfoPage({
+    const { Code, Data } = await getMyEnquiryInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
       ...toRaw(searchForm)
     });
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.Count;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.Count;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {
@@ -148,8 +148,8 @@ export function useHook() {
         const curData = options.props.formInline as FormItemProps;
         function chores(res2: any) {
           console.log("res2", res2);
-          if (res2.code !== 0) {
-            message(`操作失败，${res2.message}`, { type: "error" });
+          if (res2.Code !== 0) {
+            message(`操作失败，${res2.Message}`, { type: "error" });
             return;
           }
           message(`您${title}了任务名称为${curData.Title}的这条数据`, {
