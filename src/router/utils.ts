@@ -22,12 +22,14 @@ import { userKey, type DataInfo } from "@/utils/auth";
 import { type menuType, routerArrays } from "@/layout/types";
 import { useMultiTagsStoreHook } from "@/store/modules/multiTags";
 import { usePermissionStoreHook } from "@/store/modules/permission";
+import { api } from "@/api";
 const IFrame = () => import("@/layout/frame.vue");
 // https://cn.vitejs.dev/guide/features.html#glob-import
 const modulesRoutes = import.meta.glob("/src/views/**/*.{vue,tsx}");
 
 // 动态路由
 import { getAsyncRoutes } from "@/api/routes";
+import { readJsonConfigFile } from "typescript";
 
 function handRank(routeInfo: any) {
   const { name, path, parentId, meta } = routeInfo;
@@ -210,34 +212,44 @@ function initRouter() {
         resolve(router);
       });
     } else {
-      return new Promise(resolve => {
-        getAsyncRoutes().then(({ Code, Data }) => {
-          console.log({ title: "getAsyncRoutes1111", Code, Data });
+      return new Promise((resolve, reject) => {
+        return api.api
+          .get_System_GetAccountMenuTree()
+          .then(({ Code, Data }) => {
+            console.log({ title: "getAsyncRoutes1111", Code, Data });
+            if (Code === 0) {
+              handleAsyncRoutes(cloneDeep(Data));
+              storageLocal().setItem(key, Data);
+              resolve(router);
+            } else {
+              resolve(router);
+            }
+          })
+          .catch(err => {
+            reject(err); // 网络错误等传递出去
+          });
+      });
+    }
+  } else {
+    return new Promise((resolve, reject) => {
+      return api.api
+        .get_System_GetAccountMenuTree()
+        .then(({ Code, Data }) => {
+          console.log({ title: "getAsyncRoutes3333", Code, Data });
           if (Code === 0) {
-            handleAsyncRoutes(cloneDeep(Data));
-            storageLocal().setItem(key, Data);
+            console.log({ title: "getAsyncRoutes4444", Code, Data });
+            const menuList = cloneDeep(Data);
+            const formattedMenu = formatMenu(menuList);
+            console.log({ title: "getAsyncRoutes555", formattedMenu, Data });
+            handleAsyncRoutes(formattedMenu);
             resolve(router);
           } else {
             resolve(router);
           }
+        })
+        .catch(err => {
+          reject(err);
         });
-      });
-    }
-  } else {
-    return new Promise(resolve => {
-      getAsyncRoutes().then(({ Code, Data }) => {
-        console.log({ title: "getAsyncRoutes3333", Code, Data });
-        if (Code === 0) {
-          console.log({ title: "getAsyncRoutes4444", Code, Data });
-          const menuList = cloneDeep(Data);
-          const formattedMenu = formatMenu(menuList);
-          console.log({ title: "getAsyncRoutes555", formattedMenu, Data });
-          handleAsyncRoutes(formattedMenu);
-          resolve(router);
-        } else {
-          resolve(router);
-        }
-      });
     });
   }
 }

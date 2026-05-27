@@ -76,7 +76,9 @@ const onLogin = async (formEl: FormInstance | undefined) => {
         })
         .then(async () => {
           // 获取后端路由
-          await initRouter();
+          await initRouter().catch(err => {
+            console.error("路由初始化失败:", err);
+          });
           disabled.value = true;
           router.push(getTopMenu(true).path).then(() => {
             message(t("login.pureLoginSuccess"), { type: "success" });
