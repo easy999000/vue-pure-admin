@@ -1,23 +1,19 @@
 ﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
+
 import {
-  getMyEnquiryInfoPage,
-  updateEnquiryInfo,
-  delEnquiryGroupByID
-} from "@/api/enquiry";
+  api,
+  type EnquiryGroupPageParam,
+  type GetEnquiryGetEnquiryGroupPageParams,
+  type EnquiryInfoDTO
+} from "@/api";
 import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm = reactive({
-    Name: "",
-    ID: "",
-    Code: "",
-    PhaseID: "",
-    ProjectID: ""
-  });
+  const searchForm: GetEnquiryGetEnquiryGroupPageParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -68,16 +64,16 @@ export function useHook() {
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
   }
-  async function onDel(row?: FormItemProps) {
+  async function onDel(row?: EnquiryGroupPageParam) {
     loading.value = true;
     function chores() {
-      message(`您删除了${pageName.value}名称为${row.Title}的这条数据`, {
+      message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
         type: "success"
       });
       ///   onSearch(); // 刷新表格数据
     }
 
-    const res = await delEnquiryGroupByID(toRaw(row));
+    const res = await api.api.post_Enquiry_DelEnquiryGroupByID(toRaw(row));
     if (res.Code === 0) {
       chores();
     } else {
@@ -96,7 +92,7 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { Code, Data } = await getMyEnquiryInfoPage({
+    const { Code, Data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -145,7 +141,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as FormItemProps;
+        const curData = options.props.formInline as EnquiryInfoDTO;
         function chores(res2: any) {
           console.log("res2", res2);
           if (res2.Code !== 0) {
@@ -159,9 +155,8 @@ export function useHook() {
           onSearch(); // 刷新表格数据
         }
 
-        console.log("curData", curData);
         // 表单规则校验通过
-        updateEnquiryInfo(toRaw(curData)).then(res => {
+        api.api.post_Enquiry_UpdateEnquiryInfo(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });

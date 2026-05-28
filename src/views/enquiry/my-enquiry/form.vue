@@ -7,16 +7,15 @@ import {
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
-import { getAccountProjectList } from "@/api/project";
-import { getAccountSelectList } from "@/api/account";
-import { getEnquiryGroupPage } from "@/api/enquiry";
+import {
+  api,
+  type EnquiryGroupPageParam,
+  type GetEnquiryGetEnquiryGroupPageParams,
+  type EnquiryInfoDTO
+} from "@/api";
 import ItemList from "@/views/components/item-list.vue";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
-import {
-  getMyEnquiryInfoPage,
-  getEnquiryInfoByID,
-  updateEnquiryInfo
-} from "@/api/enquiry";
+
 import MaterialSelection from "@/views/components/material-selection.vue";
 import { addDialog, closeDialog } from "@/components/ReDialog";
 
@@ -34,7 +33,9 @@ const loadData = async () => {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数
-      const res = await getEnquiryInfoByID({ ID: newFormInline?.value?.ID });
+      const res = await api.api.get_Enquiry_GetEnquiryInfoByID({
+        ID: Number(newFormInline?.value?.ID)
+      });
       Object.assign(newFormInline.value, res.Data);
     } catch (error) {
       console.error("数据加载失败:", error);
@@ -59,7 +60,7 @@ const state = ref<FieldValues>({
 // 模拟一个从后端获取下拉数据的API
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getAccountSelectList();
+  const selectRes = await api.api.get_Account1_GetAccountSelectList();
   var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID
@@ -70,7 +71,7 @@ const getAccountSelect = async (): Promise<any[]> => {
 // 模拟一个从后端获取下拉数据的API
 const getProjectOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getAccountProjectList();
+  const selectRes = await api.api.get_Project_GetAccountProjectList();
   var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.ID
@@ -81,7 +82,7 @@ const getProjectOptions = async (): Promise<any[]> => {
 // 模拟一个从后端获取下拉数据的API
 const getEnquiryGroupSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getEnquiryGroupPage({
+  const selectRes = await api.api.get_Enquiry_GetEnquiryGroupPage({
     PageNumber: 1,
     PageSize: 9999
   });

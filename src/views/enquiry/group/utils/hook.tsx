@@ -139,19 +139,15 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          api.api
-            .post_Enquiry_UpdateEnquiryGroup(toRaw(curData))
-            .then(({ res2 }) => {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
-            });
+          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(res2 => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
         } else {
-          api.api
-            .post_Enquiry_UpdateEnquiryGroup(toRaw(curData))
-            .then(({ res2 }) => {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
-            });
+          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(res2 => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
         }
       }
     });
