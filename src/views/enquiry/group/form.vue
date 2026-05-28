@@ -8,12 +8,13 @@ import {
 } from "plus-pro-components";
 import { getAccountProjectList } from "@/api/project";
 import { getAccountSelectList } from "@/api/account";
+
 import {
-  getEnquiryGroupPage,
-  updateEnquiryGroup,
-  delEnquiryGroupByID,
-  GetEnquiryGroupByID
-} from "@/api/enquiry";
+  api,
+  type UpdateEnquiryGroupDTO,
+  type EnquiryGroupPageParam,
+  type GetEnquiryGetEnquiryGroupPageParams
+} from "@/api";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
 });
@@ -28,8 +29,10 @@ const loadData = async () => {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数
-      const res = await GetEnquiryGroupByID({ ID: newFormInline?.value?.ID });
-      Object.assign(newFormInline.value, res.data);
+      const res = await api.api.get_Enquiry_GetEnquiryGroupByID({
+        ID: Number(newFormInline?.value?.ID)
+      });
+      Object.assign(newFormInline.value, res.Data);
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -54,7 +57,7 @@ const state = ref<FieldValues>({
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
   const selectRes = await getAccountSelectList();
-  var res = selectRes.data.map(item => ({
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID
   }));

@@ -27,7 +27,7 @@ api.instance.interceptors.response.use(
 
     if (code !== SUCCESS_CODE) {
       message(msg, { type: "error" });
-      return Promise.reject(new Error(msg));
+      return Promise.reject(msg);
     }
 
     return response;
