@@ -1,6 +1,7 @@
 import { http } from "@/utils/http";
 
-import type { ResultTable, Result, ResultModel } from "./Result";
+import type { ResultTable } from "./Result";
+import { api } from "@/api";
 
 export type UserResult = {
   Code: number;
@@ -61,9 +62,8 @@ export type UserInfoResult = {
 
 /** 登录 */
 export const getLogin = (data?: object) => {
-  return http.request<UserResult>("post", "/api/Main/Login", { data });
+  return api.api.post_Main_Login(data);
 };
-
 /** 刷新`token` */
 export const refreshTokenApi = (data?: object) => {
   return http.request<RefreshTokenResult>("post", "/refresh-token", { data });

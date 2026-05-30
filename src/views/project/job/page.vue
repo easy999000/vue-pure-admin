@@ -161,7 +161,7 @@ onMounted(() => {
               </el-button>
               <el-popconfirm
                 :key="row.RoleID"
-                :title="`是否确认删除角色名称为${row.name}的这条数据`"
+                :title="`是否确认删除角色名称为${row.Name}的这条数据`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>

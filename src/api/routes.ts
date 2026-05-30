@@ -1,9 +1,10 @@
 import { http } from "@/utils/http";
+import { api } from "@/api";
 
-import type { ResultTable, Result, ResultModel } from "./Result";
+import type { Result } from "./Result";
 
 export const getAsyncRoutes = () => {
-  return http.request<Result>("get", "/api/System/GetAccountMenuTree");
+  return api.api.get_System_GetAccountMenuTree();
 };
 export const getAsyncRoutesbak = () => {
   return http.request<Result>("get", "/get-async-routes");
