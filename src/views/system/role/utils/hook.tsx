@@ -9,22 +9,16 @@ import { addDialog } from "@/components/ReDialog";
 import type { FormItemProps } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
+
 import {
-  getRoleList,
-  getRoleMenu,
-  getRoleMenuIds,
-  getRolePage,
-  UpdateRolePage,
-  DelRole
-} from "@/api/system";
+  api,
+  type RoleUpdateParam,
+  type GetSystemGetRolePageParams
+} from "@/api";
 import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
 
 export function useRole(treeRef: Ref) {
-  const form = reactive({
-    name: "",
-    code: "",
-    status: ""
-  });
+  const form: GetSystemGetRolePageParams = reactive({});
   const curRow = ref();
   const formRef = ref();
   const dataList = ref([]);
@@ -96,19 +90,19 @@ export function useRole(treeRef: Ref) {
 
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getRolePage(toRaw(form));
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.PageCount;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    const { Code, Data } = await api.api.get_System_GetRolePage(toRaw(form));
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.PageCount;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {
       loading.value = false;
     }, 500);
   }
-  async function onDel(row?: FormItemProps) {
+  async function onDel(row?: RoleUpdateParam) {
     loading.value = true;
     function chores() {
       message(`您删除了角色名称为${row.Name}的这条数据`, {
@@ -117,8 +111,8 @@ export function useRole(treeRef: Ref) {
       ///   onSearch(); // 刷新表格数据
     }
 
-    const { code } = await DelRole(toRaw(row));
-    if (code === 0) {
+    const { Code } = await api.api.post_System_DelRole(toRaw(row));
+    if (Code === 0) {
       chores();
     } else {
       chores();
@@ -149,7 +143,7 @@ export function useRole(treeRef: Ref) {
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
         const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
+        const curData = options.props.formInline as RoleUpdateParam;
         function chores() {
           message(`您${title}了角色名称为${curData.Name}的这条数据`, {
             type: "success"
@@ -169,12 +163,12 @@ export function useRole(treeRef: Ref) {
             console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
-              UpdateRolePage(toRaw(curData)).then(({ res2 }) => {
+              api.api.post_System_UpdateRole(toRaw(curData)).then(res2 => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });
             } else {
-              UpdateRolePage(toRaw(curData)).then(({ res2 }) => {
+              api.api.post_System_UpdateRole(toRaw(curData)).then(res2 => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });
@@ -191,10 +185,10 @@ export function useRole(treeRef: Ref) {
     if (id) {
       curRow.value = row;
       isShow.value = true;
-      const { code, data } = await getRoleMenuIds({ id });
-      if (code === 0) {
-        treeRef.value.setCheckedKeys(data);
-      }
+      // const { code, data } = await getRoleMenuIds({ id });
+      // if (code === 0) {
+      //   treeRef.value.setCheckedKeys(data);
+      // }
     } else {
       curRow.value = null;
       isShow.value = false;

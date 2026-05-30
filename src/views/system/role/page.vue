@@ -96,9 +96,9 @@ onMounted(() => {
       :model="form"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item label="角色名称:" prop="name">
+      <el-form-item label="角色名称:" prop="Name">
         <el-input
-          v-model="form.name"
+          v-model="form.Name"
           placeholder="请输入角色名称"
           clearable
           class="w-45!"
@@ -177,7 +177,7 @@ onMounted(() => {
               </el-button>
               <el-popconfirm
                 :key="row.RoleID"
-                :title="`是否确认删除角色名称为${row.name}的这条数据`"
+                :title="`是否确认删除角色名称为${row.Name}的这条数据`"
                 @confirm="handleDelete(row)"
               >
                 <template #reference>
