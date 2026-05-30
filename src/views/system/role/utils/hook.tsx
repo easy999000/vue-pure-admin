@@ -1,14 +1,10 @@
-import dayjs from "dayjs";
 import editForm from "../form.vue";
-import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { ElMessageBox } from "element-plus";
-import { usePublicHooks } from "../../hooks";
 import { transformI18n } from "@/plugins/i18n";
 import { addDialog } from "@/components/ReDialog";
 import type { FormItemProps } from "../utils/types";
 import type { PaginationProps } from "@pureadmin/table";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import { deviceDetection } from "@pureadmin/utils";
 
 import {
   api,
@@ -28,10 +24,8 @@ export function useRole(treeRef: Ref) {
   const loading = ref(true);
   const isLinkage = ref(false);
   const treeSearchValue = ref();
-  const switchLoadMap = ref({});
   const isExpandAll = ref(false);
   const isSelectAll = ref(false);
-  const { switchStyle } = usePublicHooks();
   const treeProps = {
     value: "id",
     label: "title",
@@ -163,12 +157,12 @@ export function useRole(treeRef: Ref) {
             console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
-              api.api.post_System_UpdateRole(toRaw(curData)).then(res2 => {
+              api.api.post_System_UpdateRole(toRaw(curData)).then(_ => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });
             } else {
-              api.api.post_System_UpdateRole(toRaw(curData)).then(res2 => {
+              api.api.post_System_UpdateRole(toRaw(curData)).then(_ => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });

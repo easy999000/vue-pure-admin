@@ -1,14 +1,12 @@
 import dayjs from "dayjs";
 import editForm from "../form.vue";
-import { handleTree } from "@/utils/tree";
 import { message } from "@/utils/message";
-import { getDeptList, getDeptPage, UpdateDept } from "@/api/system";
-import { usePublicHooks } from "../../hooks";
 import { addDialog } from "@/components/ReDialog";
-import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
+import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { FormItemProps } from "../utils/types";
-import { cloneDeep, isAllEmpty, deviceDetection } from "@pureadmin/utils";
+import { cloneDeep, deviceDetection } from "@pureadmin/utils";
 import type { PaginationProps } from "@pureadmin/table";
+import { api } from "@/api";
 
 export function useDept() {
   const form = reactive({
@@ -25,7 +23,6 @@ export function useDept() {
   const formRef = ref();
   const dataList = ref([]);
   const loading = ref(true);
-  const { tagStyle } = usePublicHooks();
 
   const columns: TableColumnList = [
     {
@@ -59,12 +56,14 @@ export function useDept() {
 
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getDeptPage(toRaw(form));
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.PageCount;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    const { Code, Data } = await api.api.get_System_GetDepartmentPage(
+      toRaw(form)
+    );
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.PageCount;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {
@@ -124,12 +123,12 @@ export function useDept() {
             console.log("curData", curData);
             // 表单规则校验通过
             if (title === "新增") {
-              UpdateDept(toRaw(curData)).then(({ res2 }) => {
+              api.api.post_System_UpdateDepartment(toRaw(curData)).then(() => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });
             } else {
-              UpdateDept(toRaw(curData)).then(({ res2 }) => {
+              api.api.post_System_UpdateDepartment(toRaw(curData)).then(() => {
                 // 实际开发先调用修改接口，再进行下面操作
                 chores();
               });
