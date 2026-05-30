@@ -7,14 +7,7 @@ import {
   PlusForm
 } from "plus-pro-components";
 import ItemList from "@/views/components/item-list.vue";
-import { getAccountProjectList } from "@/api/project";
-import { getAccountSelectList } from "@/api/account";
-import {
-  getEnquiryGroupPage,
-  updateEnquiryGroup,
-  delEnquiryGroupByID,
-  GetEnquiryGroupByID
-} from "@/api/enquiry";
+
 import { fa } from "element-plus/es/locale/index.mjs";
 import { api } from "@/api";
 import { number } from "echarts";
@@ -60,7 +53,7 @@ const state = ref<FieldValues>({
 // 模拟一个从后端获取下拉数据的API
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getAccountSelectList();
+  const selectRes = await api.api.get_Account1_GetAccountSelectList();
   var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID
@@ -109,7 +102,7 @@ const columns: PlusColumn[] = [
       const items = (value as any[]) || [];
       return (
         <ItemList
-          title="子表格"
+          title=""
           data={items}
           columns={subTableColumns}
           onSelection-change={rows => console.log("子表格选中行：", rows)}

@@ -3,7 +3,7 @@ import { ref, useAttrs, computed, reactive } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { getMaterialInfoPage } from "@/api/material";
+import { api } from "@/api";
 import {
   type PlusColumn,
   type FieldValues,
@@ -74,13 +74,13 @@ const loadData = async () => {
   loading.value = true;
   try {
     // 假设 getTableData 是你的 API 请求函数
-    const { code, data } = await getMaterialInfoPage({});
+    const { Code, Data } = await api.api.get_Material_GetMaterialInfoPage({});
 
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.Count;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.Count;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
   } catch (error) {
     console.error("数据加载失败:", error);

@@ -44,7 +44,7 @@ export function useHook() {
     onSearch();
   };
   function handleDelete(row) {
-    onDel(row).then(res => {
+    onDel(row).then(_res => {
       onSearch();
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
@@ -126,7 +126,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
+        const _FormRef = formRef.value.getRef();
         const curData = options.props.formInline as UpdateEnquiryGroupDTO;
         function chores() {
           message(`您${title}了任务名称为${curData.Name}的这条数据`, {
@@ -139,12 +139,12 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(res2 => {
+          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(() => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
         } else {
-          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(res2 => {
+          api.api.post_Enquiry_UpdateEnquiryGroup(toRaw(curData)).then(() => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });

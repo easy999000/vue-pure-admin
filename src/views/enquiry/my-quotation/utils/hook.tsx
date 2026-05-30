@@ -1,18 +1,11 @@
-﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
+﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
-import { getPhasePage, updatePhase, delPhase } from "@/api/project";
-import { api, EnquiryInfoDTO } from "@/api";
-import {
-  getEnquiryGroupPage,
-  updateEnquiryGroup,
-  delEnquiryGroupByID,
-  GetEnquiryGroupByID
-} from "@/api/enquiry";
-import type { FormItemProps } from "./types";
+import { api, type EnquiryGroupPageParam, type EnquiryInfoDTO } from "@/api";
+
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
   const searchForm = reactive({
     Name: "",
@@ -67,26 +60,29 @@ export function useHook() {
     onSearch();
   };
   function handleDelete(row) {
-    onDel(row).then(res => {
+    onDel(row).then(_res => {
       onSearch();
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
   }
-  async function onDel(row?: FormItemProps) {
+  async function onDel(row?: EnquiryGroupPageParam) {
     loading.value = true;
     function chores() {
-      message(`您删除了${pageName.value}名称为${row.Title}的这条数据`, {
+      message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
         type: "success"
       });
       ///   onSearch(); // 刷新表格数据
     }
 
-    const res = await delEnquiryGroupByID(toRaw(row));
-    if (res.Code === 0) {
-      chores();
-    } else {
-      message(`删除失败，${res.Message}`, { type: "error" });
-    }
+    await api.api
+      .post_Enquiry_DelEnquiryGroupByID(toRaw(row))
+      .then(res => {
+        chores();
+        return res;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   }
   /** 高亮当前权限选中行 */
   function rowStyle({ row: { id } }) {
@@ -134,7 +130,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: EnquiryInfoDTO) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -150,7 +146,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
+        const _FormRef = formRef.value.getRef();
         const curData = options.props.formInline as EnquiryInfoDTO;
         function chores() {
           message(`您${title}了任务名称为${curData.Title}的这条数据`, {
@@ -163,19 +159,15 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          api.api
-            .post_Enquiry_QuotationUpdate(toRaw(curData))
-            .then(({ res2 }) => {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
-            });
+          api.api.post_Enquiry_QuotationUpdate(toRaw(curData)).then(() => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
         } else {
-          api.api
-            .post_Enquiry_QuotationUpdate(toRaw(curData))
-            .then(({ res2 }) => {
-              // 实际开发先调用修改接口，再进行下面操作
-              chores();
-            });
+          api.api.post_Enquiry_QuotationUpdate(toRaw(curData)).then(() => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
         }
       }
     });

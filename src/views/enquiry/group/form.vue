@@ -6,9 +6,6 @@ import {
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
-import { getAccountProjectList } from "@/api/project";
-import { getAccountSelectList } from "@/api/account";
-
 import {
   api,
   type UpdateEnquiryGroupDTO,
@@ -56,7 +53,7 @@ const state = ref<FieldValues>({
 // 模拟一个从后端获取下拉数据的API
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getAccountSelectList();
+  const selectRes = await api.api.get_Account1_GetAccountSelectList();
   var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID

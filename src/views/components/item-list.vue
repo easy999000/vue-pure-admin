@@ -60,7 +60,7 @@ defineExpose({
    * 刷新表格数据
    */
   refresh: () => {
-    console.log("表格刷新");
+    //  console.log("表格刷新");
     // 若需结合 requestApi 实现自动刷新，请在此处调用请求逻辑
   }
 });
@@ -101,7 +101,8 @@ function onDel(row: any, index: number) {
     :title="title"
     :columns="columns"
     :tableRef="tableRef"
-    v-bind="tableBarAttrs"
+    v-bind="$attrs"
+    v-bind:tableBarAttrs="tableBarAttrs"
   >
     <template #buttons />
     <template v-slot="{ size, dynamicColumns }">
@@ -113,9 +114,7 @@ function onDel(row: any, index: number) {
         showOverflowTooltip
         table-layout="auto"
         :size="size"
-        adaptive
         :row-style="rowStyle"
-        :adaptiveConfig="{ offsetBottom: 108 }"
         :data="data"
         :columns="dynamicColumns || columns"
         v-bind="$attrs"
