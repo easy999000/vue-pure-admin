@@ -1,19 +1,17 @@
-﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
+﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
-import { getPhasePage, updatePhase, delPhase } from "@/api/project";
+import {
+  api,
+  type GetProjectGetProjectPhasePageParams,
+  type Projectphase
+} from "@/api";
 import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm = reactive({
-    Name: "",
-    ID: "",
-    Code: "",
-    PhaseID: "",
-    ProjectID: ""
-  });
+  const searchForm: GetProjectGetProjectPhasePageParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -51,12 +49,12 @@ export function useHook() {
     onSearch();
   };
   function handleDelete(row) {
-    onDel(row).then(res => {
+    onDel(row).then(_ => {
       onSearch();
     });
     /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
   }
-  async function onDel(row?: FormItemProps) {
+  async function onDel(row?: Projectphase) {
     loading.value = true;
     function chores() {
       message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
@@ -64,13 +62,15 @@ export function useHook() {
       });
       ///   onSearch(); // 刷新表格数据
     }
-
-    const res = await delPhase(toRaw(row));
-    if (res.code === 0) {
-      chores();
-    } else {
-      message(`删除失败，${res.message}`, { type: "error" });
-    }
+    await api.api
+      .post_Project_DelProjectPhaseByID(toRaw(row))
+      .then(res => {
+        chores();
+        return res;
+      })
+      .finally(() => {
+        loading.value = false;
+      });
   }
   /** 高亮当前权限选中行 */
   function rowStyle({ row: { id } }) {
@@ -84,17 +84,17 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getPhasePage({
+    const { Code, Data } = await api.api.get_Project_GetProjectPhasePage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
       ...toRaw(searchForm)
     });
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.Count;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.Count;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {
@@ -133,8 +133,8 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
+        const _FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as Projectphase;
         function chores() {
           message(`您${title}了任务名称为${curData.Name}的这条数据`, {
             type: "success"
@@ -146,12 +146,12 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
         if (title === "新增") {
-          updatePhase(toRaw(curData)).then(({ res2 }) => {
+          api.api.post_Project_UpdateProjectPhase(toRaw(curData)).then(() => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
         } else {
-          updatePhase(toRaw(curData)).then(({ res2 }) => {
+          api.api.post_Project_UpdateProjectPhase(toRaw(curData)).then(() => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
