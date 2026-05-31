@@ -1,25 +1,14 @@
-﻿import { type Ref, reactive, ref, onMounted, h, toRaw, watch } from "vue";
+﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
-import { getPhasePage, updatePhase, delPhase } from "@/api/project";
-import {
-  getEnquiryGroupPage,
-  updateEnquiryGroup,
-  delEnquiryGroupByID,
-  GetEnquiryGroupByID
-} from "@/api/enquiry";
+
+import { api, type GetEnquiryGetQuotationAssessPageParams } from "@/api";
 import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
-import { getKeyList, deviceDetection } from "@pureadmin/utils";
+import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm = reactive({
-    Name: "",
-    ID: "",
-    Code: "",
-    PhaseID: "",
-    ProjectID: ""
-  });
+  const searchForm: GetEnquiryGetQuotationAssessPageParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -33,8 +22,28 @@ export function useHook() {
   const pageName = ref("询价组");
   const columns: TableColumnList = [
     {
-      label: "名称",
-      prop: "Name"
+      label: "标题",
+      prop: "Title"
+    },
+    {
+      label: "项目",
+      prop: "ProjectName"
+    },
+    {
+      label: "审批角色",
+      prop: "ApprovalRoleName"
+    },
+    {
+      label: "报价截止时间",
+      prop: "EndTime"
+    },
+    {
+      label: "状态",
+      prop: "StatusName"
+    },
+    {
+      label: "创建时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -48,28 +57,7 @@ export function useHook() {
     formEl.resetFields();
     onSearch();
   };
-  function handleDelete(row) {
-    onDel(row).then(res => {
-      onSearch();
-    });
-    /// message(`您删除了角色名称为${row.name}的这条数据`, { type: "success" });
-  }
-  async function onDel(row?: FormItemProps) {
-    loading.value = true;
-    function chores() {
-      message(`您删除了${pageName.value}名称为${row.Name}的这条数据`, {
-        type: "success"
-      });
-      ///   onSearch(); // 刷新表格数据
-    }
 
-    const res = await delEnquiryGroupByID(toRaw(row));
-    if (res.code === 0) {
-      chores();
-    } else {
-      message(`删除失败，${res.message}`, { type: "error" });
-    }
-  }
   /** 高亮当前权限选中行 */
   function rowStyle({ row: { id } }) {
     return {
@@ -82,17 +70,17 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { code, data } = await getEnquiryGroupPage({
+    const { Code, Data } = await api.api.get_Enquiry_GetQuotationAssessPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
       ...toRaw(searchForm)
     });
-    if (code === 0) {
-      dataList.value = data.Data;
-      pagination.total = data.Count;
-      pagination.pageSize = data.PageSize;
-      pagination.currentPage = data.PageNumber;
+    if (Code === 0) {
+      dataList.value = Data.Data;
+      pagination.total = Data.Count;
+      pagination.pageSize = Data.PageSize;
+      pagination.currentPage = Data.PageNumber;
     }
 
     setTimeout(() => {
@@ -124,7 +112,7 @@ export function useHook() {
           higherDeptOptions: []
         }
       },
-      width: "40%",
+      width: "80%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
@@ -170,7 +158,6 @@ export function useHook() {
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange,
-    handleDelete,
     pageName,
     loading
   };

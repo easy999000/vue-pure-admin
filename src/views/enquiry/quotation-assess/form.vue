@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { ref } from "vue";
 import { FormProps } from "./utils/types";
 import {
@@ -6,14 +6,8 @@ import {
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
-import { getAccountProjectList } from "@/api/project";
-import { getAccountSelectList } from "@/api/account";
-import {
-  getEnquiryGroupPage,
-  updateEnquiryGroup,
-  delEnquiryGroupByID,
-  GetEnquiryGroupByID
-} from "@/api/enquiry";
+
+import { api, type GetEnquiryGetQuotationAssessPageParams } from "@/api";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
 });
@@ -28,8 +22,10 @@ const loadData = async () => {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数
-      const res = await GetEnquiryGroupByID({ ID: newFormInline?.value?.ID });
-      Object.assign(newFormInline.value, res.data);
+      const res = await api.api.get_Enquiry_GetQuotationAssessByID({
+        ID: Number(newFormInline?.value?.ID)
+      });
+      Object.assign(newFormInline.value, res.Data);
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -53,8 +49,8 @@ const state = ref<FieldValues>({
 // 模拟一个从后端获取下拉数据的API
 const getAccountSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await getAccountSelectList();
-  var res = selectRes.data.map(item => ({
+  const selectRes = await api.api.get_Account1_GetAccountSelectList();
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.AccountID
   }));
@@ -64,22 +60,53 @@ const getAccountSelect = async (): Promise<any[]> => {
 
 const columns: PlusColumn[] = [
   {
-    label: "名称",
-    prop: "Name",
+    label: "标题",
+    prop: "Title",
     valueType: "input"
   },
   {
-    prop: "EnquiryGroupAccount",
-    label: "分组人员",
-    // 1. 指定组件类型
-    valueType: "checkbox",
-    // 2. 动态加载选项
-    options: getAccountSelect(),
-    fieldProps: {
-      // 3. 可根据条件禁用整个复选框组 (e.g., { disabled: true })
+    label: "项目",
+    prop: "ProjectName",
+    valueType: "input"
+  },
+  {
+    label: "状态",
+    prop: "StatusName",
+    valueType: "input"
+  },
+  {
+    label: "截止时间",
+    prop: "EndTime",
+    valueType: "input"
+  },
+  {
+    label: "提前截至",
+    prop: "Status",
+    renderField: (value, onChange, row) => {
+      return <el-button color="#0055ff">停止报价</el-button>;
+    }
+  },
+  {
+    label: "审批列表",
+    prop: "Items",
+    renderField: (value, onChange, row) => {
+      console.log({ title: "renderField5555", value, onChange, row });
+      return <pure-table data={value} columns={columns2} />;
     }
   }
 ];
+
+const columns2: TableColumnList = [
+  {
+    label: "询价信息",
+    prop: "Code"
+  },
+  {
+    label: "对比报价",
+    prop: "Name"
+  }
+];
+
 function getRef() {
   console.log({ title: "getRef", newFormInline });
   return ruleFormRef.value;
@@ -92,7 +119,7 @@ defineExpose({ getRef });
     <PlusForm
       ref="ruleFormRef"
       v-model="newFormInline"
-      class="w-112.5 m-auto"
+      class="w-full m-auto"
       :columns="columns"
       label-position="right"
       :has-footer="false"
