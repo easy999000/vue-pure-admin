@@ -6,7 +6,7 @@ import {
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
-
+import EnquiryForm from "./enquiry-form.vue";
 import { api, type GetEnquiryGetQuotationAssessPageParams } from "@/api";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
@@ -98,7 +98,10 @@ const columns: PlusColumn[] = [
 const columns2: TableColumnList = [
   {
     label: "询价信息",
-    prop: "Code"
+    prop: "Code",
+    cellRenderer: value => {
+      return <EnquiryForm />;
+    }
   },
   {
     label: "对比报价",
