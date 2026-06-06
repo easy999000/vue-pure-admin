@@ -90,7 +90,6 @@ const columns: PlusColumn[] = [
     label: "审批列表",
     prop: "Items",
     renderField: (value, onChange, row) => {
-      console.log({ title: "renderField5555", value, onChange, row });
       return <pure-table data={value} columns={columns2} />;
     }
   }
