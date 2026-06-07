@@ -11,9 +11,9 @@
 <script setup lang="tsx">
 import { ref, watch } from "vue";
 import { type PlusColumn, PlusForm } from "plus-pro-components";
-import type { Enquiryinfo } from "@/api";
+import type { EnquiryItemsDTO } from "@/api";
 
-const props = defineProps<{ formData: Partial<Enquiryinfo> }>();
+const props = defineProps<{ formData: Partial<EnquiryItemsDTO> }>();
 
 const newFormInline = ref({ ...props.formData });
 
@@ -25,27 +25,40 @@ watch(
   { deep: true }
 );
 
-console.log({ title: "enquiry-form", newFormInline });
-
 const columns: PlusColumn[] = [
   {
-    label: "标题",
-    prop: "Title",
+    label: "编码",
+    prop: "Code",
     valueType: "text"
   },
   {
-    label: "项目",
-    prop: "ProjectName",
+    label: "名称",
+    prop: "Name",
     valueType: "text"
   },
   {
-    label: "状态",
-    prop: "StatusName",
+    label: "规格",
+    prop: "Specifications",
     valueType: "text"
   },
   {
-    label: "截止时间",
-    prop: "EndTime",
+    label: "单位",
+    prop: "Unit",
+    valueType: "text"
+  },
+  {
+    label: "物料类型",
+    prop: "TypeStr",
+    valueType: "text"
+  },
+  {
+    label: "数量",
+    prop: "Quantity",
+    valueType: "text"
+  },
+  {
+    label: "备注",
+    prop: "Notes",
     valueType: "text"
   }
 ];

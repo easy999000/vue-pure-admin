@@ -1,8 +1,12 @@
 ﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 
-import { api, type GetEnquiryGetQuotationAssessPageParams } from "@/api";
-import type { FormItemProps } from "./types";
+import {
+  api,
+  type GetEnquiryGetQuotationAssessPageParams,
+  type Enquiryinfo,
+  type QuotationAssessDTO
+} from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
@@ -103,7 +107,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: Enquiryinfo) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -119,10 +123,10 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as FormItemProps;
+        const _FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as QuotationAssessDTO;
         function chores() {
-          message(`您${title}了任务名称为${curData.Name}的这条数据`, {
+          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框

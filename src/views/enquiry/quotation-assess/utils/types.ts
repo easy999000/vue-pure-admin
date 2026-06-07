@@ -1,9 +1,9 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
-import type { Enquiryinfo } from "@/api";
+import type { QuotationAssessDTO } from "@/api";
 
 interface FormProps {
-  formInline: Partial<Enquiryinfo>;
+  formInline: Partial<QuotationAssessDTO>;
 }
 
-export type { Enquiryinfo, FormProps };
+export type { QuotationAssessDTO, FormProps };

@@ -8,6 +8,7 @@ import {
 } from "plus-pro-components";
 import EnquiryForm from "./enquiry-form.vue";
 import { api, type GetEnquiryGetQuotationAssessPageParams } from "@/api";
+import QuotationForm from "./quotation-form.vue";
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
 });
@@ -90,10 +91,13 @@ const columns: PlusColumn[] = [
     label: "审批列表",
     prop: "Items",
     renderField: (value, onChange, row) => {
+      console.log("renderField", { value, row });
       return (
         <pure-table
           data={Array.isArray(value) ? value : []}
           columns={columns2}
+          stripe
+          border
         />
       );
     }
@@ -104,19 +108,21 @@ const columns2: TableColumnList = [
   {
     label: "询价信息",
     prop: "Code",
-    width: 400,
+    width: 300,
     cellRenderer: data => {
-      return <EnquiryForm formData={newFormInline.value} />;
+      return <EnquiryForm formData={data.row} />;
     }
   },
   {
     label: "对比报价",
-    prop: "Name"
+    prop: "Name",
+    cellRenderer: data => {
+      return <QuotationForm formData={data.row} />;
+    }
   }
 ];
 
 function getRef() {
-  console.log({ title: "getRef", newFormInline });
   return ruleFormRef.value;
 }
 defineExpose({ getRef });
