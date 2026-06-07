@@ -114,8 +114,10 @@ const columns2: TableColumnList = [
     }
   },
   {
-    label: "对比报价",
+        label: "对比报价",
     prop: "Name",
+    align: "left",
+    className: "cell-align-top",
     cellRenderer: data => {
       return <QuotationForm formData={data.row} />;
     }
@@ -140,3 +142,9 @@ defineExpose({ getRef });
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+:deep(.cell-align-top) {
+  vertical-align: top;
+}
+</style>
