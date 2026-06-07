@@ -90,7 +90,12 @@ const columns: PlusColumn[] = [
     label: "审批列表",
     prop: "Items",
     renderField: (value, onChange, row) => {
-      return <pure-table data={value} columns={columns2} />;
+      return (
+        <pure-table
+          data={Array.isArray(value) ? value : []}
+          columns={columns2}
+        />
+      );
     }
   }
 ];
@@ -99,8 +104,9 @@ const columns2: TableColumnList = [
   {
     label: "询价信息",
     prop: "Code",
-    cellRenderer: value => {
-      return <EnquiryForm />;
+    width: 400,
+    cellRenderer: data => {
+      return <EnquiryForm formData={newFormInline.value} />;
     }
   },
   {
