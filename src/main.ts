@@ -26,6 +26,14 @@ import "./assets/iconfont/iconfont.css";
 
 const app = createApp(App);
 
+// 抑制 vue-tippy 在动态元素上 onUnmounted 的误报警告
+app.config.warnHandler = (msg: string) => {
+  if (msg.includes("onUnmounted is called when there is no active component instance")) {
+    return;
+  }
+  console.warn(msg);
+};
+
 // 自定义指令
 import * as directives from "@/directives";
 Object.keys(directives).forEach(key => {
