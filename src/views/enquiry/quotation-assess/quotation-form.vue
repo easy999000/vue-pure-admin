@@ -1,8 +1,8 @@
-﻿<template>
+<template>
   <div>
     <pure-table
-      data="newFormInline.QuotationItemList"
-      columns="tabColumns"
+      :data="newFormInline.QuotationItemList"
+      :columns="tabColumns"
       stripe
       border
     />
@@ -29,12 +29,40 @@ console.log({ title: "quotation-form", newFormInline });
 
 const tabColumns: TableColumnList = [
   {
-    label: "询价信息",
+    label: "选择",
     prop: "Code"
   },
   {
-    label: "对比报价",
-    prop: "Name"
+    label: "报价单价",
+    prop: "UnitPrice"
+  },
+  {
+    label: "税率",
+    prop: "Taxrate"
+  },
+  {
+    label: "运费单价",
+    prop: "Freight"
+  },
+  {
+    label: "合计",
+    prop: "TotalAmount"
+  },
+  {
+    label: "报价人",
+    prop: "AccountName"
+  },
+  {
+    label: "联系人",
+    prop: "Contact"
+  },
+  {
+    label: "联系人电话",
+    prop: "Telephone"
+  },
+  {
+    label: "审批备注",
+    prop: "AssessNotes"
   }
 ];
 </script>
