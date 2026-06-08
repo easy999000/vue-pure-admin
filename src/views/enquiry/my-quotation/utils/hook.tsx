@@ -94,9 +94,10 @@ export function useHook() {
   onMounted(async () => {
     onSearch();
   });
+  //GetMyQuotationPage
   async function onSearch() {
     loading.value = true;
-    const { Code, Data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
+    const { Code, Data } = await api.api.get_Enquiry_GetMyQuotationPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,

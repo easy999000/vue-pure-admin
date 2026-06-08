@@ -30,7 +30,8 @@ console.log({ title: "quotation-form", newFormInline });
 const tabColumns: TableColumnList = [
   {
     label: "选择",
-    prop: "Code"
+    prop: "Code",
+    type: "selection"
   },
   {
     label: "报价单价",
