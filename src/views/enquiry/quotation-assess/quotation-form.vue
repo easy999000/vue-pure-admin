@@ -31,7 +31,22 @@ const tabColumns: TableColumnList = [
   {
     label: "选择",
     prop: "Code",
-    type: "selection"
+    cellRenderer: ({ row }) => (
+      <ElCheckbox
+        modelValue={row.Check}
+        onChange={(val: boolean) => {
+          if (val) {
+            const list = newFormInline.value.QuotationItemList || [];
+            list.forEach((item: any) => {
+              item.Check = false;
+            });
+            row.Check = true;
+          } else {
+            row.Check = false;
+          }
+        }}
+      />
+    )
   },
   {
     label: "报价单价",
