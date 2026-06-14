@@ -143,13 +143,14 @@ export function useHook() {
 
         console.log({ title: "curData", updateParam, curData });
         // 表单规则校验通过
-
-        api.api
-          .post_Enquiry_QuotationAssessUpdate(toRaw(updateParam))
-          .then(({}) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
+        if (updateParam) {
+          api.api
+            .post_Enquiry_QuotationAssessUpdate(toRaw(updateParam))
+            .then(({}) => {
+              // 实际开发先调用修改接口，再进行下面操作
+              chores();
+            });
+        }
       }
     });
   }
@@ -173,7 +174,7 @@ export function useHook() {
           customClass: "el",
           type: "error"
         });
-        return null;
+        return undefined;
       } else {
         updateParam.items.push(selectQuotationAssessDTO);
       }
