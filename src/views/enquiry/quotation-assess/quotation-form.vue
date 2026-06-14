@@ -15,9 +15,13 @@ import { type PlusColumn, PlusForm } from "plus-pro-components";
 import type { EnquiryItemsDTO } from "@/api";
 import { ElCheckbox } from "element-plus";
 
-const props = defineProps<{ formData: Partial<EnquiryItemsDTO> }>();
+const props = defineProps<{
+  formData: Partial<EnquiryItemsDTO>;
+  isCheck: boolean;
+}>();
 
 const newFormInline = ref({ ...props.formData });
+const isCheck = ref(props.isCheck);
 
 watch(
   () => props.formData,
@@ -27,7 +31,7 @@ watch(
   { deep: true }
 );
 
-console.log({ title: "quotation-form", newFormInline });
+console.log({ title: "quotation-form", newFormInline, isCheck });
 
 function rowClassName({ row }: { row: any }) {
   return row.Check ? "checked-row" : "";

@@ -161,7 +161,9 @@ const columns2: TableColumnList = [
     align: "left",
     className: "cell-align-top",
     cellRenderer: data => {
-      return <QuotationForm formData={data.row} />;
+      var isCheck = newFormInline.value?.ApprovalRecordList?.length > 0;
+
+      return <QuotationForm formData={data.row} isCheck={isCheck} />;
     }
   }
 ];
