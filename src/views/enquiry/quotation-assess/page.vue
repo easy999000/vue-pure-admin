@@ -157,7 +157,7 @@ onMounted(() => {
                 :icon="useRenderIcon(EditPen)"
                 @click="openDialog('评估', row)"
               >
-                修改
+                审批
               </el-button>
             </template>
           </pure-table>

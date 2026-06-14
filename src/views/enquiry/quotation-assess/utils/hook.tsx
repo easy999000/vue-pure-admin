@@ -7,7 +7,6 @@ import {
   type Enquiryinfo,
   type QuotationAssessDTO,
   type QuotationAssessUpdateParam,
-  type EnquiryinfoPageResultResult,
   type EnquiryItemsDTO,
   type Quotationitem
 } from "@/api";

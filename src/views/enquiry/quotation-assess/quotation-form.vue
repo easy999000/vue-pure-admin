@@ -3,6 +3,7 @@
     <pure-table
       :data="newFormInline.QuotationItemList"
       :columns="tabColumns"
+      :row-class-name="rowClassName"
       stripe
       border
     />
@@ -12,6 +13,7 @@
 import { ref, watch } from "vue";
 import { type PlusColumn, PlusForm } from "plus-pro-components";
 import type { EnquiryItemsDTO } from "@/api";
+import { ElCheckbox } from "element-plus";
 
 const props = defineProps<{ formData: Partial<EnquiryItemsDTO> }>();
 
@@ -27,6 +29,10 @@ watch(
 
 console.log({ title: "quotation-form", newFormInline });
 
+function rowClassName({ row }: { row: any }) {
+  return row.Check ? "checked-row" : "";
+}
+
 const tabColumns: TableColumnList = [
   {
     label: "选择",
@@ -35,15 +41,14 @@ const tabColumns: TableColumnList = [
       <ElCheckbox
         modelValue={row.Check}
         onChange={(val: boolean) => {
+          const list = newFormInline.value.QuotationItemList || [];
+          list.forEach((item: any) => {
+            item.Check = false;
+          });
           if (val) {
-            const list = newFormInline.value.QuotationItemList || [];
-            list.forEach((item: any) => {
-              item.Check = false;
-            });
             row.Check = true;
-          } else {
-            row.Check = false;
           }
+          newFormInline.value.QuotationItemList = [...list];
         }}
       />
     )
@@ -83,3 +88,11 @@ const tabColumns: TableColumnList = [
   }
 ];
 </script>
+
+<style lang="scss" scoped>
+:deep(.checked-row > td) {
+  background-color: var(--el-color-success-light-8) !important;
+  font-weight: 700;
+  color: var(--el-color-success-dark-2);
+}
+</style>
