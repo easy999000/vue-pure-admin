@@ -1,5 +1,6 @@
 <script setup lang="tsx">
 import { ref } from "vue";
+import { ElMessageBox, ElMessage } from "element-plus";
 import { FormProps } from "./utils/types";
 import {
   type PlusColumn,
@@ -17,6 +18,32 @@ const ruleFormRef = ref();
 const newFormInline = ref(props.formInline);
 
 const loading = ref(true);
+
+const stopQuotationLoading = ref(false);
+
+const handleStopQuotation = async (row: any) => {
+  try {
+    await ElMessageBox.confirm("确定要停止报价吗？停止后供应商将无法继续提交报价。", "提示", {
+      confirmButtonText: "确定",
+      cancelButtonText: "取消",
+      type: "warning"
+    });
+  } catch {
+    return;
+  }
+
+  stopQuotationLoading.value = true;
+  try {
+    await api.api.post_Enquiry_EndQuotation({
+      ID: Number(newFormInline?.value?.ID)
+    });
+    ElMessage.success("停止报价成功");
+  } catch (error) {
+    console.error("停止报价失败:", error);
+  } finally {
+    stopQuotationLoading.value = false;
+  }
+};
 
 const loadData = async () => {
   if (newFormInline?.value?.ID) {
@@ -84,7 +111,15 @@ const columns: PlusColumn[] = [
     label: "提前截至",
     prop: "Status",
     renderField: (value, onChange, row) => {
-      return <el-button color="#0055ff">停止报价</el-button>;
+      return (
+        <el-button
+          color="#0055ff"
+          loading={stopQuotationLoading.value}
+          onClick={() => handleStopQuotation(row)}
+        >
+          停止报价
+        </el-button>
+      );
     }
   },
   {
