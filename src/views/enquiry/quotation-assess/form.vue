@@ -114,7 +114,7 @@ const columns2: TableColumnList = [
     }
   },
   {
-        label: "对比报价",
+    label: "对比报价",
     prop: "Name",
     align: "left",
     className: "cell-align-top",

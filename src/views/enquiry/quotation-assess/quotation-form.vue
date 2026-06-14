@@ -78,7 +78,8 @@ const tabColumns: TableColumnList = [
   },
   {
     label: "审批备注",
-    prop: "AssessNotes"
+    prop: "AssessNotes",
+    cellRenderer: ({ row }) => <el-input v-model={row.AssessNotes} />
   }
 ];
 </script>

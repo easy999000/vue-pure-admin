@@ -5,7 +5,11 @@ import {
   api,
   type GetEnquiryGetQuotationAssessPageParams,
   type Enquiryinfo,
-  type QuotationAssessDTO
+  type QuotationAssessDTO,
+  type QuotationAssessUpdateParam,
+  type EnquiryinfoPageResultResult,
+  type EnquiryItemsDTO,
+  type Quotationitem
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
@@ -125,6 +129,9 @@ export function useHook() {
       beforeSure: (done, { options }) => {
         const _FormRef = formRef.value.getRef();
         const curData = options.props.formInline as QuotationAssessDTO;
+        // const updateParam: QuotationAssessUpdateParam = {
+        //   ID: curData.ID
+        // };
         function chores() {
           message(`您${title}了任务名称为${curData.Title}的这条数据`, {
             type: "success"
@@ -132,23 +139,63 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
+        const updateParam: QuotationAssessUpdateParam =
+          MakeRequestParam(curData);
 
-        console.log("curData", curData);
+        console.log({ title: "curData", updateParam, curData });
         // 表单规则校验通过
-        if (title === "新增") {
-          updateEnquiryGroup(toRaw(curData)).then(({ res2 }) => {
+
+        api.api
+          .post_Enquiry_QuotationAssessUpdate(toRaw(updateParam))
+          .then(({}) => {
             // 实际开发先调用修改接口，再进行下面操作
             chores();
           });
-        } else {
-          updateEnquiryGroup(toRaw(curData)).then(({ res2 }) => {
-            // 实际开发先调用修改接口，再进行下面操作
-            chores();
-          });
-        }
       }
     });
   }
+  function MakeRequestParam(curData: QuotationAssessDTO) {
+    const updateParam: QuotationAssessUpdateParam = {
+      ID: curData.ID,
+      items: []
+    };
+    for (const n of curData.Items) {
+      const selectQuotationAssessDTO = MakeSelectQuotationAssessDTO(n);
+      console.log({
+        title: "selectQuotationAssessDTO",
+        selectQuotationAssessDTO
+      });
+      if (!selectQuotationAssessDTO) {
+        console.log({
+          title: "selectQuotationAssessDTO3333",
+          selectQuotationAssessDTO
+        });
+        message(`部分询价没有选择有效的报价结果`, {
+          customClass: "el",
+          type: "error"
+        });
+        return null;
+      } else {
+        updateParam.items.push(selectQuotationAssessDTO);
+      }
+    }
+
+    return updateParam;
+  }
+  function MakeSelectQuotationAssessDTO(EnquiryInfo: EnquiryItemsDTO) {
+    // ✅ 正确方式
+    for (const n of EnquiryInfo.QuotationItemList) {
+      if (n.Check == true) {
+        const item: Quotationitem = {
+          ID: n.ID,
+          AssessNotes: n.AssessNotes
+        };
+        return item; // 直接返回满足条件的对象
+      } // 如果没有满足条件的对象，返回 null 或其他适当的值
+    }
+    return null;
+  }
+
   return {
     searchForm,
     onSearch,
