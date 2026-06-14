@@ -31,6 +31,13 @@ watch(
   { deep: true }
 );
 
+watch(
+  () => props.isCheck,
+  val => {
+    isCheck.value = val;
+  }
+);
+
 console.log({ title: "quotation-form", newFormInline, isCheck });
 
 function rowClassName({ row }: { row: any }) {
@@ -40,10 +47,11 @@ function rowClassName({ row }: { row: any }) {
 const tabColumns: TableColumnList = [
   {
     label: "选择",
-    prop: "Code",
+    prop: "ID",
     cellRenderer: ({ row }) => (
       <ElCheckbox
         modelValue={row.Check}
+        disabled={isCheck.value}
         onChange={(val: boolean) => {
           const list = newFormInline.value.QuotationItemList || [];
           list.forEach((item: any) => {
@@ -88,7 +96,9 @@ const tabColumns: TableColumnList = [
   {
     label: "审批备注",
     prop: "AssessNotes",
-    cellRenderer: ({ row }) => <el-input v-model={row.AssessNotes} />
+    cellRenderer: ({ row }) => (
+      <el-input v-model={row.AssessNotes} disabled={isCheck.value} />
+    )
   }
 ];
 </script>
