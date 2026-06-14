@@ -35,7 +35,7 @@ export function useHook() {
     },
     {
       label: "项目",
-      prop: "ProjectName"
+      prop: "ProjectName2"
     },
     {
       label: "审批角色",

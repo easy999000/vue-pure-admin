@@ -23,11 +23,15 @@ const stopQuotationLoading = ref(false);
 
 const handleStopQuotation = async (row: any) => {
   try {
-    await ElMessageBox.confirm("确定要停止报价吗？停止后供应商将无法继续提交报价。", "提示", {
-      confirmButtonText: "确定",
-      cancelButtonText: "取消",
-      type: "warning"
-    });
+    await ElMessageBox.confirm(
+      "确定要停止报价吗？停止后供应商将无法继续提交报价。",
+      "提示",
+      {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }
+    );
   } catch {
     return;
   }
@@ -111,6 +115,9 @@ const columns: PlusColumn[] = [
     label: "提前截至",
     prop: "Status",
     renderField: (value, onChange, row) => {
+      if (newFormInline.value?.Status !== 0) {
+        return null;
+      }
       return (
         <el-button
           color="#0055ff"
