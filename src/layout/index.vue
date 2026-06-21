@@ -30,6 +30,9 @@ import LayContent from "./components/lay-content/index.vue";
 import LaySetting from "./components/lay-setting/index.vue";
 import NavVertical from "./components/lay-sidebar/NavVertical.vue";
 import NavHorizontal from "./components/lay-sidebar/NavHorizontal.vue";
+import { http } from "@/utils/http";
+import { api } from "@/api";
+import { RePolling } from "@/components/RePolling";
 import BackTopIcon from "@/assets/svg/back_top.svg?component";
 
 const { t } = useI18n();
@@ -156,6 +159,14 @@ const LayHeader = defineComponent({
     );
   }
 });
+
+/** 轮询数据——替换为实际接口 */
+const pollingFetcher = async () => {
+  var param = {};
+  var res = await api.api.get_Common_GetSysMsgUnreadCount(param);
+
+  return res;
+};
 </script>
 
 <template>
@@ -198,6 +209,7 @@ const LayHeader = defineComponent({
         <LayContent :fixed-header="set.fixedHeader" />
       </el-scrollbar>
     </div>
+    <RePolling :fetcher="pollingFetcher" />
     <!-- 系统设置 -->
     <LaySetting />
   </div>

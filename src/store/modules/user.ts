@@ -77,18 +77,27 @@ export const useUserStore = defineStore("pure-user", {
     },
     /** 登入 */
     async loginByUsername(data) {
-      return new Promise<UserResult>((resolve, reject) => {
+      return new Promise<DataInfo<Date>>((resolve, reject) => {
         getLogin(data)
-          .then(data => {
-            console.log("login data ", data);
-            if (data.Code === 0) {
-              console.log("login data 22", data);
-              setToken(data.Data);
-              console.log("login data 33", data);
-              resolve(data);
-              console.log("login data 44", data);
+          .then(data2 => {
+            if (data2.Code === 0) {
+              const now: Date = new Date(); // 当前时间
+              const fiveHoursLater: Date = new Date(
+                now.getTime() + 10 * 60 * 60 * 1000
+              );
+
+              const tokeParam: DataInfo<Date> = {
+                username: data.account,
+                nickname: data.account,
+                accessToken: "",
+                expires: fiveHoursLater,
+                refreshToken: "",
+                roles: ["admin"]
+              };
+              setToken(tokeParam);
+              resolve(tokeParam);
             } else {
-              reject(data.Message);
+              reject(data2.Message);
             }
           })
           .catch(error => {

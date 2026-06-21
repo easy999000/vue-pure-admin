@@ -158,7 +158,6 @@ function addPathMatch() {
 
 /** 处理动态路由（后端返回的路由） */
 function handleAsyncRoutes(routeList) {
-  console.log({ title: "handleAsyncRoutes", routeList });
   if (routeList.length === 0) {
     usePermissionStoreHook().handleWholeMenus(routeList);
   } else {
@@ -235,12 +234,10 @@ function initRouter() {
       return api.api
         .get_System_GetAccountMenuTree()
         .then(({ Code, Data }) => {
-          console.log({ title: "getAsyncRoutes3333", Code, Data });
           if (Code === 0) {
-            console.log({ title: "getAsyncRoutes4444", Code, Data });
             const menuList = cloneDeep(Data);
             const formattedMenu = formatMenu(menuList);
-            console.log({ title: "getAsyncRoutes555", formattedMenu, Data });
+
             handleAsyncRoutes(formattedMenu);
             resolve(router);
           } else {
