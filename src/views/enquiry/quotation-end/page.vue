@@ -56,7 +56,6 @@ const {
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange,
-  handleDelete,
   pageName,
   loading
 } = useHook();
@@ -81,9 +80,9 @@ onMounted(() => {
       :model="searchForm"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item :label="pageName + '名称:'" prop="name">
+      <el-form-item :label="pageName + '名称:'" prop="Title">
         <el-input
-          v-model="searchForm.Name"
+          v-model="searchForm.Title"
           :placeholder="'请输入' + pageName + '名称'"
           clearable
           class="w-45!"
@@ -156,27 +155,10 @@ onMounted(() => {
                 type="primary"
                 :size="size"
                 :icon="useRenderIcon(EditPen)"
-                @click="openDialog('修改', row)"
+                @click="openDialog('详情', row)"
               >
-                修改
+                详情
               </el-button>
-              <el-popconfirm
-                :key="row.RoleID"
-                :title="`是否确认删除${pageName}名称为${row.name}的这条数据`"
-                @confirm="handleDelete(row)"
-              >
-                <template #reference>
-                  <el-button
-                    class="reset-margin"
-                    link
-                    type="primary"
-                    :size="size"
-                    :icon="useRenderIcon(Delete)"
-                  >
-                    删除
-                  </el-button>
-                </template>
-              </el-popconfirm>
             </template>
           </pure-table>
         </template>
