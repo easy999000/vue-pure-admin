@@ -33,7 +33,6 @@ const emit = defineEmits<{
 
 const userStore = useUserStoreHook();
 
-// MaxMsgId：sessionStorage 持久化，同会话刷新不丢失；登出时清零
 const SESSION_KEY = "RE_POLLING_MAX_MSG_ID";
 
 function loadMaxMsgId(): number {
@@ -51,7 +50,6 @@ function clearMaxMsgId() {
 
 const maxMsgId = ref(loadMaxMsgId());
 
-// 监听登录状态：登入时加载 MaxMsgId，登出时清零
 watch(
   () => userStore.username,
   username => {
@@ -78,11 +76,14 @@ function handleData(data: any) {
     saveMaxMsgId(msgId);
 
     ElNotification({
-      title: "消息提醒",
-      message: "有新的消息,请注意查收.",
-      type: "primary",
+      title: "🔔 新消息提醒",
+      message: "您有新的消息，请及时查看",
+      type: "warning",
       position: "bottom-right",
-      duration: 20000
+      duration: 20000,
+      dangerouslyUseHTMLString: true,
+      customClass: "re-polling-notify",
+      offset: 60
     });
 
     emit("newMsg", msgId);
@@ -109,3 +110,32 @@ defineExpose({ data, loading, error, execute, maxMsgId });
     :maxMsgId="maxMsgId"
   />
 </template>
+
+
+<style lang="scss">
+/* RePolling 消息通知 — 放大加粗更醒目 */
+.re-polling-notify {
+  width: 380px !important;
+  padding: 20px 24px !important;
+
+  .el-notification__title {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+  }
+
+  .el-notification__content {
+    margin-top: 8px;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: var(--el-color-warning-dark-2) !important;
+  }
+
+  .el-notification__icon {
+    font-size: 28px !important;
+  }
+
+  .el-notification__closeBtn {
+    font-size: 18px !important;
+  }
+}
+</style>
