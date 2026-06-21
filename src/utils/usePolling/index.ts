@@ -26,16 +26,11 @@ export function usePolling<T = unknown>(
 
   function isLoggedIn(): boolean {
     const token = getToken();
-    const hasToken = !!(token && token.accessToken);
-    const hasUsername = !!userStore.username;
-
-    return hasToken || hasUsername;
+    return !!(token?.accessToken) || !!userStore.username;
   }
 
   async function execute() {
-    if (!isLoggedIn()) {
-      return;
-    }
+    if (!isLoggedIn()) return;
     loading.value = true;
     error.value = null;
     try {
@@ -55,9 +50,7 @@ export function usePolling<T = unknown>(
   });
 
   function startPolling() {
-    if (!isLoggedIn()) {
-      return;
-    }
+    if (!isLoggedIn()) return;
     if (immediate) execute();
     resume();
   }
@@ -68,7 +61,7 @@ export function usePolling<T = unknown>(
     error.value = null;
   }
 
-  // 监听 username（响应式）
+  // 监听 username（Pinia 响应式）
   watch(
     () => userStore.username,
     username => {
@@ -81,15 +74,12 @@ export function usePolling<T = unknown>(
     { immediate: true }
   );
 
-  // 路由变化时重新检测
+  // 路由变化时重新检测（覆盖登入后跳转场景）
   watch(
     () => router.currentRoute.value.path,
-    (path, oldPath) => {
-      if (!isActive.value) {
-        // 路由变了且轮询未启动，重新检测
-        if (isLoggedIn()) {
-          startPolling();
-        }
+    () => {
+      if (!isActive.value && isLoggedIn()) {
+        startPolling();
       }
     }
   );

@@ -167,6 +167,9 @@ const pollingFetcher = async () => {
 
   return res;
 };
+
+/** 从接口响应中提取消息 ID */
+const extractMsgId = (data: any) => data?.Data?.ID as number | undefined;
 </script>
 
 <template>
@@ -209,7 +212,7 @@ const pollingFetcher = async () => {
         <LayContent :fixed-header="set.fixedHeader" />
       </el-scrollbar>
     </div>
-    <RePolling :fetcher="pollingFetcher" />
+    <RePolling :fetcher="pollingFetcher" :msg-id-extractor="extractMsgId" />
     <!-- 系统设置 -->
     <LaySetting />
   </div>
