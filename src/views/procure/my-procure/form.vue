@@ -33,7 +33,7 @@ const loadData = async () => {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数
-      const res = await api.api.get_Enquiry_GetEnquiryInfoByID({
+      const res = await api.api.get_Procure_GetProcureMaterialByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
@@ -107,37 +107,37 @@ const columns: PlusColumn[] = [
   },
   {
     label: "付款方式",
-    prop: "Title",
+    prop: "PayMode",
     valueType: "input"
   },
   {
     label: "供应商名称",
-    prop: "Title",
+    prop: "PartBName",
     valueType: "input"
   },
   {
     label: "开户行信息",
-    prop: "Title",
+    prop: "PartBBank",
     valueType: "input"
   },
   {
     label: "账户名称",
-    prop: "Title",
+    prop: "PartBBankUser",
     valueType: "input"
   },
   {
     label: "银行账号",
-    prop: "Title",
+    prop: "PartBBankAccount",
     valueType: "input"
   },
   {
     label: "附件1",
-    prop: "Title",
+    prop: "Annex1",
     valueType: "input"
   },
   {
     label: "附件2",
-    prop: "Title",
+    prop: "Annex2",
     valueType: "input"
   },
   {
@@ -148,10 +148,10 @@ const columns: PlusColumn[] = [
       const items = (value as any[]) || [];
       return (
         <ItemList
-          title="子表格"
+          title=""
           data={items}
           columns={subTableColumns}
-          onSelection-change={rows => console.log("子表格选中行：", rows)}
+          //onSelection-change={rows => console.log("子表格选中行：", rows)}
           onAdd-row={handleAddRow}
         />
       );
@@ -159,45 +159,51 @@ const columns: PlusColumn[] = [
   }
 ];
 const subTableColumns: TableColumnList = [
+  ,
+  {
+    label: "操作",
+    width: 210,
+    slot: "operation"
+  },
   {
     label: "任务编码",
-    prop: "Code"
+    prop: "JobItemCode"
   },
   {
     label: "任务名称",
-    prop: "Name"
+    prop: "JobItemName"
   },
   {
     label: "任务工程量",
-    prop: "Specifications"
+    prop: "JobPreQuantity"
   },
   {
     label: "物料编码",
-    prop: "Unit"
+    prop: "MaterialCode"
   },
   {
     label: "物料名称",
-    prop: "TypeStr"
+    prop: "MaterialName"
   },
   {
     label: "物料规格",
-    prop: "TypeStr"
+    prop: "MaterialSpecifications"
   },
   {
     label: "物料单位",
-    prop: "TypeStr"
+    prop: "MaterialUnit"
   },
   {
     label: "物料类型",
-    prop: "TypeStr"
+    prop: "MaterialTypeStr"
   },
   {
     label: "材料工程量",
-    prop: "TypeStr"
+    prop: "JobMaterialPreQuantity"
   },
   {
     label: "实际工程量",
-    prop: "TypeStr"
+    prop: "JobMaterialActualQuantity"
   },
   {
     label: "采购数量",
@@ -219,9 +225,9 @@ const subTableColumns: TableColumnList = [
     prop: "TypeStr",
     cellRenderer: ({ row, column }) => (
       <ElInput
-        modelValue={row.Quantity}
+        modelValue={row.UnitPrice}
         onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
+          row.UnitPrice = val;
         }}
         placeholder="数量"
         clearable
@@ -234,9 +240,9 @@ const subTableColumns: TableColumnList = [
     prop: "TypeStr",
     cellRenderer: ({ row, column }) => (
       <ElInput
-        modelValue={row.Quantity}
+        modelValue={row.Taxrate}
         onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
+          row.Taxrate = val;
         }}
         placeholder="数量"
         clearable
@@ -249,9 +255,9 @@ const subTableColumns: TableColumnList = [
     prop: "TypeStr",
     cellRenderer: ({ row, column }) => (
       <ElInput
-        modelValue={row.Quantity}
+        modelValue={row.Freight}
         onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
+          row.Freight = val;
         }}
         placeholder="数量"
         clearable
@@ -264,9 +270,9 @@ const subTableColumns: TableColumnList = [
     prop: "TypeStr",
     cellRenderer: ({ row, column }) => (
       <ElInput
-        modelValue={row.Quantity}
+        modelValue={row.TotalAmount}
         onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
+          row.TotalAmount = val;
         }}
         placeholder="数量"
         clearable
@@ -288,11 +294,6 @@ const subTableColumns: TableColumnList = [
         size="small"
       />
     )
-  },
-  {
-    label: "操作",
-    width: 210,
-    slot: "operation"
   }
 ];
 
@@ -343,6 +344,7 @@ const handleMaterialSelect = row => {
       v-model="newFormInline"
       class="w-full m-auto"
       :columns="columns"
+      label-width="120px"
       label-position="right"
       :has-footer="false"
     />
