@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { ref, h } from "vue";
 import { FormProps } from "./utils/types";
-import { ElInput } from "element-plus";
+import { ElInput, ElMessage } from "element-plus";
 import {
   type PlusColumn,
   type FieldValues,
@@ -352,6 +352,10 @@ const handleAddRow = () => {
 };
 
 var ShowJobChoose = (procureRow: any, index: number) => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
   addDialog({
     title: "选择任务",
     width: "80%",
@@ -363,6 +367,7 @@ var ShowJobChoose = (procureRow: any, index: number) => {
     contentRenderer: ({ options, index }) =>
       h(JobSelection, {
         title: "任务列表",
+        projectId: newFormInline.value.ProjectID,
         onSelect: row => {
           handleJobSelect(row, procureRow);
           closeDialog(options, index, { command: "sure" });

@@ -30,10 +30,12 @@ const loading = ref(true);
 // 定义 MyTable 组件自身需要的 Props
 interface MyTableProps {
   title?: string; // 表格标题
+  projectId?: number; // 项目ID，用于筛选
 }
 
 const props = withDefaults(defineProps<MyTableProps>(), {
-  title: "数据表格",
+  title: "",
+  projectId: undefined,
   data: () => [],
   columns: () => []
 });
@@ -74,7 +76,9 @@ const loadData = async () => {
   loading.value = true;
   try {
     // 假设 getTableData 是你的 API 请求函数
-    const { Code, Data } = await api.api.get_Project_GetProjectItemPage({});
+    const { Code, Data } = await api.api.get_Project_GetProjectItemPage({
+      ProjectID: props.projectId || undefined
+    });
 
     if (Code === 0) {
       dataList.value = Data.Data;

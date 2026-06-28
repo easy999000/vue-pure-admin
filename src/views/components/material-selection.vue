@@ -1,4 +1,4 @@
-﻿<script setup lang="tsx">
+<script setup lang="tsx">
 import { ref, useAttrs, computed, reactive } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { PureTableBar } from "@/components/RePureTableBar";
@@ -30,12 +30,12 @@ const loading = ref(true);
 // 定义 MyTable 组件自身需要的 Props
 interface MyTableProps {
   title?: string; // 表格标题
+  projectId?: number | string; // 项目ID，用于筛选
 }
 
 const props = withDefaults(defineProps<MyTableProps>(), {
   title: "数据表格",
-  data: () => [],
-  columns: () => []
+  projectId: undefined
 });
 
 // 组件自身的 Emits
