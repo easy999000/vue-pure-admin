@@ -326,10 +326,20 @@ const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
     newFormInline.value.Items = [];
   }
+  console.log("Selected material:", row);
+  var procureItem = {};
+  procureItem.MaterialID = row.ID;
+  procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
+  procureItem.MaterialCode = row.code;
+  procureItem.MaterialName = row.Name;
+  procureItem.MaterialSpecifications = row.Specifications;
+  procureItem.MaterialType = row.Type;
+  procureItem.MaterialTypeStr = row.TypeStr;
+  procureItem.MaterialUnit = row.Unit;
+  procureItem.MaterialType = row.Type;
 
   newFormInline.value.Items.push({
-    ...row,
-    MaterialID: row.ID,
+    ...procureItem,
     Quantity: row?.Quantity ?? 0,
     Notes: row?.Notes ?? "",
     ID: null

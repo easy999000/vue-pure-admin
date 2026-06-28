@@ -140,7 +140,8 @@ function onDel(row: any, index: number) {
             type="primary"
             :icon="useRenderIcon(Delete)"
             @click="onDel(row, $index)"
-          />
+            >删除</el-button
+          >
         </template>
       </pure-table>
     </template>
