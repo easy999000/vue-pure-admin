@@ -17,6 +17,7 @@ import ItemList from "@/views/components/item-list.vue";
 import { getKeyList, deviceDetection } from "@pureadmin/utils";
 
 import MaterialSelection from "@/views/components/material-selection.vue";
+import JobSelection from "@/views/components/job-selectiony.vue";
 import { addDialog, closeDialog } from "@/components/ReDialog";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Delete from "~icons/ep/delete";
@@ -177,7 +178,7 @@ const subTableColumns: TableColumnList = [
           link
           type="primary"
           icon={useRenderIcon(Delete)}
-          onClick={() => onDel(row, $index)}
+          onClick={() => ShowJobChoose(row, $index)}
         >
           关联任务
         </el-button>
@@ -350,15 +351,45 @@ const handleAddRow = () => {
   });
 };
 
+var ShowJobChoose = (procureRow: any, index: number) => {
+  addDialog({
+    title: "选择任务",
+    width: "80%",
+    draggable: true,
+    fullscreen: deviceDetection(),
+    fullscreenIcon: true,
+    closeOnClickModal: false,
+    hideFooter: true,
+    contentRenderer: ({ options, index }) =>
+      h(JobSelection, {
+        title: "任务列表",
+        onSelect: row => {
+          handleJobSelect(row, procureRow);
+          closeDialog(options, index, { command: "sure" });
+        }
+      })
+  });
+};
+
+const handleJobSelect = (row, procureItem) => {
+  if (!Array.isArray(newFormInline.value.Items)) {
+    newFormInline.value.Items = [];
+  }
+  console.log("Selected material:", row);
+  procureItem.ProjectItemID = row.ID;
+  procureItem.JobItemCode = row.Code;
+  procureItem.JobItemName = row.Name;
+  procureItem.JobPreQuantity = row.PreQuantity;
+};
 const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
     newFormInline.value.Items = [];
   }
   console.log("Selected material:", row);
-  var procureItem = {};
+  const procureItem: any = {};
   procureItem.MaterialID = row.ID;
   procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
-  procureItem.MaterialCode = row.code;
+  procureItem.MaterialCode = row.Code;
   procureItem.MaterialName = row.Name;
   procureItem.MaterialSpecifications = row.Specifications;
   procureItem.MaterialType = row.Type;
