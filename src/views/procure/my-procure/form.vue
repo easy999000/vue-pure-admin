@@ -159,11 +159,32 @@ const columns: PlusColumn[] = [
   }
 ];
 const subTableColumns: TableColumnList = [
-  ,
   {
     label: "操作",
     width: 210,
-    slot: "operation"
+    slot: "operation",
+    cellRenderer: ({ row, column }) => (
+      <div>
+        <el-button
+          class="reset-margin"
+          link
+          type="primary"
+          icon="useRenderIcon(Delete)"
+          click="onDel(row, $index)"
+        >
+          关联任务
+        </el-button>
+        <el-button
+          class="reset-margin"
+          link
+          type="primary"
+          icon="useRenderIcon(Delete)"
+          click="onDel(row, $index)"
+        >
+          删除
+        </el-button>
+      </div>
+    )
   },
   {
     label: "任务编码",
