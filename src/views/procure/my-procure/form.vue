@@ -18,6 +18,8 @@ import { getKeyList, deviceDetection } from "@pureadmin/utils";
 
 import MaterialSelection from "@/views/components/material-selection.vue";
 import { addDialog, closeDialog } from "@/components/ReDialog";
+import { useRenderIcon } from "@/components/ReIcon/src/hooks";
+import Delete from "~icons/ep/delete";
 
 const props = withDefaults(defineProps<FormProps>(), {
   formInline: () => ({})
@@ -158,19 +160,24 @@ const columns: PlusColumn[] = [
     }
   }
 ];
+function onDel(row: any, index: number) {
+  if (!Array.isArray(newFormInline.value.Items)) return;
+  newFormInline.value.Items.splice(index, 1);
+}
+
 const subTableColumns: TableColumnList = [
   {
     label: "操作",
     width: 210,
     slot: "operation",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <div>
         <el-button
           class="reset-margin"
           link
           type="primary"
-          icon="useRenderIcon(Delete)"
-          click="onDel(row, $index)"
+          icon={useRenderIcon(Delete)}
+          onClick={() => onDel(row, $index)}
         >
           关联任务
         </el-button>
@@ -178,8 +185,8 @@ const subTableColumns: TableColumnList = [
           class="reset-margin"
           link
           type="primary"
-          icon="useRenderIcon(Delete)"
-          click="onDel(row, $index)"
+          icon={useRenderIcon(Delete)}
+          onClick={() => onDel(row, $index)}
         >
           删除
         </el-button>
@@ -229,7 +236,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "采购数量",
     prop: "TypeStr",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.Quantity}
         onUpdate:modelValue={(val: string) => {
@@ -244,7 +251,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "单价",
     prop: "TypeStr",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.UnitPrice}
         onUpdate:modelValue={(val: string) => {
@@ -259,7 +266,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "税率",
     prop: "TypeStr",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.Taxrate}
         onUpdate:modelValue={(val: string) => {
@@ -274,7 +281,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "运费单价",
     prop: "TypeStr",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.Freight}
         onUpdate:modelValue={(val: string) => {
@@ -289,7 +296,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "合计",
     prop: "TypeStr",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.TotalAmount}
         onUpdate:modelValue={(val: string) => {
@@ -304,7 +311,7 @@ const subTableColumns: TableColumnList = [
   {
     label: "备注",
     prop: "Notes",
-    cellRenderer: ({ row, column }) => (
+    cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.Notes}
         onUpdate:modelValue={(val: string) => {
