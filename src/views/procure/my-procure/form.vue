@@ -194,7 +194,46 @@ const columns: PlusColumn[] = [
   {
     label: "附件2",
     prop: "Annex2",
-    valueType: "input"
+    renderField: (value, onChange) => {
+      const p = (() => {
+        if (!value) return null;
+        try {
+          return JSON.parse(value as string);
+        } catch {
+          return null;
+        }
+      })();
+      const oldName = p?.OldName || "";
+      const uploadRef = ref();
+      return (
+        <>
+          {oldName && <span style="margin-right: 8px;">{oldName}</span>}
+          <ElUpload
+            ref={uploadRef}
+            httpRequest={(options: any) => {
+              uploadRef.value?.clearFiles();
+              return api.api
+                .post_Common_UploadFile({ file: options.file })
+                .then(res => {
+                  if (res.Code === 0 && res.Data?.NewFullPath) {
+                    onChange(JSON.stringify(res.Data));
+                    options.onSuccess(res, options.file);
+                  } else {
+                    ElMessage.error(res.Message || "上传失败");
+                    options.onError(new Error(res.Message || "上传失败"));
+                  }
+                })
+                .catch(err => {
+                  ElMessage.error("上传异常");
+                  options.onError(err);
+                });
+            }}
+          >
+            <ElButton type="primary">上传附件</ElButton>
+          </ElUpload>
+        </>
+      );
+    }
   },
   {
     label: "采购清单",
