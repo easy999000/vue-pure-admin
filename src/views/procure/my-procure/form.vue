@@ -111,7 +111,21 @@ const columns: PlusColumn[] = [
   {
     label: "付款方式",
     prop: "PayMode",
-    valueType: "input"
+    valueType: "select",
+    options: [
+      {
+        label: "付款",
+        value: 0
+      },
+      {
+        label: "报销",
+        value: 1
+      },
+      {
+        label: "挂账",
+        value: 2
+      }
+    ]
   },
   {
     label: "供应商名称",
