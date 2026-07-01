@@ -151,10 +151,17 @@ const columns: PlusColumn[] = [
     label: "附件1",
     prop: "Annex1",
     renderField: (value, onChange) => {
-      const strValue = value as string;
-      const fileList = strValue
-        ? [{ name: strValue.split("/").pop() || strValue, url: strValue }]
-        : [];
+      let fileList: any[] = [];
+      if (value) {
+        try {
+          const data = JSON.parse(value as string);
+          fileList = [
+            { name: data.OldName || "", url: data.NewFullPath || "" }
+          ];
+        } catch {
+          fileList = [];
+        }
+      }
       return (
         <ElUpload
           fileList={fileList}
@@ -164,7 +171,7 @@ const columns: PlusColumn[] = [
               .post_Common_UploadFile({ file: options.file })
               .then(res => {
                 if (res.Code === 0 && res.Data?.NewFullPath) {
-                  onChange(res.Data.NewFullPath);
+                  onChange(JSON.stringify(res.Data));
                   options.onSuccess(res, options.file);
                 } else {
                   ElMessage.error(res.Message || "上传失败");
