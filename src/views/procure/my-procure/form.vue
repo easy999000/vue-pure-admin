@@ -151,10 +151,12 @@ const columns: PlusColumn[] = [
     label: "附件1",
     prop: "Annex1",
     renderField: (value, onChange) => {
+      let oldName = "";
       let fileList: any[] = [];
       if (value) {
         try {
           const data = JSON.parse(value as string);
+          oldName = data.OldName || "";
           fileList = [
             { name: data.OldName || "", url: data.NewFullPath || "" }
           ];
@@ -163,32 +165,35 @@ const columns: PlusColumn[] = [
         }
       }
       return (
-        <ElUpload
-          fileList={fileList}
-          limit={1}
-          httpRequest={(options: any) => {
-            return api.api
-              .post_Common_UploadFile({ file: options.file })
-              .then(res => {
-                if (res.Code === 0 && res.Data?.NewFullPath) {
-                  onChange(JSON.stringify(res.Data));
-                  options.onSuccess(res, options.file);
-                } else {
-                  ElMessage.error(res.Message || "上传失败");
-                  options.onError(new Error(res.Message || "上传失败"));
-                }
-              })
-              .catch(err => {
-                ElMessage.error("上传异常");
-                options.onError(err);
-              });
-          }}
-          onRemove={() => {
-            onChange("");
-          }}
-        >
-          <ElButton type="primary">上传附件</ElButton>
-        </ElUpload>
+        <>
+          {oldName && <span style="margin-right: 8px;">{oldName}</span>}
+          <ElUpload
+            fileList={fileList}
+            limit={1}
+            httpRequest={(options: any) => {
+              return api.api
+                .post_Common_UploadFile({ file: options.file })
+                .then(res => {
+                  if (res.Code === 0 && res.Data?.NewFullPath) {
+                    onChange(JSON.stringify(res.Data));
+                    options.onSuccess(res, options.file);
+                  } else {
+                    ElMessage.error(res.Message || "上传失败");
+                    options.onError(new Error(res.Message || "上传失败"));
+                  }
+                })
+                .catch(err => {
+                  ElMessage.error("上传异常");
+                  options.onError(err);
+                });
+            }}
+            onRemove={() => {
+              onChange("");
+            }}
+          >
+            <ElButton type="primary">上传附件</ElButton>
+          </ElUpload>
+        </>
       );
     }
   },
