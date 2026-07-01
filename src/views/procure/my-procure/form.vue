@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import { ref, h } from "vue";
 import { FormProps } from "./utils/types";
-import { ElInput, ElMessage } from "element-plus";
+import { ElInput, ElMessage, ElUpload, ElButton } from "element-plus";
 import {
   type PlusColumn,
   type FieldValues,
@@ -150,7 +150,40 @@ const columns: PlusColumn[] = [
   {
     label: "附件1",
     prop: "Annex1",
-    valueType: "input"
+    renderField: (value, onChange) => {
+      const strValue = value as string;
+      const fileList = strValue
+        ? [{ name: strValue.split("/").pop() || strValue, url: strValue }]
+        : [];
+      return (
+        <ElUpload
+          fileList={fileList}
+          limit={1}
+          httpRequest={(options: any) => {
+            return api.api
+              .post_Common_UploadFile({ file: options.file })
+              .then(res => {
+                if (res.Code === 0 && res.Data?.NewFullPath) {
+                  onChange(res.Data.NewFullPath);
+                  options.onSuccess(res, options.file);
+                } else {
+                  ElMessage.error(res.Message || "上传失败");
+                  options.onError(new Error(res.Message || "上传失败"));
+                }
+              })
+              .catch(err => {
+                ElMessage.error("上传异常");
+                options.onError(err);
+              });
+          }}
+          onRemove={() => {
+            onChange("");
+          }}
+        >
+          <ElButton type="primary">上传附件</ElButton>
+        </ElUpload>
+      );
+    }
   },
   {
     label: "附件2",
