@@ -3,11 +3,11 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type Procurematerialinfo,
   type EnquiryGroupPageParam,
   type EnquiryInfoDTO,
   type GetProcureGetMyProcureMaterialPageParams
 } from "@/api";
-import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
@@ -121,7 +121,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: Procurematerialinfo) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -150,9 +150,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-
         // 表单规则校验通过
-        api.api.post_Enquiry_UpdateEnquiryInfo(toRaw(curData)).then(res => {
+        api.api.post_Procure_ProcureMaterialApply(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
