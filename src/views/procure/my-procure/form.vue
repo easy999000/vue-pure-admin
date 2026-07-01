@@ -151,26 +151,23 @@ const columns: PlusColumn[] = [
     label: "附件1",
     prop: "Annex1",
     renderField: (value, onChange) => {
-      let oldName = "";
-      let fileList: any[] = [];
-      if (value) {
+      const p = (() => {
+        if (!value) return null;
         try {
-          const data = JSON.parse(value as string);
-          oldName = data.OldName || "";
-          fileList = [
-            { name: data.OldName || "", url: data.NewFullPath || "" }
-          ];
+          return JSON.parse(value as string);
         } catch {
-          fileList = [];
+          return null;
         }
-      }
+      })();
+      const oldName = p?.OldName || "";
+      const uploadRef = ref();
       return (
         <>
           {oldName && <span style="margin-right: 8px;">{oldName}</span>}
           <ElUpload
-            fileList={fileList}
-            limit={1}
+            ref={uploadRef}
             httpRequest={(options: any) => {
+              uploadRef.value?.clearFiles();
               return api.api
                 .post_Common_UploadFile({ file: options.file })
                 .then(res => {
@@ -186,9 +183,6 @@ const columns: PlusColumn[] = [
                   ElMessage.error("上传异常");
                   options.onError(err);
                 });
-            }}
-            onRemove={() => {
-              onChange("");
             }}
           >
             <ElButton type="primary">上传附件</ElButton>
