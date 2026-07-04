@@ -160,10 +160,15 @@ const columns: PlusColumn[] = [
         }
       })();
       const oldName = p?.OldName || "";
+      const NewFullPath = p?.NewFullPath || "";
       const uploadRef = ref();
       return (
         <>
-          {oldName && <span style="margin-right: 8px;">{oldName}</span>}
+          {oldName && (
+            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
+              {oldName}
+            </a>
+          )}
           <ElUpload
             ref={uploadRef}
             httpRequest={(options: any) => {
@@ -204,10 +209,15 @@ const columns: PlusColumn[] = [
         }
       })();
       const oldName = p?.OldName || "";
+      const NewFullPath = p?.NewFullPath || "";
       const uploadRef = ref();
       return (
         <>
-          {oldName && <span style="margin-right: 8px;">{oldName}</span>}
+          {oldName && (
+            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
+              {oldName}
+            </a>
+          )}
           <ElUpload
             ref={uploadRef}
             httpRequest={(options: any) => {
