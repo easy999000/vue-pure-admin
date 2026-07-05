@@ -1,15 +1,14 @@
-﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
   type EnquiryGroupPageParam,
-  type EnquiryInfoDTO,
-  type GetProcureGetProcureMaterialApprovePageApiParams
+  type GetProcureGetProcureMaterialApprovePageApiParams,
+  type ProcureParam
 } from "@/api";
-import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
-import { addDialog } from "@/components/ReDialog";
+import { addDialog, closeDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
@@ -129,7 +128,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: ProcureParam) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -144,27 +143,52 @@ export function useHook() {
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
-      beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as EnquiryInfoDTO;
-        function chores(res2: any) {
-          console.log("res2", res2);
-          if (res2.Code !== 0) {
-            message(`操作失败，${res2.Message}`, { type: "error" });
-            return;
+      footerButtons: [
+        {
+          label: "拒绝",
+          type: "danger",
+          plain: true,
+          size: "large",
+          btnClick: async ({ dialog: { options, index } }) => {
+            const param: ProcureParam = { ID: row?.ID };
+            try {
+              ////ProcureMaterialReject
+              const res =
+                await api.api.post_Procure_ProcureMaterialReject(param);
+              if (res.Code === 0) {
+                message(`您已拒绝该${pageName.value}`, { type: "success" });
+                closeDialog(options, index, { command: "sure" });
+                onSearch();
+              } else {
+                message(`操作失败，${res.Message}`, { type: "error" });
+              }
+            } catch {
+              message(`操作失败`, { type: "error" });
+            }
           }
-          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
-            type: "success"
-          });
-          done(); // 关闭弹框
-          onSearch(); // 刷新表格数据
+        },
+        {
+          label: "同意",
+          type: "success",
+          size: "large",
+          btnClick: async ({ dialog: { options, index } }) => {
+            const param: ProcureParam = { ID: row?.ID };
+            try {
+              const res =
+                await api.api.post_Procure_ProcureMaterialApproveApi(param);
+              if (res.Code === 0) {
+                message(`您已同意该${pageName.value}`, { type: "success" });
+                closeDialog(options, index, { command: "sure" });
+                onSearch();
+              } else {
+                message(`操作失败，${res.Message}`, { type: "error" });
+              }
+            } catch {
+              message(`操作失败`, { type: "error" });
+            }
+          }
         }
-
-        // 表单规则校验通过
-        api.api.post_Enquiry_UpdateEnquiryInfo(toRaw(curData)).then(res => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores(res);
-        });
-      }
+      ]
     });
   }
   return {

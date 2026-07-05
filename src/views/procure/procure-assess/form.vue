@@ -35,8 +35,8 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数
-      const res = await api.api.get_Procure_GetProcureMaterialByID({
+      // 假设 getTableData 是你的 API 请求函数 GetProcureMaterialByID_WithPrice
+      const res = await api.api.get_Procure_GetProcureMaterialByID_WithPrice({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
