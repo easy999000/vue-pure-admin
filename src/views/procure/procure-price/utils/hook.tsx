@@ -5,7 +5,8 @@ import {
   api,
   type EnquiryGroupPageParam,
   type GetEnquiryGetEnquiryGroupPageParams,
-  type EnquiryInfoDTO
+  type EnquiryInfoDTO,
+  type GetProcureGetProcureMaterialPricePageApiParams
 } from "@/api";
 import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
@@ -13,7 +14,9 @@ import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm: GetEnquiryGetEnquiryGroupPageParams = reactive({});
+  const searchForm: GetProcureGetProcureMaterialPricePageApiParams = reactive(
+    {}
+  );
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -24,7 +27,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的询价");
+  const pageName = ref("采购定价");
   const columns: TableColumnList = [
     {
       label: "标题",
@@ -37,10 +40,6 @@ export function useHook() {
     {
       label: "创建时间",
       prop: "CreateTime"
-    },
-    {
-      label: "报价截止时间",
-      prop: "EndTime"
     },
     {
       label: "状态",
@@ -92,12 +91,13 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { Code, Data } = await api.api.get_Enquiry_GetMyEnquiryInfoPage({
-      PageSize: pagination.pageSize,
-      PageNumber: pagination.currentPage,
-      Count: pagination.total,
-      ...toRaw(searchForm)
-    });
+    const { Code, Data } =
+      await api.api.get_Procure_GetProcureMaterialPricePageApi({
+        PageSize: pagination.pageSize,
+        PageNumber: pagination.currentPage,
+        Count: pagination.total,
+        ...toRaw(searchForm)
+      });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
