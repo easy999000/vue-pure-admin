@@ -106,7 +106,10 @@ const columns: PlusColumn[] = [
     label: "所属项目",
     prop: "ProjectID",
     valueType: "select",
-    options: getProjectOptions()
+    options: getProjectOptions(),
+    fieldProps: {
+      disabled: true
+    }
   },
   {
     label: "付款方式",
@@ -125,7 +128,10 @@ const columns: PlusColumn[] = [
         label: "挂账",
         value: 2
       }
-    ]
+    ],
+    fieldProps: {
+      disabled: true
+    }
   },
   {
     label: "供应商名称",
@@ -265,18 +271,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "采购数量",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Quantity}
-        onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "TypeStr"
   },
   {
     label: "单价",
@@ -325,33 +320,11 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "合计",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.TotalAmount}
-        onUpdate:modelValue={(val: string) => {
-          row.TotalAmount = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "TypeStr"
   },
   {
     label: "备注",
-    prop: "Notes",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Notes}
-        onUpdate:modelValue={(val: string) => {
-          row.Notes = val;
-        }}
-        placeholder="备注"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Notes"
   }
 ];
 
@@ -374,31 +347,6 @@ const handleAddRow = () => {
         title: "物料列表",
         onSelect: row => {
           handleMaterialSelect(row);
-          closeDialog(options, index, { command: "sure" });
-        }
-      })
-  });
-};
-
-var ShowJobChoose = (procureRow: any, index: number) => {
-  if (!newFormInline.value.ProjectID) {
-    ElMessage.warning("请先选择所属项目");
-    return;
-  }
-  addDialog({
-    title: "选择任务",
-    width: "80%",
-    draggable: true,
-    fullscreen: deviceDetection(),
-    fullscreenIcon: true,
-    closeOnClickModal: false,
-    hideFooter: true,
-    contentRenderer: ({ options, index }) =>
-      h(JobSelection, {
-        title: "任务列表",
-        projectId: newFormInline.value.ProjectID,
-        onSelect: row => {
-          handleJobSelect(row, procureRow);
           closeDialog(options, index, { command: "sure" });
         }
       })

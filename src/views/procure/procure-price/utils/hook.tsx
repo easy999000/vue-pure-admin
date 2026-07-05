@@ -4,7 +4,6 @@ import type { PaginationProps } from "@pureadmin/table";
 import {
   api,
   type EnquiryGroupPageParam,
-  type GetEnquiryGetEnquiryGroupPageParams,
   type EnquiryInfoDTO,
   type GetProcureGetProcureMaterialPricePageApiParams
 } from "@/api";
@@ -155,11 +154,13 @@ export function useHook() {
           onSearch(); // 刷新表格数据
         }
 
-        // 表单规则校验通过
-        api.api.post_Enquiry_UpdateEnquiryInfo(toRaw(curData)).then(res => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores(res);
-        });
+        // 表单规则校验通过 ProcureMaterialPriceUpdateApi
+        api.api
+          .post_Procure_ProcureMaterialPriceUpdateApi(toRaw(curData))
+          .then(res => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores(res);
+          });
       }
     });
   }
