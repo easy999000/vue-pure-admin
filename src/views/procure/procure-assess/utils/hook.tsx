@@ -11,6 +11,7 @@ import editForm from "../form.vue";
 import { addDialog, closeDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
+import { ElMessageBox } from "element-plus";
 export function useHook() {
   const searchForm: GetProcureGetProcureMaterialApprovePageApiParams = reactive(
     {}
@@ -150,9 +151,25 @@ export function useHook() {
           plain: true,
           size: "large",
           btnClick: async ({ dialog: { options, index } }) => {
+            try {
+              await ElMessageBox.confirm(
+                "确定要拒绝该审批吗？拒绝后将无法恢复。",
+                "拒绝确认",
+                {
+                  confirmButtonText: "确定拒绝",
+                  cancelButtonText: "取消",
+                  confirmButtonClass: "el-button--danger",
+                  type: "warning",
+                  center: true,
+                  distinguishCancelAndClose: true,
+                  closeOnClickModal: false
+                }
+              );
+            } catch {
+              return;
+            }
             const param: ProcureParam = { ID: row?.ID };
             try {
-              ////ProcureMaterialReject
               const res =
                 await api.api.post_Procure_ProcureMaterialReject(param);
               if (res.Code === 0) {
@@ -172,6 +189,19 @@ export function useHook() {
           type: "success",
           size: "large",
           btnClick: async ({ dialog: { options, index } }) => {
+            try {
+              await ElMessageBox.confirm("确定要通过该审批吗？", "同意确认", {
+                confirmButtonText: "确定同意",
+                cancelButtonText: "取消",
+                confirmButtonClass: "el-button--success",
+                type: "success",
+                center: true,
+                distinguishCancelAndClose: true,
+                closeOnClickModal: false
+              });
+            } catch {
+              return;
+            }
             const param: ProcureParam = { ID: row?.ID };
             try {
               const res =
