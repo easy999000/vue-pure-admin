@@ -3,11 +3,11 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type Procurematerialinfo,
   type EnquiryGroupPageParam,
   type EnquiryInfoDTO,
   type GetProcureGetProcureMaterialPricePageApiParams
 } from "@/api";
-import type { FormItemProps } from "./types";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
@@ -124,7 +124,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: FormItemProps) {
+  function openDialog(title = "新增", row?: Procurematerialinfo) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {

@@ -36,7 +36,7 @@ const loadData = async () => {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数
-      const res = await api.api.get_Procure_GetProcureMaterialByID({
+      const res = await api.api.get_Procure_GetProcureMaterialByID_WithPrice({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
