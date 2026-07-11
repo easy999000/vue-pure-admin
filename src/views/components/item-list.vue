@@ -6,6 +6,7 @@ import AddFill from "~icons/ep/plus";
 import Delete from "~icons/ep/delete";
 // 获取透传属性并显式声明 tableBarAttrs 的类型
 const attrs = useAttrs();
+const loading = ref(false);
 const tableBarAttrs = computed(
   () => (attrs.tableBarAttrs as Record<string, any>) ?? {}
 );

@@ -140,6 +140,7 @@ const columns: TableColumnList = [
         showOverflowTooltip
         table-layout="auto"
         :size="size"
+        :loading="loading"
         adaptive
         :row-style="rowStyle"
         :adaptiveConfig="{ offsetBottom: 108 }"
