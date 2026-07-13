@@ -6,14 +6,14 @@ import {
   type Procurematerialinfo,
   type EnquiryGroupPageParam,
   type EnquiryInfoDTO,
-  type GetProcureGetMyProcureMaterialPageParams
+  type GetLaborGetLaborInfoPageApiParams
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm: GetProcureGetMyProcureMaterialPageParams = reactive({});
+  const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -35,12 +35,32 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "创建时间",
-      prop: "CreateTime"
+      label: "审核状态",
+      prop: "StatusName"
     },
     {
-      label: "状态",
-      prop: "StatusName"
+      label: "下发状态",
+      prop: "AccountStatusName"
+    },
+    {
+      label: "付款方式",
+      prop: "PayModeName"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
+    },
+    {
+      label: "冻结金额",
+      prop: "FrozenAmount"
+    },
+    {
+      label: "已付款",
+      prop: "PayAmount"
+    },
+    {
+      label: "创建时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -88,7 +108,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { Code, Data } = await api.api.get_Procure_GetMyProcureMaterialPage({
+    ///GetLaborInfoPageAPI
+    const { Code, Data } = await api.api.get_Labor_GetLaborInfoPageAPI({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,

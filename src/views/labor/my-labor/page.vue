@@ -160,6 +160,16 @@ onMounted(() => {
               >
                 修改
               </el-button>
+              <el-button
+                class="reset-margin"
+                link
+                type="primary"
+                :size="size"
+                :icon="useRenderIcon(EditPen)"
+                @click="openDialog('修改', row)"
+              >
+                劳务合同
+              </el-button>
             </template>
           </pure-table>
         </template>

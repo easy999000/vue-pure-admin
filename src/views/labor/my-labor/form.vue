@@ -35,8 +35,8 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数
-      const res = await api.api.get_Procure_GetProcureMaterialByID({
+      // 假设 getTableData 是你的 API 请求函数 GetLaborFullByID
+      const res = await api.api.get_Labor_GetLaborFullByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
@@ -126,6 +126,31 @@ const columns: PlusColumn[] = [
         value: 2
       }
     ]
+  },
+  {
+    label: "会议内容",
+    prop: "Content",
+    valueType: "input"
+  },
+  {
+    label: "会议时间",
+    prop: "MeetingTime",
+    valueType: "input"
+  },
+  {
+    label: "会议地点",
+    prop: "Place",
+    valueType: "input"
+  },
+  {
+    label: "会议人员",
+    prop: "Participants",
+    valueType: "input"
+  },
+  {
+    label: "乙方名称",
+    prop: "PartyB",
+    valueType: "input"
   },
   {
     label: "供应商名称",
