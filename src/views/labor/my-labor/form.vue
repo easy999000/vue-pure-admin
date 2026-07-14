@@ -135,7 +135,12 @@ const columns: PlusColumn[] = [
   {
     label: "会议时间",
     prop: "MeetingTime",
-    valueType: "input"
+    valueType: "date-picker",
+    fieldProps: {
+      type: "datetime",
+      format: "YYYY-MM-DD HH:mm:ss",
+      valueFormat: "YYYY-MM-DD HH:mm:ss"
+    }
   },
   {
     label: "会议地点",
@@ -350,33 +355,6 @@ const subTableColumns: TableColumnList = [
     prop: "MaterialUnit"
   },
   {
-    label: "物料类型",
-    prop: "MaterialTypeStr"
-  },
-  {
-    label: "材料工程量",
-    prop: "JobMaterialPreQuantity"
-  },
-  {
-    label: "实际工程量",
-    prop: "JobMaterialActualQuantity"
-  },
-  {
-    label: "采购数量",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Quantity}
-        onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
     label: "单价",
     prop: "TypeStr",
     cellRenderer: ({ row, column, $index }) => (
@@ -392,28 +370,13 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "税率",
+    label: "采购数量",
     prop: "TypeStr",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
-        modelValue={row.Taxrate}
+        modelValue={row.Quantity}
         onUpdate:modelValue={(val: string) => {
-          row.Taxrate = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
-    label: "运费单价",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Freight}
-        onUpdate:modelValue={(val: string) => {
-          row.Freight = val;
+          row.Quantity = val;
         }}
         placeholder="数量"
         clearable

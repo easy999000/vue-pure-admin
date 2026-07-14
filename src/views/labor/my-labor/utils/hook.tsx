@@ -160,7 +160,6 @@ export function useHook() {
       beforeSure: (done, { options }) => {
         const curData = options.props.formInline as EnquiryInfoDTO;
         function chores(res2: any) {
-          console.log("res2", res2);
           if (res2.Code !== 0) {
             message(`操作失败，${res2.Message}`, { type: "error" });
             return;
@@ -171,8 +170,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过
-        api.api.post_Procure_ProcureMaterialApply(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////LaborUpdateAPI
+        api.api.post_Labor_LaborUpdateAPI(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
