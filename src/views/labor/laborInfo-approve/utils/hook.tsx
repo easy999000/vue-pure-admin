@@ -38,6 +38,10 @@ export function useHook() {
       prop: "StatusName"
     },
     {
+      label: "当前审批角色",
+      prop: "ApprovalRoleName"
+    },
+    {
       label: "下发状态",
       prop: "AccountStatusName"
     },
@@ -107,8 +111,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLaborInfoPageAPI
-    const { Code, Data } = await api.api.get_Labor_GetLaborInfoPageAPI({
+    ///GetLaborApprovePageAPI
+    const { Code, Data } = await api.api.get_Labor_GetLaborApprovePageAPI({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
