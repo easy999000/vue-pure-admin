@@ -328,15 +328,15 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "任务编码",
-    prop: "JobItemCode"
+    prop: "JobCode"
   },
   {
     label: "任务名称",
-    prop: "JobItemName"
+    prop: "JobName"
   },
   {
     label: "任务工程量",
-    prop: "JobPreQuantity"
+    prop: "PreQuantity"
   },
   {
     label: "物料编码",
@@ -356,7 +356,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "单价",
-    prop: "TypeStr",
+    prop: "UnitPrice",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.UnitPrice}
@@ -371,7 +371,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "采购数量",
-    prop: "TypeStr",
+    prop: "Quantity",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.Quantity}
@@ -386,7 +386,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "合计",
-    prop: "TypeStr",
+    prop: "TotalAmount",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
         modelValue={row.TotalAmount}
@@ -472,9 +472,10 @@ const handleJobSelect = (row, procureItem) => {
   }
   console.log("Selected material:", row);
   procureItem.ProjectItemID = row.ID;
-  procureItem.JobItemCode = row.Code;
-  procureItem.JobItemName = row.Name;
-  procureItem.JobPreQuantity = row.PreQuantity;
+  procureItem.JobCode = row.Code;
+  procureItem.JobName = row.Name;
+  procureItem.PreQuantity = row.PreQuantity;
+  procureItem.Quantity = row.PreQuantity;
 };
 const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
@@ -483,14 +484,13 @@ const handleMaterialSelect = row => {
   console.log("Selected material:", row);
   const procureItem: any = {};
   procureItem.MaterialID = row.ID;
-  procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
   procureItem.MaterialCode = row.Code;
   procureItem.MaterialName = row.Name;
   procureItem.MaterialSpecifications = row.Specifications;
   procureItem.MaterialType = row.Type;
   procureItem.MaterialTypeStr = row.TypeStr;
   procureItem.MaterialUnit = row.Unit;
-  procureItem.MaterialType = row.Type;
+  procureItem.UnitPrice = row.Price;
 
   newFormInline.value.Items.push({
     ...procureItem,

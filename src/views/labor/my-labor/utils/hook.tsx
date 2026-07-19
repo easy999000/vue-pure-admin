@@ -6,7 +6,8 @@ import {
   type Procurematerialinfo,
   type EnquiryGroupPageParam,
   type EnquiryInfoDTO,
-  type GetLaborGetLaborInfoPageApiParams
+  type GetLaborGetLaborInfoPageApiParams,
+  type Laborinfo
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
@@ -142,7 +143,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: Procurematerialinfo) {
+  function openDialog(title = "新增", row?: Laborinfo) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -158,7 +159,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as EnquiryInfoDTO;
+        const curData = options.props.formInline as Laborinfo;
         function chores(res2: any) {
           if (res2.Code !== 0) {
             message(`操作失败，${res2.Message}`, { type: "error" });

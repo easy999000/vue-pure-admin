@@ -110,6 +110,22 @@ const columns: TableColumnList = [
     prop: "Name"
   },
   {
+    label: "任务工程量",
+    prop: "PreQuantity"
+  },
+  {
+    label: "单位",
+    prop: "Unit"
+  },
+  {
+    label: "损耗率",
+    prop: "Loss"
+  },
+  {
+    label: "实际工程量",
+    prop: "MaxQuantity"
+  },
+  {
     label: "描述",
     prop: "Describe"
   },
