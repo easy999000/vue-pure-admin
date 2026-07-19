@@ -3,9 +3,7 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
-  type Procurematerialinfo,
   type EnquiryGroupPageParam,
-  type EnquiryInfoDTO,
   type GetLaborGetLaborInfoPageApiParams,
   type Laborinfo
 } from "@/api";
