@@ -12,6 +12,8 @@ import {
 
 import AddFill from "~icons/ep/plus";
 import Delete from "~icons/ep/delete";
+import Search from "~icons/ep/search";
+import Refresh from "~icons/ep/refresh";
 
 // 获取透传属性并显式声明 tableBarAttrs 的类型
 const attrs = useAttrs();
@@ -50,6 +52,37 @@ const emit = defineEmits<{
 // 表格引用
 const tableRef = ref();
 
+// ---- 搜索条件 ----
+const searchForm = ref({
+  Code: "",
+  Name: "",
+  Specifications: ""
+});
+const searchFormRef = ref();
+
+function handleSearch() {
+  pagination.currentPage = 1;
+  loadData();
+}
+
+function handleReset() {
+  searchForm.value = { Code: "", Name: "", Specifications: "" };
+  pagination.currentPage = 1;
+  loadData();
+}
+
+// ---- 分页事件 ----
+function onCurrentChange(page: number) {
+  pagination.currentPage = page;
+  loadData();
+}
+
+function onSizeChange(size: number) {
+  pagination.pageSize = size;
+  pagination.currentPage = 1;
+  loadData();
+}
+
 // 内部事件处理（根据需要进行二次处理后，再通过 emit 转发给父组件）
 const handleSelectionChange = (selection: any[]) => {
   emit("selection-change", selection);
@@ -73,8 +106,14 @@ function rowStyle({ row: { id } }) {
 const loadData = async () => {
   loading.value = true;
   try {
-    // 假设 getTableData 是你的 API 请求函数
-    const { Code, Data } = await api.api.get_Material_GetMaterialInfoPage({});
+    const { Code, Data } = await api.api.get_Material_GetMaterialInfoPage({
+      ProjectID: props.projectId ? Number(props.projectId) : undefined,
+      Code: searchForm.value.Code || undefined,
+      Name: searchForm.value.Name || undefined,
+      Specifications: searchForm.value.Specifications || undefined,
+      PageNumber: pagination.currentPage,
+      PageSize: pagination.pageSize
+    });
 
     if (Code === 0) {
       dataList.value = Data.Data;
@@ -122,6 +161,51 @@ const columns: TableColumnList = [
 </script>
 
 <template>
+  <!-- 搜索条件区域 -->
+  <el-form
+    ref="searchFormRef"
+    :model="searchForm"
+    inline
+    class="search-form"
+  >
+    <el-form-item label="编码">
+      <el-input
+        v-model="searchForm.Code"
+        placeholder="请输入编码"
+        clearable
+        style="width: 180px"
+      />
+    </el-form-item>
+    <el-form-item label="名称">
+      <el-input
+        v-model="searchForm.Name"
+        placeholder="请输入名称"
+        clearable
+        style="width: 180px"
+      />
+    </el-form-item>
+    <el-form-item label="规格">
+      <el-input
+        v-model="searchForm.Specifications"
+        placeholder="请输入规格"
+        clearable
+        style="width: 180px"
+      />
+    </el-form-item>
+    <el-form-item>
+      <el-button
+        type="primary"
+        :icon="useRenderIcon(Search)"
+        @click="handleSearch"
+      >
+        查询
+      </el-button>
+      <el-button :icon="useRenderIcon(Refresh)" @click="handleReset">
+        重置
+      </el-button>
+    </el-form-item>
+  </el-form>
+
   <PureTableBar
     :class="['w-full']"
     style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
@@ -146,11 +230,14 @@ const columns: TableColumnList = [
         :adaptiveConfig="{ offsetBottom: 108 }"
         :data="dataList"
         :columns="dynamicColumns || columns"
+        :pagination="pagination"
         v-bind="$attrs"
         :header-cell-style="{
           background: 'var(--el-fill-color-light)',
           color: 'var(--el-text-color-primary)'
         }"
+        @page-current-change="onCurrentChange"
+        @page-size-change="onSizeChange"
       >
         <template #operation="{ row }">
           <el-button
@@ -167,4 +254,11 @@ const columns: TableColumnList = [
   </PureTableBar>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.search-form {
+  padding: 16px 16px 0;
+  background: var(--el-bg-color);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+</style>
