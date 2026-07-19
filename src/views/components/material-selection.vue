@@ -52,11 +52,23 @@ const emit = defineEmits<{
 // 表格引用
 const tableRef = ref();
 
+// ---- 物料类型下拉选项 ----
+const materialTypeOptions = [
+  { label: "主材", value: 0 },
+  { label: "辅材", value: 1 },
+  { label: "劳务", value: 2 },
+  { label: "零星材料", value: 3 },
+  { label: "机械", value: 4 },
+  { label: "其他费用", value: 5 },
+  { label: "办公用品", value: 6 }
+];
+
 // ---- 搜索条件 ----
 const searchForm = ref({
   Code: "",
   Name: "",
-  Specifications: ""
+  Specifications: "",
+  Type: undefined as number | undefined
 });
 const searchFormRef = ref();
 
@@ -66,7 +78,12 @@ function handleSearch() {
 }
 
 function handleReset() {
-  searchForm.value = { Code: "", Name: "", Specifications: "" };
+  searchForm.value = {
+    Code: "",
+    Name: "",
+    Specifications: "",
+    Type: undefined
+  };
   pagination.currentPage = 1;
   loadData();
 }
@@ -111,6 +128,7 @@ const loadData = async () => {
       Code: searchForm.value.Code || undefined,
       Name: searchForm.value.Name || undefined,
       Specifications: searchForm.value.Specifications || undefined,
+      Type: searchForm.value.Type,
       PageNumber: pagination.currentPage,
       PageSize: pagination.pageSize
     });
@@ -162,12 +180,7 @@ const columns: TableColumnList = [
 
 <template>
   <!-- 搜索条件区域 -->
-  <el-form
-    ref="searchFormRef"
-    :model="searchForm"
-    inline
-    class="search-form"
-  >
+  <el-form ref="searchFormRef" :model="searchForm" inline class="search-form">
     <el-form-item label="编码">
       <el-input
         v-model="searchForm.Code"
@@ -184,13 +197,20 @@ const columns: TableColumnList = [
         style="width: 180px"
       />
     </el-form-item>
-    <el-form-item label="规格">
-      <el-input
-        v-model="searchForm.Specifications"
-        placeholder="请输入规格"
+    <el-form-item label="物料类型">
+      <el-select
+        v-model="searchForm.Type"
+        placeholder="请选择物料类型"
         clearable
         style="width: 180px"
-      />
+      >
+        <el-option
+          v-for="opt in materialTypeOptions"
+          :key="opt.value"
+          :label="opt.label"
+          :value="opt.value"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item>
       <el-button
