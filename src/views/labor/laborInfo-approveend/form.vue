@@ -35,8 +35,8 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数
-      const res = await api.api.get_Procure_GetProcureMaterialByID_WithPrice({
+      // 假设 getTableData 是你的 API 请求函数 GetLaborFullByID
+      const res = await api.api.get_Labor_GetLaborFullByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
@@ -100,16 +100,13 @@ const columns: PlusColumn[] = [
   {
     label: "标题",
     prop: "Title",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "所属项目",
     prop: "ProjectID",
     valueType: "select",
-    options: getProjectOptions(),
-    fieldProps: {
-      disabled: true
-    }
+    options: getProjectOptions()
   },
   {
     label: "付款方式",
@@ -128,30 +125,57 @@ const columns: PlusColumn[] = [
         label: "挂账",
         value: 2
       }
-    ],
+    ]
+  },
+  {
+    label: "会议内容",
+    prop: "Content",
+    valueType: "input"
+  },
+  {
+    label: "会议时间",
+    prop: "MeetingTime",
+    valueType: "date-picker",
     fieldProps: {
-      disabled: true
+      type: "datetime",
+      format: "YYYY-MM-DD HH:mm:ss",
+      valueFormat: "YYYY-MM-DD HH:mm:ss"
     }
+  },
+  {
+    label: "会议地点",
+    prop: "Place",
+    valueType: "input"
+  },
+  {
+    label: "会议人员",
+    prop: "Participants",
+    valueType: "input"
+  },
+  {
+    label: "乙方名称",
+    prop: "PartyB",
+    valueType: "input"
   },
   {
     label: "供应商名称",
     prop: "PartBName",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "开户行信息",
     prop: "PartBBank",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "账户名称",
     prop: "PartBBankUser",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "银行账号",
     prop: "PartBBankAccount",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "附件1",
@@ -175,6 +199,29 @@ const columns: PlusColumn[] = [
               {oldName}
             </a>
           )}
+          <ElUpload
+            ref={uploadRef}
+            httpRequest={(options: any) => {
+              uploadRef.value?.clearFiles();
+              return api.api
+                .post_Common_UploadFile({ file: options.file })
+                .then(res => {
+                  if (res.Code === 0 && res.Data?.NewFullPath) {
+                    onChange(JSON.stringify(res.Data));
+                    options.onSuccess(res, options.file);
+                  } else {
+                    ElMessage.error(res.Message || "上传失败");
+                    options.onError(new Error(res.Message || "上传失败"));
+                  }
+                })
+                .catch(err => {
+                  ElMessage.error("上传异常");
+                  options.onError(err);
+                });
+            }}
+          >
+            <ElButton type="primary">上传附件</ElButton>
+          </ElUpload>
         </>
       );
     }
@@ -200,7 +247,30 @@ const columns: PlusColumn[] = [
             <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
               {oldName}
             </a>
-          )}{" "}
+          )}
+          <ElUpload
+            ref={uploadRef}
+            httpRequest={(options: any) => {
+              uploadRef.value?.clearFiles();
+              return api.api
+                .post_Common_UploadFile({ file: options.file })
+                .then(res => {
+                  if (res.Code === 0 && res.Data?.NewFullPath) {
+                    onChange(JSON.stringify(res.Data));
+                    options.onSuccess(res, options.file);
+                  } else {
+                    ElMessage.error(res.Message || "上传失败");
+                    options.onError(new Error(res.Message || "上传失败"));
+                  }
+                })
+                .catch(err => {
+                  ElMessage.error("上传异常");
+                  options.onError(err);
+                });
+            }}
+          >
+            <ElButton type="primary">上传附件</ElButton>
+          </ElUpload>
         </>
       );
     }
@@ -230,16 +300,43 @@ function onDel(row: any, index: number) {
 
 const subTableColumns: TableColumnList = [
   {
+    label: "操作",
+    width: 210,
+    slot: "operation",
+    cellRenderer: ({ row, column, $index }) => (
+      <div>
+        <el-button
+          class="reset-margin"
+          link
+          type="primary"
+          icon={useRenderIcon(Delete)}
+          onClick={() => ShowJobChoose(row, $index)}
+        >
+          关联任务
+        </el-button>
+        <el-button
+          class="reset-margin"
+          link
+          type="primary"
+          icon={useRenderIcon(Delete)}
+          onClick={() => onDel(row, $index)}
+        >
+          删除
+        </el-button>
+      </div>
+    )
+  },
+  {
     label: "任务编码",
-    prop: "JobItemCode"
+    prop: "JobCode"
   },
   {
     label: "任务名称",
-    prop: "JobItemName"
+    prop: "JobName"
   },
   {
     label: "任务工程量",
-    prop: "JobPreQuantity"
+    prop: "PreQuantity"
   },
   {
     label: "物料编码",
@@ -258,40 +355,64 @@ const subTableColumns: TableColumnList = [
     prop: "MaterialUnit"
   },
   {
-    label: "物料类型",
-    prop: "MaterialTypeStr"
-  },
-  {
-    label: "材料工程量",
-    prop: "JobMaterialPreQuantity"
-  },
-  {
-    label: "实际工程量",
-    prop: "JobMaterialActualQuantity"
+    label: "单价",
+    prop: "UnitPrice",
+    cellRenderer: ({ row, column, $index }) => (
+      <ElInput
+        modelValue={row.UnitPrice}
+        onUpdate:modelValue={(val: string) => {
+          row.UnitPrice = val;
+        }}
+        placeholder="数量"
+        clearable
+        size="small"
+      />
+    )
   },
   {
     label: "采购数量",
-    prop: "TypeStr"
-  },
-  {
-    label: "单价",
-    prop: "TypeStr"
-  },
-  {
-    label: "税率",
-    prop: "TypeStr"
-  },
-  {
-    label: "运费单价",
-    prop: "TypeStr"
+    prop: "Quantity",
+    cellRenderer: ({ row, column, $index }) => (
+      <ElInput
+        modelValue={row.Quantity}
+        onUpdate:modelValue={(val: string) => {
+          row.Quantity = val;
+        }}
+        placeholder="数量"
+        clearable
+        size="small"
+      />
+    )
   },
   {
     label: "合计",
-    prop: "TypeStr"
+    prop: "TotalAmount",
+    cellRenderer: ({ row, column, $index }) => (
+      <ElInput
+        modelValue={row.TotalAmount}
+        onUpdate:modelValue={(val: string) => {
+          row.TotalAmount = val;
+        }}
+        placeholder="数量"
+        clearable
+        size="small"
+      />
+    )
   },
   {
     label: "备注",
-    prop: "Notes"
+    prop: "Notes",
+    cellRenderer: ({ row, column, $index }) => (
+      <ElInput
+        modelValue={row.Notes}
+        onUpdate:modelValue={(val: string) => {
+          row.Notes = val;
+        }}
+        placeholder="备注"
+        clearable
+        size="small"
+      />
+    )
   }
 ];
 
@@ -320,15 +441,41 @@ const handleAddRow = () => {
   });
 };
 
+var ShowJobChoose = (procureRow: any, index: number) => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
+  addDialog({
+    title: "选择任务",
+    width: "80%",
+    draggable: true,
+    fullscreen: deviceDetection(),
+    fullscreenIcon: true,
+    closeOnClickModal: false,
+    hideFooter: true,
+    contentRenderer: ({ options, index }) =>
+      h(JobSelection, {
+        title: "任务列表",
+        projectId: newFormInline.value.ProjectID,
+        onSelect: row => {
+          handleJobSelect(row, procureRow);
+          closeDialog(options, index, { command: "sure" });
+        }
+      })
+  });
+};
+
 const handleJobSelect = (row, procureItem) => {
   if (!Array.isArray(newFormInline.value.Items)) {
     newFormInline.value.Items = [];
   }
   console.log("Selected material:", row);
   procureItem.ProjectItemID = row.ID;
-  procureItem.JobItemCode = row.Code;
-  procureItem.JobItemName = row.Name;
-  procureItem.JobPreQuantity = row.PreQuantity;
+  procureItem.JobCode = row.Code;
+  procureItem.JobName = row.Name;
+  procureItem.PreQuantity = row.PreQuantity;
+  procureItem.Quantity = row.PreQuantity;
 };
 const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
@@ -337,14 +484,13 @@ const handleMaterialSelect = row => {
   console.log("Selected material:", row);
   const procureItem: any = {};
   procureItem.MaterialID = row.ID;
-  procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
   procureItem.MaterialCode = row.Code;
   procureItem.MaterialName = row.Name;
   procureItem.MaterialSpecifications = row.Specifications;
   procureItem.MaterialType = row.Type;
   procureItem.MaterialTypeStr = row.TypeStr;
   procureItem.MaterialUnit = row.Unit;
-  procureItem.MaterialType = row.Type;
+  procureItem.UnitPrice = row.Price;
 
   newFormInline.value.Items.push({
     ...procureItem,

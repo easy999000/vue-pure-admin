@@ -3,17 +3,16 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
-  type Procurematerialinfo,
+  type LaborInfoParam,
   type EnquiryGroupPageParam,
-  type EnquiryInfoDTO,
-  type GetProcureGetMyProcureMaterialPageParams
+  type GetLaborGetLaborInfoPageApiParams
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm: GetProcureGetMyProcureMaterialPageParams = reactive({});
+  const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
@@ -35,12 +34,36 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "创建时间",
-      prop: "CreateTime"
+      label: "审核状态",
+      prop: "StatusName"
     },
     {
-      label: "状态",
-      prop: "StatusName"
+      label: "当前审批角色",
+      prop: "ApprovalRoleName"
+    },
+    {
+      label: "下发状态",
+      prop: "AccountStatusName"
+    },
+    {
+      label: "付款方式",
+      prop: "PayModeName"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
+    },
+    {
+      label: "冻结金额",
+      prop: "FrozenAmount"
+    },
+    {
+      label: "已付款",
+      prop: "PayAmount"
+    },
+    {
+      label: "创建时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -88,7 +111,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    const { Code, Data } = await api.api.get_Procure_GetMyProcureMaterialPage({
+    ///GetWinLaborAPI
+    const { Code, Data } = await api.api.get_Labor_GetWinLaborAPI({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -121,7 +145,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: Procurematerialinfo) {
+  function openDialog(title = "新增", row?: LaborInfoParam) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -137,9 +161,8 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as EnquiryInfoDTO;
+        const curData = options.props.formInline as LaborInfoParam;
         function chores(res2: any) {
-          console.log("res2", res2);
           if (res2.Code !== 0) {
             message(`操作失败，${res2.Message}`, { type: "error" });
             return;
@@ -150,8 +173,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过
-        api.api.post_Procure_ProcureMaterialApply(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////LaborInfoApprove
+        api.api.post_Labor_LaborInfoApprove(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });

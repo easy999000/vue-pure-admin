@@ -156,7 +156,7 @@ onMounted(() => {
                 type="primary"
                 :size="size"
                 :icon="useRenderIcon(EditPen)"
-                @click="openDialog('详情', row)"
+                @click="openDialog('修改', row)"
               >
                 详情
               </el-button>
