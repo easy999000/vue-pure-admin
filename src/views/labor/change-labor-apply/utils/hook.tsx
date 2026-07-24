@@ -173,8 +173,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LaborInfoApprove
-        api.api.post_Labor_LaborInfoApprove(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////LaborChangeUpdateAPI
+        api.api.post_Labor_LaborChangeUpdateAPI(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });

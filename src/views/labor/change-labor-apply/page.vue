@@ -158,7 +158,7 @@ onMounted(() => {
                 :icon="useRenderIcon(EditPen)"
                 @click="openDialog('修改', row)"
               >
-                审核
+                劳务变更
               </el-button>
             </template>
           </pure-table>
