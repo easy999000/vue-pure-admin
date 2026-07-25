@@ -35,8 +35,8 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数 GetLaborFullByID
-      const res = await api.api.get_Labor_GetLaborFullByID({
+      // 假设 getTableData 是你的 API 请求函数 GetLaborChangeFullByID
+      const res = await api.api.get_Labor_GetLaborChangeFullByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
