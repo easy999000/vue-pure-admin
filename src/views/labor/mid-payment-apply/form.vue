@@ -35,11 +35,15 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数 GetProcureMaterialByID_WithPrice
-      const res = await api.api.get_Procure_GetProcureMaterialByID_WithPrice({
+      // 假设 getTableData 是你的 API 请求函数 GetLaborFullByID
+      const res = await api.api.get_Labor_GetLaborFullByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
+      newFormInline.value.Items.forEach(item => {
+        item.LaboraItemId = item.ID;
+        console.log("item.LaboraInfoId", item);
+      });
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -100,16 +104,13 @@ const columns: PlusColumn[] = [
   {
     label: "标题",
     prop: "Title",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "所属项目",
     prop: "ProjectID",
     valueType: "select",
-    options: getProjectOptions(),
-    fieldProps: {
-      disabled: true
-    }
+    options: getProjectOptions()
   },
   {
     label: "付款方式",
@@ -128,82 +129,57 @@ const columns: PlusColumn[] = [
         label: "挂账",
         value: 2
       }
-    ],
+    ]
+  },
+  {
+    label: "会议内容",
+    prop: "Content",
+    valueType: "input"
+  },
+  {
+    label: "会议时间",
+    prop: "MeetingTime",
+    valueType: "date-picker",
     fieldProps: {
-      disabled: true
+      type: "datetime",
+      format: "YYYY-MM-DD HH:mm:ss",
+      valueFormat: "YYYY-MM-DD HH:mm:ss"
     }
+  },
+  {
+    label: "会议地点",
+    prop: "Place",
+    valueType: "input"
+  },
+  {
+    label: "会议人员",
+    prop: "Participants",
+    valueType: "input"
+  },
+  {
+    label: "乙方名称",
+    prop: "PartyB",
+    valueType: "input"
   },
   {
     label: "供应商名称",
     prop: "PartBName",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "开户行信息",
     prop: "PartBBank",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "账户名称",
     prop: "PartBBankUser",
-    valueType: "text"
+    valueType: "input"
   },
   {
     label: "银行账号",
     prop: "PartBBankAccount",
-    valueType: "text"
-  },
-  {
-    label: "附件1",
-    prop: "Annex1",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}
-        </>
-      );
-    }
-  },
-  {
-    label: "附件2",
-    prop: "Annex2",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}{" "}
-        </>
-      );
-    }
+    valueType: "input"
   },
   {
     label: "采购清单",
@@ -230,57 +206,45 @@ function onDel(row: any, index: number) {
 
 const subTableColumns: TableColumnList = [
   {
-    label: "任务编码",
-    prop: "JobItemCode"
+    label: "序号",
+    prop: "JobCode"
   },
   {
-    label: "任务名称",
-    prop: "JobItemName"
+    label: "名称",
+    prop: "JobName"
   },
   {
-    label: "任务工程量",
-    prop: "JobPreQuantity"
-  },
-  {
-    label: "物料编码",
-    prop: "MaterialCode"
-  },
-  {
-    label: "物料名称",
-    prop: "MaterialName"
-  },
-  {
-    label: "物料规格",
-    prop: "MaterialSpecifications"
-  },
-  {
-    label: "物料单位",
+    label: "单位",
     prop: "MaterialUnit"
   },
   {
-    label: "物料类型",
-    prop: "MaterialTypeStr"
-  },
-  {
-    label: "材料工程量",
-    prop: "JobMaterialPreQuantity"
-  },
-  {
-    label: "实际工程量",
-    prop: "JobMaterialActualQuantity"
-  },
-  {
-    label: "采购数量",
-    prop: "TypeStr"
+    label: "工程量",
+    prop: "PreQuantity"
   },
   {
     label: "单价",
-    prop: "TypeStr",
+    prop: "UnitPrice"
+  },
+  {
+    label: "合价",
+    prop: "TotalAmount"
+  },
+  {
+    label: "上期累计工程量",
+    prop: "PreviousQuantity"
+  },
+  {
+    label: "合价",
+    prop: "PreviousQuantityAmount"
+  },
+  {
+    label: "本期上报",
+    prop: "ApplicationQuantity",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
-        modelValue={row.UnitPrice}
+        modelValue={row.ApplicationQuantity}
         onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
+          row.ApplicationQuantity = val;
         }}
         placeholder="数量"
         clearable
@@ -289,42 +253,8 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "税率",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Taxrate}
-        onUpdate:modelValue={(val: string) => {
-          row.Taxrate = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
-    label: "运费单价",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Freight}
-        onUpdate:modelValue={(val: string) => {
-          row.Freight = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
-    label: "合计",
-    prop: "TypeStr"
-  },
-  {
-    label: "备注",
-    prop: "Notes"
+    label: "合价",
+    prop: ""
   }
 ];
 
@@ -353,15 +283,41 @@ const handleAddRow = () => {
   });
 };
 
+var ShowJobChoose = (procureRow: any, index: number) => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
+  addDialog({
+    title: "选择任务",
+    width: "80%",
+    draggable: true,
+    fullscreen: deviceDetection(),
+    fullscreenIcon: true,
+    closeOnClickModal: false,
+    hideFooter: true,
+    contentRenderer: ({ options, index }) =>
+      h(JobSelection, {
+        title: "任务列表",
+        projectId: newFormInline.value.ProjectID,
+        onSelect: row => {
+          handleJobSelect(row, procureRow);
+          closeDialog(options, index, { command: "sure" });
+        }
+      })
+  });
+};
+
 const handleJobSelect = (row, procureItem) => {
   if (!Array.isArray(newFormInline.value.Items)) {
     newFormInline.value.Items = [];
   }
   console.log("Selected material:", row);
   procureItem.ProjectItemID = row.ID;
-  procureItem.JobItemCode = row.Code;
-  procureItem.JobItemName = row.Name;
-  procureItem.JobPreQuantity = row.PreQuantity;
+  procureItem.JobCode = row.Code;
+  procureItem.JobName = row.Name;
+  procureItem.PreQuantity = row.PreQuantity;
+  procureItem.Quantity = row.PreQuantity;
 };
 const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
@@ -370,14 +326,13 @@ const handleMaterialSelect = row => {
   console.log("Selected material:", row);
   const procureItem: any = {};
   procureItem.MaterialID = row.ID;
-  procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
   procureItem.MaterialCode = row.Code;
   procureItem.MaterialName = row.Name;
   procureItem.MaterialSpecifications = row.Specifications;
   procureItem.MaterialType = row.Type;
   procureItem.MaterialTypeStr = row.TypeStr;
   procureItem.MaterialUnit = row.Unit;
-  procureItem.MaterialType = row.Type;
+  procureItem.UnitPrice = row.Price;
 
   newFormInline.value.Items.push({
     ...procureItem,
