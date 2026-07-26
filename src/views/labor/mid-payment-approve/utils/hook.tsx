@@ -1,32 +1,30 @@
-import { reactive, ref, onMounted, h, toRaw } from "vue";
+﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type LaborInfoParam,
   type EnquiryGroupPageParam,
-  type GetProcureGetProcureMaterialApprovePageApiParams,
-  type ProcureParam
+  type GetLaborGetLaborInfoPageApiParams,
+  type LaborPayParam
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog, closeDialog } from "@/components/ReDialog";
+import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
-import { ElMessageBox } from "element-plus";
 export function useHook() {
-  const searchForm: GetProcureGetProcureMaterialApprovePageApiParams = reactive(
-    {}
-  );
+  const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
     currentPage: 1,
     background: true
   });
-  const loading = ref(true);
+  const loading = ref(false);
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("采购审核");
+  const pageName = ref("我的采购");
   const columns: TableColumnList = [
     {
       label: "标题",
@@ -37,12 +35,32 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "状态",
+      label: "审核状态",
       prop: "StatusName"
     },
     {
-      label: "审批角色",
+      label: "当前审批角色",
       prop: "ApprovalRoleName"
+    },
+    {
+      label: "下发状态",
+      prop: "AccountStatusName"
+    },
+    {
+      label: "付款方式",
+      prop: "PayModeName"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
+    },
+    {
+      label: "冻结金额",
+      prop: "FrozenAmount"
+    },
+    {
+      label: "已付款",
+      prop: "PayAmount"
     },
     {
       label: "创建时间",
@@ -94,14 +112,13 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ////GetProcureMaterialApprovePageApi
-    const { Code, Data } =
-      await api.api.get_Procure_GetProcureMaterialApprovePageApi({
-        PageSize: pagination.pageSize,
-        PageNumber: pagination.currentPage,
-        Count: pagination.total,
-        ...toRaw(searchForm)
-      });
+    ///GetLaborPayApprove
+    const { Code, Data } = await api.api.get_Labor_GetLaborPayApprove({
+      PageSize: pagination.pageSize,
+      PageNumber: pagination.currentPage,
+      Count: pagination.total,
+      ...toRaw(searchForm)
+    });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
@@ -129,7 +146,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: ProcureParam) {
+  function openDialog(title = "新增", row?: LaborInfoParam) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -144,81 +161,25 @@ export function useHook() {
       fullscreenIcon: true,
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
-      footerButtons: [
-        {
-          label: "拒绝",
-          type: "danger",
-          plain: true,
-          size: "large",
-          btnClick: async ({ dialog: { options, index } }) => {
-            try {
-              await ElMessageBox.confirm(
-                "确定要拒绝该审批吗？拒绝后将无法恢复。",
-                "拒绝确认",
-                {
-                  confirmButtonText: "确定拒绝",
-                  cancelButtonText: "取消",
-                  confirmButtonClass: "el-button--danger",
-                  type: "warning",
-                  center: true,
-                  distinguishCancelAndClose: true,
-                  closeOnClickModal: false
-                }
-              );
-            } catch {
-              return;
-            }
-            const param: ProcureParam = { ID: row?.ID };
-            try {
-              const res =
-                await api.api.post_Procure_ProcureMaterialReject(param);
-              if (res.Code === 0) {
-                message(`您已拒绝该${pageName.value}`, { type: "success" });
-                closeDialog(options, index, { command: "sure" });
-                onSearch();
-              } else {
-                message(`操作失败，${res.Message}`, { type: "error" });
-              }
-            } catch {
-              message(`操作失败`, { type: "error" });
-            }
+      beforeSure: (done, { options }) => {
+        const curData = options.props.formInline as LaborPayParam;
+        function chores(res2: any) {
+          if (res2.Code !== 0) {
+            message(`操作失败，${res2.Message}`, { type: "error" });
+            return;
           }
-        },
-        {
-          label: "同意",
-          type: "success",
-          size: "large",
-          btnClick: async ({ dialog: { options, index } }) => {
-            try {
-              await ElMessageBox.confirm("确定要通过该审批吗？", "同意确认", {
-                confirmButtonText: "确定同意",
-                cancelButtonText: "取消",
-                confirmButtonClass: "el-button--success",
-                type: "success",
-                center: true,
-                distinguishCancelAndClose: true,
-                closeOnClickModal: false
-              });
-            } catch {
-              return;
-            }
-            const param: ProcureParam = { ID: row?.ID };
-            try {
-              const res =
-                await api.api.post_Procure_ProcureMaterialApproveApi(param);
-              if (res.Code === 0) {
-                message(`您已同意该${pageName.value}`, { type: "success" });
-                closeDialog(options, index, { command: "sure" });
-                onSearch();
-              } else {
-                message(`操作失败，${res.Message}`, { type: "error" });
-              }
-            } catch {
-              message(`操作失败`, { type: "error" });
-            }
-          }
+          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
         }
-      ]
+        // 表单规则校验通过  ///////LaborPayApprove
+        api.api.post_Labor_LaborPayApprove(toRaw(curData)).then(res => {
+          // 实际开发先调用修改接口，再进行下面操作
+          chores(res);
+        });
+      }
     });
   }
   return {
