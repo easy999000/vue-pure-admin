@@ -4760,14 +4760,16 @@ import type {
   AxiosInstance,
   AxiosRequestConfig,
   HeadersDefaults,
-  ResponseType,
+  ResponseType
 } from "axios";
 import axios from "axios";
 
 export type QueryParamsType = Record<string | number, any>;
 
-export interface FullRequestParams
-  extends Omit<AxiosRequestConfig, "data" | "params" | "url" | "responseType"> {
+export interface FullRequestParams extends Omit<
+  AxiosRequestConfig,
+  "data" | "params" | "url" | "responseType"
+> {
   /** set parameter to `true` for call `securityWorker` for this request */
   secure?: boolean;
   /** request path */
@@ -4787,10 +4789,12 @@ export type RequestParams = Omit<
   "body" | "method" | "query" | "path"
 >;
 
-export interface ApiConfig<SecurityDataType = unknown>
-  extends Omit<AxiosRequestConfig, "data" | "cancelToken"> {
+export interface ApiConfig<SecurityDataType = unknown> extends Omit<
+  AxiosRequestConfig,
+  "data" | "cancelToken"
+> {
   securityWorker?: (
-    securityData: SecurityDataType | null,
+    securityData: SecurityDataType | null
   ) => Promise<AxiosRequestConfig | void> | AxiosRequestConfig | void;
   secure?: boolean;
   format?: ResponseType;
@@ -4801,7 +4805,7 @@ export enum ContentType {
   JsonApi = "application/vnd.api+json",
   FormData = "multipart/form-data",
   UrlEncoded = "application/x-www-form-urlencoded",
-  Text = "text/plain",
+  Text = "text/plain"
 }
 
 export class HttpClient<SecurityDataType = unknown> {
@@ -4819,7 +4823,7 @@ export class HttpClient<SecurityDataType = unknown> {
   }: ApiConfig<SecurityDataType> = {}) {
     this.instance = axios.create({
       ...axiosConfig,
-      baseURL: axiosConfig.baseURL || "",
+      baseURL: axiosConfig.baseURL || ""
     });
     this.secure = secure;
     this.format = format;
@@ -4832,7 +4836,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
   protected mergeRequestParams(
     params1: AxiosRequestConfig,
-    params2?: AxiosRequestConfig,
+    params2?: AxiosRequestConfig
   ): AxiosRequestConfig {
     const method = params1.method || (params2 && params2.method);
 
@@ -4847,8 +4851,8 @@ export class HttpClient<SecurityDataType = unknown> {
           ]) ||
           {}),
         ...(params1.headers || {}),
-        ...((params2 && params2.headers) || {}),
-      },
+        ...((params2 && params2.headers) || {})
+      }
     };
   }
 
@@ -4873,7 +4877,7 @@ export class HttpClient<SecurityDataType = unknown> {
         const isFileType = formItem instanceof Blob || formItem instanceof File;
         formData.append(
           key,
-          isFileType ? formItem : this.stringifyFormItem(formItem),
+          isFileType ? formItem : this.stringifyFormItem(formItem)
         );
       }
 
@@ -4921,14 +4925,14 @@ export class HttpClient<SecurityDataType = unknown> {
         ...requestParams,
         headers: {
           ...(requestParams.headers || {}),
-          ...(type ? { "Content-Type": type } : {}),
+          ...(type ? { "Content-Type": type } : {})
         },
         params: query,
         responseType: responseFormat,
         data: body,
-        url: path,
+        url: path
       })
-      .then((response) => response.data);
+      .then(response => response.data);
   };
 }
 
@@ -4937,7 +4941,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @version v1
  */
 export class Api<
-  SecurityDataType extends unknown,
+  SecurityDataType extends unknown
 > extends HttpClient<SecurityDataType> {
   api = {
     /**
@@ -4949,14 +4953,14 @@ export class Api<
      */
     get_Account1_GetAccountPage: (
       query: GetAccount1GetAccountPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<AccountPageResultPageResultResult, any>({
         path: `/api/Account1/GetAccountPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -4971,7 +4975,7 @@ export class Api<
         path: `/api/Account1/GetAccountSelectList`,
         method: "GET",
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -4983,7 +4987,7 @@ export class Api<
      */
     post_Account1_UpdateAccount: (
       data: UpdateAccountDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UpdateAccountDTOResult, any>({
         path: `/api/Account1/UpdateAccount`,
@@ -4991,7 +4995,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5003,14 +5007,14 @@ export class Api<
      */
     get_Account1_GetAccountModel: (
       query: GetAccount1GetAccountModelParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UpdateAccountDTOResult, any>({
         path: `/api/Account1/GetAccountModel`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5027,7 +5031,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5044,7 +5048,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5056,7 +5060,7 @@ export class Api<
      */
     post_Common_ChangeMyPassword: (
       data: ChangeMyPasswordDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Common/ChangeMyPassword`,
@@ -5064,7 +5068,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5081,7 +5085,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5093,14 +5097,14 @@ export class Api<
      */
     get_Common_GetSysMsgPage: (
       query: GetCommonGetSysMsgPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<SysmessagePageResultResult, any>({
         path: `/api/Common/GetSysMsgPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5112,14 +5116,14 @@ export class Api<
      */
     get_Common_GetSysMsgUnreadCount: (
       query: GetCommonGetSysMsgUnreadCountParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<SysMessageResultResult, any>({
         path: `/api/Common/GetSysMsgUnreadCount`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5131,14 +5135,14 @@ export class Api<
      */
     get_Common_GetSetting: (
       query: GetCommonGetSettingParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<AccountsettingResult, any>({
         path: `/api/Common/GetSetting`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5150,7 +5154,7 @@ export class Api<
      */
     post_Common_SetSetting: (
       data: Accountsetting,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Common/SetSetting`,
@@ -5158,7 +5162,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5173,7 +5177,7 @@ export class Api<
         /** @format binary */
         file?: File;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UploadFileDTOResult, any>({
         path: `/api/Common/UploadFile`,
@@ -5181,7 +5185,7 @@ export class Api<
         body: data,
         type: ContentType.FormData,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5193,14 +5197,14 @@ export class Api<
      */
     get_Contract_GetMyContractInfoPage: (
       query: GetContractGetMyContractInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ContractinfoPageResultResult, any>({
         path: `/api/Contract/GetMyContractInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5215,7 +5219,7 @@ export class Api<
         path: `/api/Contract/GetContractTypeList`,
         method: "GET",
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5227,14 +5231,14 @@ export class Api<
      */
     get_Contract_GetContractInfoByID: (
       query: GetContractGetContractInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ContractinfoResult, any>({
         path: `/api/Contract/GetContractInfoByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5246,7 +5250,7 @@ export class Api<
      */
     post_Contract_UpdateContractInfo: (
       data: Contractinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ContractinfoResult, any>({
         path: `/api/Contract/UpdateContractInfo`,
@@ -5254,7 +5258,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5266,14 +5270,14 @@ export class Api<
      */
     get_Contract_GetContractInfoApprovePage: (
       query: GetContractGetContractInfoApprovePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ContractinfoPageResultResult, any>({
         path: `/api/Contract/GetContractInfoApprovePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5285,14 +5289,14 @@ export class Api<
      */
     get_Contract_GetContractInfoEndPage: (
       query: GetContractGetContractInfoEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ContractinfoPageResultResult, any>({
         path: `/api/Contract/GetContractInfoEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5304,7 +5308,7 @@ export class Api<
      */
     post_Contract_ContractInfoApprove: (
       data: ContractInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Contract/ContractInfoApprove`,
@@ -5312,7 +5316,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5324,7 +5328,7 @@ export class Api<
      */
     post_Contract_ContractInfoReject: (
       data: ContractInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Contract/ContractInfoReject`,
@@ -5332,7 +5336,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5344,14 +5348,14 @@ export class Api<
      */
     get_Credit_GetCreditOrderPage: (
       query: GetCreditGetCreditOrderPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditorderPageResultResult, any>({
         path: `/api/Credit/GetCreditOrderPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5363,14 +5367,14 @@ export class Api<
      */
     get_Credit_GetCreditPayInfoPage: (
       query: GetCreditGetCreditPayInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditpayinfoPageResultResult, any>({
         path: `/api/Credit/GetCreditPayInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5382,14 +5386,14 @@ export class Api<
      */
     get_Credit_GetCreditPayInfoApprovalPage: (
       query: GetCreditGetCreditPayInfoApprovalPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditpayinfoPageResultResult, any>({
         path: `/api/Credit/GetCreditPayInfoApprovalPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5401,7 +5405,7 @@ export class Api<
      */
     post_Credit_CreditPayInfoApply: (
       data: Creditpayinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditpayinfoResult, any>({
         path: `/api/Credit/CreditPayInfoApply`,
@@ -5409,7 +5413,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5421,14 +5425,14 @@ export class Api<
      */
     get_Credit_GetCreditPayInfoFull: (
       query: GetCreditGetCreditPayInfoFullParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditpayinfoResult, any>({
         path: `/api/Credit/GetCreditPayInfoFull`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5440,7 +5444,7 @@ export class Api<
      */
     post_Credit_CreditPayInfoApprove: (
       data: CreditPayInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Credit/CreditPayInfoApprove`,
@@ -5448,7 +5452,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5460,7 +5464,7 @@ export class Api<
      */
     post_Credit_CreditPayInfoReject: (
       data: CreditPayInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Credit/CreditPayInfoReject`,
@@ -5468,7 +5472,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5480,14 +5484,14 @@ export class Api<
      */
     get_Credit_GetCreditPayInfoEndPage: (
       query: GetCreditGetCreditPayInfoEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<CreditpayinfoPageResultResult, any>({
         path: `/api/Credit/GetCreditPayInfoEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5499,14 +5503,14 @@ export class Api<
      */
     get_Enquiry_GetEnquiryGroupPage: (
       query: GetEnquiryGetEnquiryGroupPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquirygroupPageResultResult, any>({
         path: `/api/Enquiry/GetEnquiryGroupPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5518,14 +5522,14 @@ export class Api<
      */
     get_Enquiry_GetEnquiryGroupByID: (
       query: GetEnquiryGetEnquiryGroupByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UpdateEnquiryGroupDTOResult, any>({
         path: `/api/Enquiry/GetEnquiryGroupByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5537,7 +5541,7 @@ export class Api<
      */
     post_Enquiry_DelEnquiryGroupByID: (
       data: EnquiryGroupPageParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Enquiry/DelEnquiryGroupByID`,
@@ -5545,7 +5549,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5557,7 +5561,7 @@ export class Api<
      */
     post_Enquiry_UpdateEnquiryGroup: (
       data: UpdateEnquiryGroupDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<UpdateEnquiryGroupDTOResult, any>({
         path: `/api/Enquiry/UpdateEnquiryGroup`,
@@ -5565,7 +5569,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5577,14 +5581,14 @@ export class Api<
      */
     get_Enquiry_GetMyEnquiryInfoPage: (
       query: GetEnquiryGetMyEnquiryInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryinfoPageResultResult, any>({
         path: `/api/Enquiry/GetMyEnquiryInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5596,7 +5600,7 @@ export class Api<
      */
     post_Enquiry_UpdateEnquiryInfo: (
       data: EnquiryInfoDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/UpdateEnquiryInfo`,
@@ -5604,7 +5608,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5616,14 +5620,14 @@ export class Api<
      */
     get_Enquiry_GetEnquiryInfoByID: (
       query: GetEnquiryGetEnquiryInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/GetEnquiryInfoByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5635,14 +5639,14 @@ export class Api<
      */
     get_Enquiry_GetMyQuotationPage: (
       query: GetEnquiryGetMyQuotationPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryinfoPageResultResult, any>({
         path: `/api/Enquiry/GetMyQuotationPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5654,7 +5658,7 @@ export class Api<
      */
     post_Enquiry_QuotationUpdate: (
       data: EnquiryInfoDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/QuotationUpdate`,
@@ -5662,7 +5666,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5674,14 +5678,14 @@ export class Api<
      */
     get_Enquiry_GetQuotationByID: (
       query: GetEnquiryGetQuotationByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/GetQuotationByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5693,14 +5697,14 @@ export class Api<
      */
     get_Enquiry_GetQuotationAssessPage: (
       query: GetEnquiryGetQuotationAssessPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryinfoPageResultResult, any>({
         path: `/api/Enquiry/GetQuotationAssessPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5712,14 +5716,14 @@ export class Api<
      */
     get_Enquiry_GetQuotationAssessByID: (
       query: GetEnquiryGetQuotationAssessByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<QuotationAssessDTOResult, any>({
         path: `/api/Enquiry/GetQuotationAssessByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5731,7 +5735,7 @@ export class Api<
      */
     post_Enquiry_EndQuotation: (
       data: QuotationAssessUpdateParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int32Result, any>({
         path: `/api/Enquiry/EndQuotation`,
@@ -5739,7 +5743,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5751,7 +5755,7 @@ export class Api<
      */
     post_Enquiry_QuotationAssessUpdate: (
       data: QuotationAssessUpdateParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/QuotationAssessUpdate`,
@@ -5759,7 +5763,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5771,7 +5775,7 @@ export class Api<
      */
     post_Enquiry_QuotationAssessReject: (
       data: QuotationAssessUpdateParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryInfoDTOResult, any>({
         path: `/api/Enquiry/QuotationAssessReject`,
@@ -5779,7 +5783,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5791,14 +5795,14 @@ export class Api<
      */
     get_Enquiry_GetQuotationEndPage: (
       query: GetEnquiryGetQuotationEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<EnquiryinfoPageResultResult, any>({
         path: `/api/Enquiry/GetQuotationEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5812,7 +5816,7 @@ export class Api<
       this.request<void, any>({
         path: `/api/Home/Index`,
         method: "GET",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5829,7 +5833,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5843,7 +5847,7 @@ export class Api<
       this.request<void, any>({
         path: `/api/Home/LogOut`,
         method: "GET",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5857,7 +5861,7 @@ export class Api<
       this.request<void, any>({
         path: `/api/home/LoginVerifyImg`,
         method: "GET",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5869,14 +5873,14 @@ export class Api<
      */
     get_Labor_GetLaborInfoPageAPI: (
       query: GetLaborGetLaborInfoPageApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoPageResultResult, any>({
         path: `/api/Labor/GetLaborInfoPageAPI`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5888,14 +5892,14 @@ export class Api<
      */
     get_Labor_GetLaborApprovePageAPI: (
       query: GetLaborGetLaborApprovePageApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoPageResultResult, any>({
         path: `/api/Labor/GetLaborApprovePageAPI`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5912,7 +5916,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5924,7 +5928,7 @@ export class Api<
      */
     post_Labor_LaborInfoApprove: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborInfoApprove`,
@@ -5932,7 +5936,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5944,7 +5948,7 @@ export class Api<
      */
     post_Labor_LaborInfoReject: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborInfoReject`,
@@ -5952,7 +5956,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5964,14 +5968,14 @@ export class Api<
      */
     get_Labor_GetLaborByID: (
       query: GetLaborGetLaborByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoResult, any>({
         path: `/api/Labor/GetLaborByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -5983,14 +5987,14 @@ export class Api<
      */
     get_Labor_GetLaborFullByID: (
       query: GetLaborGetLaborFullByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoResult, any>({
         path: `/api/Labor/GetLaborFullByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6002,14 +6006,14 @@ export class Api<
      */
     get_Labor_GetLaborForPay: (
       query: GetLaborGetLaborForPayParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoResult, any>({
         path: `/api/Labor/GetLaborForPay`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6021,14 +6025,14 @@ export class Api<
      */
     get_Labor_GetWinLaborAPI: (
       query: GetLaborGetWinLaborApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoPageResultResult, any>({
         path: `/api/Labor/GetWinLaborAPI`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6040,14 +6044,14 @@ export class Api<
      */
     get_Labor_GetLaborPayApplyAPI: (
       query: GetLaborGetLaborPayApplyApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoPageResultResult, any>({
         path: `/api/Labor/GetLaborPayApplyAPI`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6059,7 +6063,7 @@ export class Api<
      */
     post_Labor_ConfirmFinLabor: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int32Result, any>({
         path: `/api/Labor/ConfirmFinLabor`,
@@ -6067,7 +6071,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6079,14 +6083,14 @@ export class Api<
      */
     get_Labor_GetLaborInfoEndPage: (
       query: GetLaborGetLaborInfoEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoPageResultResult, any>({
         path: `/api/Labor/GetLaborInfoEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6098,7 +6102,7 @@ export class Api<
      */
     post_Labor_LaborPayApproval: (
       data: LaborPayParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoResult, any>({
         path: `/api/Labor/LaborPayApproval`,
@@ -6106,7 +6110,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6118,14 +6122,14 @@ export class Api<
      */
     get_Labor_GetLaborPayApprove: (
       query: GetLaborGetLaborPayApproveParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaboraPayInfoPageResultResult, any>({
         path: `/api/Labor/GetLaborPayApprove`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6137,14 +6141,14 @@ export class Api<
      */
     get_Labor_GetLaborPayApproveSuccess: (
       query: GetLaborGetLaborPayApproveSuccessParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaboraPayInfoPageResultResult, any>({
         path: `/api/Labor/GetLaborPayApproveSuccess`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6156,7 +6160,7 @@ export class Api<
      */
     post_Labor_LaborPayApprove: (
       data: LaboraPayInfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborPayApprove`,
@@ -6164,7 +6168,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6176,7 +6180,7 @@ export class Api<
      */
     post_Labor_LaborPayReject: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborPayReject`,
@@ -6184,7 +6188,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6196,14 +6200,14 @@ export class Api<
      */
     get_Labor_GetLaborPay: (
       query: GetLaborGetLaborPayParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaboraPayInfoResult, any>({
         path: `/api/Labor/GetLaborPay`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6215,14 +6219,14 @@ export class Api<
      */
     get_Labor_GetLaborPayEndPage: (
       query: GetLaborGetLaborPayEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaboraPayInfoPageResultResult, any>({
         path: `/api/Labor/GetLaborPayEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6234,7 +6238,7 @@ export class Api<
      */
     post_Labor_UpdateLaborPaySettlement: (
       data: LaboraPayInfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/UpdateLaborPaySettlement`,
@@ -6242,7 +6246,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6254,7 +6258,7 @@ export class Api<
      */
     post_Labor_LaborChangeUpdateAPI: (
       data: Laborinfochange,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfoResult, any>({
         path: `/api/Labor/LaborChangeUpdateAPI`,
@@ -6262,7 +6266,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6274,7 +6278,7 @@ export class Api<
      */
     post_Labor_GetLaborChangeApproveAPI: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfochangePageResultResult, any>({
         path: `/api/Labor/GetLaborChangeApproveAPI`,
@@ -6282,7 +6286,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6294,14 +6298,14 @@ export class Api<
      */
     get_Labor_GetLaborChangeFullByID: (
       query: GetLaborGetLaborChangeFullByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LaborinfochangeResult, any>({
         path: `/api/Labor/GetLaborChangeFullByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6313,7 +6317,7 @@ export class Api<
      */
     post_Labor_LaborChangeApprove: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborChangeApprove`,
@@ -6321,7 +6325,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6333,7 +6337,7 @@ export class Api<
      */
     post_Labor_LaborChangeReject: (
       data: LaborInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Labor/LaborChangeReject`,
@@ -6341,7 +6345,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6353,14 +6357,14 @@ export class Api<
      */
     get_Lease_GetMyLeasePage: (
       query: GetLeaseGetMyLeasePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoPageResultResult, any>({
         path: `/api/Lease/GetMyLeasePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6372,14 +6376,14 @@ export class Api<
      */
     get_Lease_GetLeasePageFinish: (
       query: GetLeaseGetLeasePageFinishParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoPageResultResult, any>({
         path: `/api/Lease/GetLeasePageFinish`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6391,14 +6395,14 @@ export class Api<
      */
     get_Lease_GetLeaseApprovePage: (
       query: GetLeaseGetLeaseApprovePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoPageResultResult, any>({
         path: `/api/Lease/GetLeaseApprovePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6410,7 +6414,7 @@ export class Api<
      */
     post_Lease_LeaseApproveApi: (
       data: LeaseParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Lease/LeaseApproveApi`,
@@ -6418,7 +6422,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6430,7 +6434,7 @@ export class Api<
      */
     post_Lease_LeaseFinishWork: (
       data: LeaseParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Lease/LeaseFinishWork`,
@@ -6438,7 +6442,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6455,7 +6459,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6467,14 +6471,14 @@ export class Api<
      */
     get_Lease_GetLeaseFullById: (
       query: GetLeaseGetLeaseFullByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoResult, any>({
         path: `/api/Lease/GetLeaseFullById`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6491,7 +6495,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6503,7 +6507,7 @@ export class Api<
      */
     post_Lease_LeaseCompletionApply: (
       data: Leaseinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoResult, any>({
         path: `/api/Lease/LeaseCompletionApply`,
@@ -6511,7 +6515,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6523,14 +6527,14 @@ export class Api<
      */
     get_Lease_GetLeaseCompletionApproveApi: (
       query: GetLeaseGetLeaseCompletionApproveApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<LeaseinfoPageResultResult, any>({
         path: `/api/Lease/GetLeaseCompletionApproveApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6542,7 +6546,7 @@ export class Api<
      */
     post_Lease_LeaseCompletionApproveApi: (
       data: LeaseParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Lease/LeaseCompletionApproveApi`,
@@ -6550,7 +6554,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6562,7 +6566,7 @@ export class Api<
      */
     post_Lease_LeaseCompletionRejectApi: (
       data: LeaseParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Lease/LeaseCompletionRejectApi`,
@@ -6570,7 +6574,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6587,7 +6591,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6601,7 +6605,7 @@ export class Api<
       this.request<void, any>({
         path: `/api/Main/LogOut`,
         method: "GET",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6615,7 +6619,7 @@ export class Api<
       this.request<void, any>({
         path: `/api/Main/LoginVerifyImg`,
         method: "GET",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6627,14 +6631,14 @@ export class Api<
      */
     get_Material_GetMaterialInfoPage: (
       query: GetMaterialGetMaterialInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<MaterialInfoDTOPageResultResult, any>({
         path: `/api/Material/GetMaterialInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6646,14 +6650,14 @@ export class Api<
      */
     get_Material_GetMaterialInfoPageByJobID: (
       query: GetMaterialGetMaterialInfoPageByJobIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<MaterialinfoPageResultResult, any>({
         path: `/api/Material/GetMaterialInfoPageByJobID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6665,14 +6669,14 @@ export class Api<
      */
     get_Material_GetMaterialPricePage: (
       query: GetMaterialGetMaterialPricePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<MaterialInfoDTOPageResultResult, any>({
         path: `/api/Material/GetMaterialPricePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6684,14 +6688,14 @@ export class Api<
      */
     get_Material_GetMaterialInfoByID: (
       query: GetMaterialGetMaterialInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<MaterialinfoResult, any>({
         path: `/api/Material/GetMaterialInfoByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6703,7 +6707,7 @@ export class Api<
      */
     post_Material_DelMaterialInfoByID: (
       data: MaterialInfoPageParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Material/DelMaterialInfoByID`,
@@ -6711,7 +6715,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6723,7 +6727,7 @@ export class Api<
      */
     post_Material_UpdateMaterialInfo: (
       data: MaterialInfoDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<MaterialInfoDTOResult, any>({
         path: `/api/Material/UpdateMaterialInfo`,
@@ -6731,7 +6735,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6746,7 +6750,7 @@ export class Api<
         /** @format binary */
         file?: File;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int32Result, any>({
         path: `/api/Material/UploadMaterialInfoItem`,
@@ -6754,7 +6758,7 @@ export class Api<
         body: data,
         type: ContentType.FormData,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6766,14 +6770,14 @@ export class Api<
      */
     get_Office_GetOfficeInfoByID: (
       query: GetOfficeGetOfficeInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficeinfoResult, any>({
         path: `/api/Office/GetOfficeInfoByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6785,14 +6789,14 @@ export class Api<
      */
     get_Office_GetOfficePage: (
       query: GetOfficeGetOfficePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficeinfoPageResultResult, any>({
         path: `/api/Office/GetOfficePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6809,7 +6813,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6821,7 +6825,7 @@ export class Api<
      */
     post_Office_OfficeApproveApi: (
       data: OfficeParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Office/OfficeApproveApi`,
@@ -6829,7 +6833,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6841,7 +6845,7 @@ export class Api<
      */
     post_Office_OfficeRejectApi: (
       data: OfficeParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Office/OfficeRejectApi`,
@@ -6849,7 +6853,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6861,14 +6865,14 @@ export class Api<
      */
     get_Office_GetOfficeApprovePageApi: (
       query: GetOfficeGetOfficeApprovePageApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficeinfoPageResultResult, any>({
         path: `/api/Office/GetOfficeApprovePageApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6880,14 +6884,14 @@ export class Api<
      */
     get_Office_GetOfficeApproveEndPage: (
       query: GetOfficeGetOfficeApproveEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficeinfoPageResultResult, any>({
         path: `/api/Office/GetOfficeApproveEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6899,14 +6903,14 @@ export class Api<
      */
     get_Official_GetOfficialInfoPage: (
       query: GetOfficialGetOfficialInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficialinfoPageResultResult, any>({
         path: `/api/Official/GetOfficialInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6918,14 +6922,14 @@ export class Api<
      */
     get_Official_GetOfficialInfoByID: (
       query: GetOfficialGetOfficialInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficialinfoResult, any>({
         path: `/api/Official/GetOfficialInfoByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6937,7 +6941,7 @@ export class Api<
      */
     post_Official_UpdateOfficialInfo: (
       data: Officialinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficialinfoResult, any>({
         path: `/api/Official/UpdateOfficialInfo`,
@@ -6945,7 +6949,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6957,14 +6961,14 @@ export class Api<
      */
     get_Official_GetOfficialInfoApprovePage: (
       query: GetOfficialGetOfficialInfoApprovePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficialinfoPageResultResult, any>({
         path: `/api/Official/GetOfficialInfoApprovePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6976,7 +6980,7 @@ export class Api<
      */
     post_Official_OfficialInfoApprove: (
       data: OfficialInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Official/OfficialInfoApprove`,
@@ -6984,7 +6988,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -6996,7 +7000,7 @@ export class Api<
      */
     post_Official_OfficialInfoReject: (
       data: OfficialInfoParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Official/OfficialInfoReject`,
@@ -7004,7 +7008,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7016,14 +7020,14 @@ export class Api<
      */
     get_Official_GetOfficialInfoEndPage: (
       query: GetOfficialGetOfficialInfoEndPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<OfficialinfoPageResultResult, any>({
         path: `/api/Official/GetOfficialInfoEndPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7035,7 +7039,7 @@ export class Api<
      */
     post_Procure_ProcureMaterialPriceUpdateApi: (
       data: Procurematerialinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoResult, any>({
         path: `/api/Procure/ProcureMaterialPriceUpdateApi`,
@@ -7043,7 +7047,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7055,14 +7059,14 @@ export class Api<
      */
     get_Procure_GetProcureMaterialByID: (
       query: GetProcureGetProcureMaterialByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoResult, any>({
         path: `/api/Procure/GetProcureMaterialByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7074,14 +7078,14 @@ export class Api<
      */
     get_Procure_GetProcureMaterialByID_WithPrice: (
       query: GetProcureGetProcureMaterialByIdWithPriceParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoResult, any>({
         path: `/api/Procure/GetProcureMaterialByID_WithPrice`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7098,7 +7102,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7110,14 +7114,14 @@ export class Api<
      */
     get_Procure_GetMyProcureMaterialPage: (
       query: GetProcureGetMyProcureMaterialPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoPageResultResult, any>({
         path: `/api/Procure/GetMyProcureMaterialPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7129,14 +7133,14 @@ export class Api<
      */
     get_Procure_GetProcureMaterialPricePageApi: (
       query: GetProcureGetProcureMaterialPricePageApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoPageResultResult, any>({
         path: `/api/Procure/GetProcureMaterialPricePageApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7148,14 +7152,14 @@ export class Api<
      */
     get_Procure_GetProcureMaterialPriceApi: (
       query: GetProcureGetProcureMaterialPriceApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoPageResultResult, any>({
         path: `/api/Procure/GetProcureMaterialPriceApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7167,7 +7171,7 @@ export class Api<
      */
     post_Procure_ProcureMaterialApply: (
       data: ProcureMaterialApplyDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoResult, any>({
         path: `/api/Procure/ProcureMaterialApply`,
@@ -7175,7 +7179,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7187,7 +7191,7 @@ export class Api<
      */
     post_Procure_ProcureMaterialApproveApi: (
       data: ProcureParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Procure/ProcureMaterialApproveApi`,
@@ -7195,7 +7199,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7207,7 +7211,7 @@ export class Api<
      */
     post_Procure_ProcureMaterialReject: (
       data: ProcureParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Procure/ProcureMaterialReject`,
@@ -7215,7 +7219,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7227,14 +7231,14 @@ export class Api<
      */
     get_Procure_GetProcureMaterialApprovePageApi: (
       query: GetProcureGetProcureMaterialApprovePageApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoPageResultResult, any>({
         path: `/api/Procure/GetProcureMaterialApprovePageApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7246,14 +7250,14 @@ export class Api<
      */
     get_Procure_GetProcurePriceEndApi: (
       query: GetProcureGetProcurePriceEndApiParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProcurematerialinfoPageResultResult, any>({
         path: `/api/Procure/GetProcurePriceEndApi`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7265,14 +7269,14 @@ export class Api<
      */
     get_Project_GetProjectPage: (
       query: GetProjectGetProjectPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectinfoPageResultResult, any>({
         path: `/api/Project/GetProjectPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7284,7 +7288,7 @@ export class Api<
      */
     post_Project_ProjectUpdate: (
       data: Projectinfo,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectinfoResult, any>({
         path: `/api/Project/ProjectUpdate`,
@@ -7292,7 +7296,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7304,14 +7308,14 @@ export class Api<
      */
     get_Project_GetProjectByID: (
       query: GetProjectGetProjectByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectinfoResult, any>({
         path: `/api/Project/GetProjectByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7326,7 +7330,7 @@ export class Api<
         path: `/api/Project/GetAccountProjectList`,
         method: "GET",
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7338,14 +7342,14 @@ export class Api<
      */
     get_Project_GetProjectPhaseAll: (
       query: GetProjectGetProjectPhaseAllParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectphaseListResult, any>({
         path: `/api/Project/GetProjectPhaseAll`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7357,14 +7361,14 @@ export class Api<
      */
     get_Project_GetProjectItemPage: (
       query: GetProjectGetProjectItemPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectitemPageResultResult, any>({
         path: `/api/Project/GetProjectItemPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7376,14 +7380,14 @@ export class Api<
      */
     get_Project_GetProjectItemMaterialPage: (
       query: GetProjectGetProjectItemMaterialPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectItemMaterialResultPageResultResult, any>({
         path: `/api/Project/GetProjectItemMaterialPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7430,7 +7434,7 @@ export class Api<
         /** @format binary */
         file?: File;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int32Result, any>({
         path: `/api/Project/UploadProjectItem`,
@@ -7438,7 +7442,7 @@ export class Api<
         body: data,
         type: ContentType.FormData,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7456,7 +7460,7 @@ export class Api<
         /** @format binary */
         file?: File;
       },
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int32Result, any>({
         path: `/api/Project/UploadProjectItemMaterial`,
@@ -7464,7 +7468,7 @@ export class Api<
         body: data,
         type: ContentType.FormData,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7476,14 +7480,14 @@ export class Api<
      */
     get_Project_GetProjectItemByID: (
       query: GetProjectGetProjectItemByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectitemResult, any>({
         path: `/api/Project/GetProjectItemByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7495,7 +7499,7 @@ export class Api<
      */
     post_Project_DelProjectItemByID: (
       data: ProjectItemPageParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Project/DelProjectItemByID`,
@@ -7503,7 +7507,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7515,14 +7519,14 @@ export class Api<
      */
     get_Project_GetFullProjectItemByID: (
       query: GetProjectGetFullProjectItemByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectitemResult, any>({
         path: `/api/Project/GetFullProjectItemByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7534,7 +7538,7 @@ export class Api<
      */
     post_Project_UpdateProjectItem: (
       data: UploadProjectItem,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectitemResult, any>({
         path: `/api/Project/UpdateProjectItem`,
@@ -7542,7 +7546,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7554,14 +7558,14 @@ export class Api<
      */
     get_Project_GetProjectPhasePage: (
       query: GetProjectGetProjectPhasePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectphasePageResultResult, any>({
         path: `/api/Project/GetProjectPhasePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7573,14 +7577,14 @@ export class Api<
      */
     get_Project_GetProjectPhaseByID: (
       query: GetProjectGetProjectPhaseByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectphaseResult, any>({
         path: `/api/Project/GetProjectPhaseByID`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7592,7 +7596,7 @@ export class Api<
      */
     post_Project_DelProjectPhaseByID: (
       data: Projectphase,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/Project/DelProjectPhaseByID`,
@@ -7600,7 +7604,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7612,7 +7616,7 @@ export class Api<
      */
     post_Project_UpdateProjectPhase: (
       data: Projectphase,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectphaseResult, any>({
         path: `/api/Project/UpdateProjectPhase`,
@@ -7620,7 +7624,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7632,14 +7636,14 @@ export class Api<
      */
     get_Project_GetProjectStatistics: (
       query: GetProjectGetProjectStatisticsParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ProjectItemStatisticsListResult, any>({
         path: `/api/Project/GetProjectStatistics`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7651,14 +7655,14 @@ export class Api<
      */
     get_Project_GetQuotationStatistics: (
       query: GetProjectGetQuotationStatisticsParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<QuotationStatisticsListResult, any>({
         path: `/api/Project/GetQuotationStatistics`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7673,7 +7677,7 @@ export class Api<
         path: `/api/System/GetAccountMenuTree`,
         method: "GET",
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7685,14 +7689,14 @@ export class Api<
      */
     get_System_GetRolePage: (
       query: GetSystemGetRolePageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<RolePageResultResult, any>({
         path: `/api/System/GetRolePage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7704,7 +7708,7 @@ export class Api<
      */
     post_System_UpdateRole: (
       data: RoleUpdateParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<RoleUpdateParamResult, any>({
         path: `/api/System/UpdateRole`,
@@ -7712,7 +7716,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7729,7 +7733,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7741,14 +7745,14 @@ export class Api<
      */
     get_System_GetApiInfoPage: (
       query: GetSystemGetApiInfoPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ApiinfoPageResultResult, any>({
         path: `/api/System/GetApiInfoPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7760,14 +7764,14 @@ export class Api<
      */
     get_System_GetApiInfoById: (
       query: GetSystemGetApiInfoByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<ApiinfoResult, any>({
         path: `/api/System/GetApiInfoById`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7779,7 +7783,7 @@ export class Api<
      */
     post_System_DelApiInfo: (
       data: ApiInfoPageParam,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Result, any>({
         path: `/api/System/DelApiInfo`,
@@ -7787,7 +7791,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7799,7 +7803,7 @@ export class Api<
      */
     post_System_UpdateApiInfo: (
       data: UpdateApiInfoDTO,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<Int64Result, any>({
         path: `/api/System/UpdateApiInfo`,
@@ -7807,7 +7811,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7819,14 +7823,14 @@ export class Api<
      */
     get_System_GetDepartmentPage: (
       query: GetSystemGetDepartmentPageParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<DepartmentPageResultResult, any>({
         path: `/api/System/GetDepartmentPage`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7838,14 +7842,14 @@ export class Api<
      */
     get_System_GetDepartmentById: (
       query: GetSystemGetDepartmentByIdParams,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<DepartmentResult, any>({
         path: `/api/System/GetDepartmentById`,
         method: "GET",
         query: query,
         format: "json",
-        ...params,
+        ...params
       }),
 
     /**
@@ -7857,7 +7861,7 @@ export class Api<
      */
     post_System_UpdateDepartment: (
       data: Department,
-      params: RequestParams = {},
+      params: RequestParams = {}
     ) =>
       this.request<DepartmentResult, any>({
         path: `/api/System/UpdateDepartment`,
@@ -7865,7 +7869,7 @@ export class Api<
         body: data,
         type: ContentType.Json,
         format: "json",
-        ...params,
-      }),
+        ...params
+      })
   };
 }

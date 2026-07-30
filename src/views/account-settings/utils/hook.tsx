@@ -3,6 +3,7 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type UpdateAccountDTO,
   type EnquiryGroupPageParam,
   type GetLaborGetLaborInfoPageApiParams,
   type Laborinfo
@@ -137,20 +138,20 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as Laborinfo;
+        const curData = options.props.formInline as UpdateAccountDTO;
         function chores(res2: any) {
           if (res2.Code !== 0) {
             message(`操作失败，${res2.Message}`, { type: "error" });
             return;
           }
-          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
+          message(`您${title}了任务名称为${curData.Name}的这条数据`, {
             type: "success"
           });
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LaborUpdateAPI
-        api.api.post_Labor_LaborUpdateAPI(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////UpdateAccount
+        api.api.post_Account1_UpdateAccount(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
