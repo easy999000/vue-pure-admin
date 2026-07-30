@@ -2767,7 +2767,8 @@ export interface UpdateAccountDTO {
   Birthday?: string | null;
   Name?: string | null;
   Notes?: string | null;
-  Sex?: boolean | null;
+  /** @format int32 */
+  Sex?: number | null;
   Telephone?: string | null;
   test?: string | null;
   /** @format int32 */

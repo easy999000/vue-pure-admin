@@ -35,19 +35,27 @@ const loadData = async () => {
   if (newFormInline?.value?.AccountID) {
     loading.value = true;
     try {
-      console.log(
-        "Loading data for AccountID:",
-        newFormInline?.value?.AccountID
-      );
-      // 假设 getTableData 是你的 API 请求函数 GetAccountModel
       const res = await api.api.get_Account1_GetAccountModel({
         AccountID: Number(newFormInline?.value?.AccountID)
       });
-      console.log(
-        "Loading data for AccountID 3333:",
-        newFormInline?.value?.AccountID
-      );
-      Object.assign(newFormInline.value, res.Data);
+      // 规范化数据类型，避免 ElSelect 接收到 Boolean
+      const data = { ...res.Data };
+      if (typeof data.Status === "boolean") {
+        data.Status = data.Status ? 1 : 0;
+      }
+      if (
+        data.AccountRoles !== undefined &&
+        !Array.isArray(data.AccountRoles)
+      ) {
+        data.AccountRoles = [data.AccountRoles];
+      }
+      if (
+        data.AccountDepartments !== undefined &&
+        !Array.isArray(data.AccountDepartments)
+      ) {
+        data.AccountDepartments = [data.AccountDepartments];
+      }
+      Object.assign(newFormInline.value, data);
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -120,7 +128,17 @@ const columns: PlusColumn[] = [
   {
     label: "性别",
     prop: "Sex",
-    valueType: "input"
+    valueType: "radio",
+    options: [
+      {
+        label: "男",
+        value: 1
+      },
+      {
+        label: "女",
+        value: 0
+      }
+    ]
   },
   {
     label: "联系电话",
@@ -130,7 +148,7 @@ const columns: PlusColumn[] = [
   {
     label: "出生日期",
     prop: "Birthday",
-    valueType: "input"
+    valueType: "date-picker"
   },
   {
     label: "备注",
