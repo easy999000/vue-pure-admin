@@ -72,24 +72,21 @@ const getAccountSelect = async (): Promise<any[]> => {
   return res;
 };
 // 模拟一个从后端获取下拉数据的API
-const getProjectOptions = async (): Promise<any[]> => {
+const getRoleOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await api.api.get_Project_GetAccountProjectList();
+  const selectRes = await api.api.get_System_GetRoleSelect();
   var res = selectRes.Data.map(item => ({
     label: item.Name,
-    value: item.ID
+    value: item.RoleID
   }));
 
   return res;
 };
 // 模拟一个从后端获取下拉数据的API
-const getEnquiryGroupSelect = async (): Promise<any[]> => {
+const getDepOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
-  const selectRes = await api.api.get_Enquiry_GetEnquiryGroupPage({
-    PageNumber: 1,
-    PageSize: 9999
-  });
-  var res = selectRes.Data.Data.map(item => ({
+  const selectRes = await api.api.get_System_GetDepartmentSelect();
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.ID
   }));
@@ -99,48 +96,50 @@ const getEnquiryGroupSelect = async (): Promise<any[]> => {
 const columns: PlusColumn[] = [
   {
     label: "账号",
-    prop: "Title",
+    prop: "AccountNumber",
     valueType: "input"
   },
   {
     label: "密码",
-    prop: "Title",
+    prop: "Password",
     valueType: "input"
   },
   {
     label: "名字",
-    prop: "Title",
+    prop: "Name",
     valueType: "input"
   },
   {
     label: "性别",
-    prop: "Title",
+    prop: "Sex",
     valueType: "input"
   },
   {
     label: "联系电话",
-    prop: "Title",
+    prop: "Telephone",
     valueType: "input"
   },
   {
     label: "出生日期",
-    prop: "Title",
+    prop: "Birthday",
     valueType: "input"
   },
   {
     label: "备注",
-    prop: "Title",
+    prop: "Notes",
     valueType: "input"
   },
   {
     label: "角色",
-    prop: "Title",
-    valueType: "input"
+    prop: "AccountRoles",
+    valueType: "checkbox",
+    options: getRoleOptions()
   },
   {
     label: "部门",
-    prop: "Title",
-    valueType: "input"
+    prop: "AccountDepartments",
+    valueType: "checkbox",
+    options: getDepOptions()
   },
   {
     label: "状态",
