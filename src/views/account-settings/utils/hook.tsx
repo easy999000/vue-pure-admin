@@ -5,8 +5,7 @@ import {
   api,
   type UpdateAccountDTO,
   type EnquiryGroupPageParam,
-  type GetLaborGetLaborInfoPageApiParams,
-  type Laborinfo
+  type GetLaborGetLaborInfoPageApiParams
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
@@ -122,7 +121,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: Laborinfo) {
+  function openDialog(title = "新增", row?: UpdateAccountDTO) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {

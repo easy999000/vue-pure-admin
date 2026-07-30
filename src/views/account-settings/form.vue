@@ -23,7 +23,7 @@ import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import Delete from "~icons/ep/delete";
 
 const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({})
+  formInline: () => ({ Status: 1 })
 });
 
 const ruleFormRef = ref();
@@ -35,10 +35,18 @@ const loadData = async () => {
   if (newFormInline?.value?.AccountID) {
     loading.value = true;
     try {
+      console.log(
+        "Loading data for AccountID:",
+        newFormInline?.value?.AccountID
+      );
       // 假设 getTableData 是你的 API 请求函数 GetAccountModel
       const res = await api.api.get_Account1_GetAccountModel({
         AccountID: Number(newFormInline?.value?.AccountID)
       });
+      console.log(
+        "Loading data for AccountID 3333:",
+        newFormInline?.value?.AccountID
+      );
       Object.assign(newFormInline.value, res.Data);
     } catch (error) {
       console.error("数据加载失败:", error);
@@ -143,20 +151,16 @@ const columns: PlusColumn[] = [
   },
   {
     label: "状态",
-    prop: "PayMode",
+    prop: "Status",
     valueType: "select",
     options: [
       {
-        label: "付款",
-        value: 0
-      },
-      {
-        label: "报销",
+        label: "正常",
         value: 1
       },
       {
-        label: "挂账",
-        value: 2
+        label: "停用",
+        value: 0
       }
     ]
   }
