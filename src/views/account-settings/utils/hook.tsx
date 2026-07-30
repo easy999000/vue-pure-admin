@@ -1,4 +1,5 @@
-﻿import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { reactive, ref, onMounted, h, toRaw } from "vue";
+import { ElTag } from "element-plus";
 import type { PaginationProps } from "@pureadmin/table";
 
 import {
@@ -39,7 +40,11 @@ export function useHook() {
     },
     {
       label: "状态",
-      prop: "Status"
+      prop: "Status",
+      cellRenderer: ({ row }) =>
+        row.Status === 1
+          ? h(ElTag, { type: "success" }, "启用")
+          : h(ElTag, { type: "danger" }, "禁用")
     },
     {
       label: "操作",
