@@ -348,6 +348,40 @@ export interface ContracttypeListResult {
   Ext4?: any | null;
 }
 
+export interface ContracttypePageResult {
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+  /** @format int64 */
+  PageCount?: number;
+  Data?: Contracttype[] | null;
+}
+
+export interface ContracttypePageResultResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: ContracttypePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
+export interface ContracttypeResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: Contracttype;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
 export interface CreditPayInfoParam {
   RoleNames?: string[] | null;
   /** @format int32 */
@@ -1815,6 +1849,46 @@ export interface OfficialinfoResult {
   Ext4?: any | null;
 }
 
+export interface Officialtype {
+  /** @format int32 */
+  ID?: number;
+  Name?: string | null;
+}
+
+export interface OfficialtypePageResult {
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+  /** @format int64 */
+  PageCount?: number;
+  Data?: Officialtype[] | null;
+}
+
+export interface OfficialtypePageResultResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: OfficialtypePageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
+export interface OfficialtypeResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: Officialtype;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
 export interface ProcureMaterialApplyDTO {
   /** @format int32 */
   ID?: number;
@@ -2705,6 +2779,17 @@ export interface Roleapirelation {
   APIInfo1?: Apiinfo;
 }
 
+export interface StringStringDictionaryResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: Record<string, string> | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
 export interface SysMessageResult {
   /** @format int64 */
   Count?: number;
@@ -2878,6 +2963,77 @@ export interface UploadProjectItem {
   /** @format date-time */
   UpdateTime?: string | null;
   MaterialItems?: Projectitemmaterial[] | null;
+}
+
+export interface WorkflowConfigPageParam {
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+  /** @format int64 */
+  PageCount?: number;
+  /** @format int32 */
+  ID?: number | null;
+  /** @format int32 */
+  FlowType?: number | null;
+}
+
+export interface WorkflowConfig {
+  /** @format int32 */
+  ID?: number;
+  FlowSettings?: string | null;
+  /** @format int32 */
+  FlowType?: number;
+  TypeName?: string | null;
+  Workflow_steps?: WorkflowStep[] | null;
+}
+
+export interface WorkflowConfigPageResult {
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+  /** @format int64 */
+  PageCount?: number;
+  Data?: WorkflowConfig[] | null;
+}
+
+export interface WorkflowConfigPageResultResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: WorkflowConfigPageResult;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
+export interface WorkflowConfigResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: WorkflowConfig;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
+export interface WorkflowStep {
+  /** @format int32 */
+  Id?: number;
+  /** @format int32 */
+  FlowType?: number;
+  /** @format int32 */
+  RoleId?: number;
+  /** @format int32 */
+  Sort?: number;
+  RoleName?: string | null;
 }
 
 export interface GetAccount1GetAccountPageParams {
@@ -4777,6 +4933,46 @@ export interface GetSystemGetDepartmentByIdParams {
   PageSize?: number;
   /** @format int64 */
   Count?: number;
+}
+
+export interface GetSystemGetContractTypePageParams {
+  /** @format int32 */
+  ID?: number;
+  Name?: string;
+  /** @format int64 */
+  PageCount?: number;
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+}
+
+export interface GetSystemGetContractTypeByIdParams {
+  /** @format int32 */
+  ID?: number;
+  Name?: string;
+}
+
+export interface GetSystemGetOfficialTypePageParams {
+  /** @format int32 */
+  ID?: number;
+  Name?: string;
+  /** @format int64 */
+  PageCount?: number;
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+}
+
+export interface GetSystemGetOfficialTypeByIdParams {
+  /** @format int32 */
+  ID?: number;
+  Name?: string;
 }
 
 import type {
@@ -7914,6 +8110,237 @@ export class Api<
     ) =>
       this.request<DepartmentResult, any>({
         path: `/api/System/UpdateDepartment`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetContractTypePage
+     * @request GET:/api/System/GetContractTypePage
+     */
+    get_System_GetContractTypePage: (
+      query: GetSystemGetContractTypePageParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<ContracttypePageResultResult, any>({
+        path: `/api/System/GetContractTypePage`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetContractTypeById
+     * @request GET:/api/System/GetContractTypeByID
+     */
+    get_System_GetContractTypeByID: (
+      query: GetSystemGetContractTypeByIdParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<ContracttypeResult, any>({
+        path: `/api/System/GetContractTypeByID`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemDelContractTypeById
+     * @request POST:/api/System/DelContractTypeByID
+     */
+    post_System_DelContractTypeByID: (
+      data: Contracttype,
+      params: RequestParams = {},
+    ) =>
+      this.request<Result, any>({
+        path: `/api/System/DelContractTypeByID`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemUpdateContractType
+     * @request POST:/api/System/UpdateContractType
+     */
+    post_System_UpdateContractType: (
+      data: Contracttype,
+      params: RequestParams = {},
+    ) =>
+      this.request<ContracttypeResult, any>({
+        path: `/api/System/UpdateContractType`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetOfficialTypePage
+     * @request GET:/api/System/GetOfficialTypePage
+     */
+    get_System_GetOfficialTypePage: (
+      query: GetSystemGetOfficialTypePageParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<OfficialtypePageResultResult, any>({
+        path: `/api/System/GetOfficialTypePage`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetOfficialTypeById
+     * @request GET:/api/System/GetOfficialTypeByID
+     */
+    get_System_GetOfficialTypeByID: (
+      query: GetSystemGetOfficialTypeByIdParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<OfficialtypeResult, any>({
+        path: `/api/System/GetOfficialTypeByID`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemDelOfficialTypeById
+     * @request POST:/api/System/DelOfficialTypeByID
+     */
+    post_System_DelOfficialTypeByID: (
+      data: Officialtype,
+      params: RequestParams = {},
+    ) =>
+      this.request<Result, any>({
+        path: `/api/System/DelOfficialTypeByID`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemUpdateOfficialType
+     * @request POST:/api/System/UpdateOfficialType
+     */
+    post_System_UpdateOfficialType: (
+      data: Officialtype,
+      params: RequestParams = {},
+    ) =>
+      this.request<OfficialtypeResult, any>({
+        path: `/api/System/UpdateOfficialType`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetWorkflowTypeList
+     * @request GET:/api/System/GetWorkflowTypeList
+     */
+    get_System_GetWorkflowTypeList: (params: RequestParams = {}) =>
+      this.request<StringStringDictionaryResult, any>({
+        path: `/api/System/GetWorkflowTypeList`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemGetWorkflowConfig
+     * @request POST:/api/System/GetWorkflowConfig
+     */
+    post_System_GetWorkflowConfig: (
+      data: WorkflowConfigPageParam,
+      params: RequestParams = {},
+    ) =>
+      this.request<WorkflowConfigPageResultResult, any>({
+        path: `/api/System/GetWorkflowConfig`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemGetWorkflowConfigById
+     * @request POST:/api/System/GetWorkflowConfigById
+     */
+    post_System_GetWorkflowConfigById: (
+      data: WorkflowConfigPageParam,
+      params: RequestParams = {},
+    ) =>
+      this.request<WorkflowConfigResult, any>({
+        path: `/api/System/GetWorkflowConfigById`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name PostSystemUpdateWorkflowConfig
+     * @request POST:/api/System/UpdateWorkflowConfig
+     */
+    post_System_UpdateWorkflowConfig: (
+      data: WorkflowConfig,
+      params: RequestParams = {},
+    ) =>
+      this.request<WorkflowConfigResult, any>({
+        path: `/api/System/UpdateWorkflowConfig`,
         method: "POST",
         body: data,
         type: ContentType.Json,
