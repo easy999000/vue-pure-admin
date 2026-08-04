@@ -492,7 +492,6 @@ const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
     newFormInline.value.Items = [];
   }
-  console.log("Selected material:", row);
   const procureItem: any = {};
   procureItem.MaterialID = row.ID;
   procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
