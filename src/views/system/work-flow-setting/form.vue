@@ -99,7 +99,7 @@ const getDepOptions = async (): Promise<any[]> => {
 const getWorkflowOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求 GetWorkflowTypeList
   const selectRes = await api.api.get_System_GetWorkflowTypeList();
-  var res = selectRes.Data.map((item) => ({
+  var res = selectRes.Data.map(item => ({
     label: item.Name,
     value: item.ID
   }));
