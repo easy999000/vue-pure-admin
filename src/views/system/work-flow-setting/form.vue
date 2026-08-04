@@ -84,39 +84,24 @@ const getRoleOptions = async (): Promise<any[]> => {
 
   return res;
 };
-// 模拟一个从后端获取下拉数据的API
-const getDepOptions = async (): Promise<any[]> => {
-  // 这里替换为你的实际请求
-  const selectRes = await api.api.get_System_GetDepartmentSelect();
-  var res = selectRes.Data.map(item => ({
-    label: item.Name,
-    value: item.ID
-  }));
 
-  return res;
-};
 // 模拟一个从后端获取下拉数据的API
 const getWorkflowOptions = async (): Promise<any[]> => {
   // 这里替换为你的实际请求 GetWorkflowTypeList
   const selectRes = await api.api.get_System_GetWorkflowTypeList();
-  var res = selectRes.Data.map(item => ({
-    label: item.Name,
-    value: item.ID
+  var res = Object.entries(selectRes.Data ?? {}).map(([key, value]) => ({
+    label: value,
+    value: key
   }));
 
   return res;
 };
 const columns: PlusColumn[] = [
   {
-    label: "流程名",
-    prop: "TypeName",
-    valueType: "input"
-  },
-  {
     label: "审批流程",
-    prop: "ProjectID",
+    prop: "FlowType",
     valueType: "select",
-    options: getProjectOptions()
+    options: getWorkflowOptions()
   },
   {
     label: "采购清单",
