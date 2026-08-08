@@ -238,7 +238,7 @@ const subTableColumns: TableColumnList = [
     prop: "PreviousQuantityAmount"
   },
   {
-    label: "本期上报",
+    label: "本期申请工程量",
     prop: "ApplicationQuantity",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput

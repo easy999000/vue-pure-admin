@@ -158,7 +158,7 @@ onMounted(() => {
                 :icon="useRenderIcon(EditPen)"
                 @click="openDialog('修改', row)"
               >
-                劳务变更
+                详情
               </el-button>
               <el-button
                 class="reset-margin"

@@ -24,7 +24,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的采购");
+  const pageName = ref("期中支付审批");
   const columns: TableColumnList = [
     {
       label: "标题",
@@ -43,23 +43,7 @@ export function useHook() {
       prop: "ApprovalRoleName"
     },
     {
-      label: "下发状态",
-      prop: "AccountStatusName"
-    },
-    {
-      label: "付款方式",
-      prop: "PayModeName"
-    },
-    {
-      label: "总金额",
-      prop: "TotalAmount"
-    },
-    {
-      label: "冻结金额",
-      prop: "FrozenAmount"
-    },
-    {
-      label: "已付款",
+      label: "申请金额",
       prop: "PayAmount"
     },
     {

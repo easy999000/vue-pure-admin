@@ -153,11 +153,7 @@ function onDel(row: any, index: number) {
 
 const subTableColumns: TableColumnList = [
   {
-    label: "序号",
-    prop: "JobCode"
-  },
-  {
-    label: "名称",
+    label: "任务名称",
     prop: "JobName"
   },
   {
@@ -166,7 +162,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "工程量",
-    prop: "PreQuantity"
+    prop: "Quantity"
   },
   {
     label: "单价",
@@ -181,8 +177,8 @@ const subTableColumns: TableColumnList = [
     prop: "PreviousQuantity"
   },
   {
-    label: "合价",
-    prop: "PreviousQuantityAmount"
+    label: "上期合价",
+    prop: "TotalPreviousAmount"
   },
   {
     label: "本期上报",
@@ -200,8 +196,8 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "合价",
-    prop: ""
+    label: "含本期累计完成",
+    prop: "TotalCumulativeAmount"
   }
 ];
 
