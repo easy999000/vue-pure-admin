@@ -32,12 +32,12 @@ const newFormInline = ref(props.formInline);
 const loading = ref(true);
 
 const loadData = async () => {
-  if (newFormInline?.value?.ID) {
+  if (newFormInline?.value?.Id) {
     loading.value = true;
     try {
-      // 假设 getTableData 是你的 API 请求函数 GetProcureMaterialByID_WithPrice
-      const res = await api.api.get_Procure_GetProcureMaterialByID_WithPrice({
-        ID: Number(newFormInline?.value?.ID)
+      // 假设 getTableData 是你的 API 请求函数 GetLaborPay
+      const res = await api.api.get_Labor_GetLaborPay({
+        ID: Number(newFormInline?.value?.Id)
       });
       Object.assign(newFormInline.value, res.Data);
     } catch (error) {
@@ -106,104 +106,27 @@ const columns: PlusColumn[] = [
     label: "所属项目",
     prop: "ProjectID",
     valueType: "select",
-    options: getProjectOptions(),
-    fieldProps: {
-      disabled: true
-    }
+    options: getProjectOptions()
   },
   {
-    label: "付款方式",
-    prop: "PayMode",
-    valueType: "select",
-    options: [
-      {
-        label: "付款",
-        value: 0
-      },
-      {
-        label: "报销",
-        value: 1
-      },
-      {
-        label: "挂账",
-        value: 2
-      }
-    ],
-    fieldProps: {
-      disabled: true
-    }
-  },
-  {
-    label: "供应商名称",
-    prop: "PartBName",
+    label: "总金额",
+    prop: "TotalAmount",
     valueType: "text"
   },
   {
-    label: "开户行信息",
-    prop: "PartBBank",
+    label: "本期产值",
+    prop: "TotalReviewQuantity",
     valueType: "text"
   },
   {
-    label: "账户名称",
-    prop: "PartBBankUser",
+    label: "支付比例",
+    prop: "TotalReviewAmountPercent",
     valueType: "text"
   },
   {
-    label: "银行账号",
-    prop: "PartBBankAccount",
+    label: "本期应付工程款",
+    prop: "TotalReviewAmount",
     valueType: "text"
-  },
-  {
-    label: "附件1",
-    prop: "Annex1",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}
-        </>
-      );
-    }
-  },
-  {
-    label: "附件2",
-    prop: "Annex2",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}{" "}
-        </>
-      );
-    }
   },
   {
     label: "采购清单",
@@ -230,57 +153,41 @@ function onDel(row: any, index: number) {
 
 const subTableColumns: TableColumnList = [
   {
-    label: "任务编码",
-    prop: "JobItemCode"
-  },
-  {
     label: "任务名称",
-    prop: "JobItemName"
+    prop: "JobName"
   },
   {
-    label: "任务工程量",
-    prop: "JobPreQuantity"
-  },
-  {
-    label: "物料编码",
-    prop: "MaterialCode"
-  },
-  {
-    label: "物料名称",
-    prop: "MaterialName"
-  },
-  {
-    label: "物料规格",
-    prop: "MaterialSpecifications"
-  },
-  {
-    label: "物料单位",
+    label: "单位",
     prop: "MaterialUnit"
   },
   {
-    label: "物料类型",
-    prop: "MaterialTypeStr"
-  },
-  {
-    label: "材料工程量",
-    prop: "JobMaterialPreQuantity"
-  },
-  {
-    label: "实际工程量",
-    prop: "JobMaterialActualQuantity"
-  },
-  {
-    label: "采购数量",
-    prop: "TypeStr"
+    label: "工程量",
+    prop: "Quantity"
   },
   {
     label: "单价",
-    prop: "TypeStr",
+    prop: "UnitPrice"
+  },
+  {
+    label: "合价",
+    prop: "TotalAmount"
+  },
+  {
+    label: "上期累计工程量",
+    prop: "PreviousQuantity"
+  },
+  {
+    label: "上期合价",
+    prop: "TotalPreviousAmount"
+  },
+  {
+    label: "本期上报",
+    prop: "ApplicationQuantity",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
-        modelValue={row.UnitPrice}
+        modelValue={row.ApplicationQuantity}
         onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
+          row.ApplicationQuantity = val;
         }}
         placeholder="数量"
         clearable
@@ -289,42 +196,8 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "税率",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Taxrate}
-        onUpdate:modelValue={(val: string) => {
-          row.Taxrate = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
-    label: "运费单价",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Freight}
-        onUpdate:modelValue={(val: string) => {
-          row.Freight = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
-  },
-  {
-    label: "合计",
-    prop: "TypeStr"
-  },
-  {
-    label: "备注",
-    prop: "Notes"
+    label: "含本期累计完成",
+    prop: "TotalCumulativeAmount"
   }
 ];
 
@@ -359,9 +232,10 @@ const handleJobSelect = (row, procureItem) => {
   }
   console.log("Selected material:", row);
   procureItem.ProjectItemID = row.ID;
-  procureItem.JobItemCode = row.Code;
-  procureItem.JobItemName = row.Name;
-  procureItem.JobPreQuantity = row.PreQuantity;
+  procureItem.JobCode = row.Code;
+  procureItem.JobName = row.Name;
+  procureItem.PreQuantity = row.PreQuantity;
+  procureItem.Quantity = row.PreQuantity;
 };
 const handleMaterialSelect = row => {
   if (!Array.isArray(newFormInline.value.Items)) {
@@ -370,14 +244,13 @@ const handleMaterialSelect = row => {
   console.log("Selected material:", row);
   const procureItem: any = {};
   procureItem.MaterialID = row.ID;
-  procureItem.ProjectItemMaterialID = row.ProjectItemMaterialID;
   procureItem.MaterialCode = row.Code;
   procureItem.MaterialName = row.Name;
   procureItem.MaterialSpecifications = row.Specifications;
   procureItem.MaterialType = row.Type;
   procureItem.MaterialTypeStr = row.TypeStr;
   procureItem.MaterialUnit = row.Unit;
-  procureItem.MaterialType = row.Type;
+  procureItem.UnitPrice = row.Price;
 
   newFormInline.value.Items.push({
     ...procureItem,

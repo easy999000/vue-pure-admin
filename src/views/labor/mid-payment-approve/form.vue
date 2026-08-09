@@ -32,12 +32,12 @@ const newFormInline = ref(props.formInline);
 const loading = ref(true);
 
 const loadData = async () => {
-  if (newFormInline?.value?.Id) {
+  if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数 GetLaborPay
       const res = await api.api.get_Labor_GetLaborPay({
-        ID: Number(newFormInline?.value?.Id)
+        ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
     } catch (error) {
@@ -220,31 +220,6 @@ const handleAddRow = () => {
         title: "物料列表",
         onSelect: row => {
           handleMaterialSelect(row);
-          closeDialog(options, index, { command: "sure" });
-        }
-      })
-  });
-};
-
-var ShowJobChoose = (procureRow: any, index: number) => {
-  if (!newFormInline.value.ProjectID) {
-    ElMessage.warning("请先选择所属项目");
-    return;
-  }
-  addDialog({
-    title: "选择任务",
-    width: "80%",
-    draggable: true,
-    fullscreen: deviceDetection(),
-    fullscreenIcon: true,
-    closeOnClickModal: false,
-    hideFooter: true,
-    contentRenderer: ({ options, index }) =>
-      h(JobSelection, {
-        title: "任务列表",
-        projectId: newFormInline.value.ProjectID,
-        onSelect: row => {
-          handleJobSelect(row, procureRow);
           closeDialog(options, index, { command: "sure" });
         }
       })

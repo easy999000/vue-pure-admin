@@ -3,6 +3,7 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type LaboraPayInfo,
   type EnquiryGroupPageParam,
   type GetProcureGetProcureMaterialApprovePageApiParams,
   type ProcureParam
@@ -37,12 +38,20 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "状态",
+      label: "审批状态",
       prop: "StatusName"
+    },
+    {
+      label: "结算状态",
+      prop: "SettlementStatus"
     },
     {
       label: "审批角色",
       prop: "ApprovalRoleName"
+    },
+    {
+      label: "申请金额",
+      prop: "PayAmount"
     },
     {
       label: "创建时间",
@@ -94,14 +103,13 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ////GetProcureMaterialApprovePageApi
-    const { Code, Data } =
-      await api.api.get_Procure_GetProcureMaterialApprovePageApi({
-        PageSize: pagination.pageSize,
-        PageNumber: pagination.currentPage,
-        Count: pagination.total,
-        ...toRaw(searchForm)
-      });
+    ////GetLaborPayApproveSuccess
+    const { Code, Data } = await api.api.get_Labor_GetLaborPayApproveSuccess({
+      PageSize: pagination.pageSize,
+      PageNumber: pagination.currentPage,
+      Count: pagination.total,
+      ...toRaw(searchForm)
+    });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
@@ -129,7 +137,7 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
-  function openDialog(title = "新增", row?: ProcureParam) {
+  function openDialog(title = "新增", row?: LaboraPayInfo) {
     addDialog({
       title: `${title}${pageName.value}`,
       props: {
@@ -151,41 +159,11 @@ export function useHook() {
           plain: true,
           size: "large",
           btnClick: async ({ dialog: { options, index } }) => {
-            try {
-              await ElMessageBox.confirm(
-                "确定要拒绝该审批吗？拒绝后将无法恢复。",
-                "拒绝确认",
-                {
-                  confirmButtonText: "确定拒绝",
-                  cancelButtonText: "取消",
-                  confirmButtonClass: "el-button--danger",
-                  type: "warning",
-                  center: true,
-                  distinguishCancelAndClose: true,
-                  closeOnClickModal: false
-                }
-              );
-            } catch {
-              return;
-            }
-            const param: ProcureParam = { ID: row?.ID };
-            try {
-              const res =
-                await api.api.post_Procure_ProcureMaterialReject(param);
-              if (res.Code === 0) {
-                message(`您已拒绝该${pageName.value}`, { type: "success" });
-                closeDialog(options, index, { command: "sure" });
-                onSearch();
-              } else {
-                message(`操作失败，${res.Message}`, { type: "error" });
-              }
-            } catch {
-              message(`操作失败`, { type: "error" });
-            }
+            closeDialog(options, index, { command: "sure" });
           }
         },
         {
-          label: "同意",
+          label: "结算",
           type: "success",
           size: "large",
           btnClick: async ({ dialog: { options, index } }) => {
@@ -202,10 +180,11 @@ export function useHook() {
             } catch {
               return;
             }
-            const param: ProcureParam = { ID: row?.ID };
+            const param: ProcureParam = { ID: row?.Id };
             try {
+              ////UpdateLaborPaySettlement
               const res =
-                await api.api.post_Procure_ProcureMaterialApproveApi(param);
+                await api.api.post_Labor_UpdateLaborPaySettlement(param);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
