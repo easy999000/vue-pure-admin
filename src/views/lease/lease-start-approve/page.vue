@@ -58,7 +58,6 @@ const {
   handleSelectionChange,
   handleDelete,
   pageName,
-  openFinshDialog,
   loading
 } = useHook();
 
@@ -159,18 +158,7 @@ onMounted(() => {
                 :icon="useRenderIcon(EditPen)"
                 @click="openDialog('修改', row)"
               >
-                修改
-              </el-button>
-              <el-button
-                v-if="row.Status == 6 && row.CompletionStatus == 0"
-                class="reset-margin"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(EditPen)"
-                @click="openFinshDialog('结束工作', row)"
-              >
-                结束工作
+                审核
               </el-button>
             </template>
           </pure-table>
