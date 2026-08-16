@@ -3,14 +3,16 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type LaborInfoParam,
   type EnquiryGroupPageParam,
   type GetLaborGetLaborInfoPageApiParams,
   type LeaseParam
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog } from "@/components/ReDialog";
+import { addDialog, closeDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
+import { ElMessageBox } from "element-plus";
 export function useHook() {
   const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
@@ -146,7 +148,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
 
-      beforeSure: done => {
+      beforeSure: (done, { options }) => {
         done(); // 关闭弹框
       }
     });

@@ -3,14 +3,16 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
+  type LaborInfoParam,
   type EnquiryGroupPageParam,
   type GetLaborGetLaborInfoPageApiParams,
   type LeaseParam
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog } from "@/components/ReDialog";
+import { addDialog, closeDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
+import { ElMessageBox } from "element-plus";
 export function useHook() {
   const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
@@ -31,8 +33,8 @@ export function useHook() {
       prop: "Title"
     },
     {
-      label: "项目",
-      prop: "ProjectName"
+      label: "审核状态",
+      prop: "StatusName"
     },
     {
       label: "审批角色",
@@ -41,14 +43,6 @@ export function useHook() {
     {
       label: "创建时间",
       prop: "CreateTime"
-    },
-    {
-      label: "开工审批状态",
-      prop: "StatusName"
-    },
-    {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
     },
     {
       label: "操作",
@@ -96,8 +90,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLeasePageFinish
-    const { Code, Data } = await api.api.get_Lease_GetLeasePageFinish({
+    ///GetOfficeApproveEndPage
+    const { Code, Data } = await api.api.get_Office_GetOfficeApproveEndPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
