@@ -175,8 +175,9 @@ export function useHook() {
               return;
             }
             try {
-              //////LeaseApproveApi
-              const res = await api.api.post_Lease_LeaseApproveApi(row);
+              //////LeaseCompletionApproveApi
+              const res =
+                await api.api.post_Lease_LeaseCompletionRejectApi(row);
               if (res.Code === 0) {
                 message(`您已拒绝该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
@@ -208,8 +209,9 @@ export function useHook() {
               return;
             }
             try {
-              ///LeaseRejectApi
-              const res = await api.api.post_Lease_LeaseRejectApi(row);
+              ///LeaseCompletionApproveApi
+              const res =
+                await api.api.post_Lease_LeaseCompletionApproveApi(row);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
@@ -236,11 +238,13 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LaborChangeApprove
-        api.api.post_Labor_LaborChangeApprove(toRaw(curData)).then(res => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores(res);
-        });
+        // 表单规则校验通过  ///////LeaseCompletionApproveApi
+        api.api
+          .post_Lease_LeaseCompletionApproveApi(toRaw(curData))
+          .then(res => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores(res);
+          });
       }
     });
   }
