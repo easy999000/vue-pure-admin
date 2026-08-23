@@ -1855,6 +1855,17 @@ export interface Officialtype {
   Name?: string | null;
 }
 
+export interface OfficialtypeListResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: Officialtype[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
 export interface OfficialtypePageResult {
   /** @format int32 */
   PageNumber?: number;
@@ -7241,6 +7252,21 @@ export class Api<
         path: `/api/Official/GetOfficialInfoEndPage`,
         method: "GET",
         query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Official
+     * @name GetOfficialGetOfficialTypeList
+     * @request GET:/api/Official/GetOfficialTypeList
+     */
+    get_Official_GetOfficialTypeList: (params: RequestParams = {}) =>
+      this.request<OfficialtypeListResult, any>({
+        path: `/api/Official/GetOfficialTypeList`,
+        method: "GET",
         format: "json",
         ...params,
       }),

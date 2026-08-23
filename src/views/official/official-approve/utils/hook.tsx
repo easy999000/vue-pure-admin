@@ -25,7 +25,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的采购");
+  const pageName = ref("用章审核");
 
   const columns: TableColumnList = [
     {
@@ -33,24 +33,24 @@ export function useHook() {
       prop: "Title"
     },
     {
-      label: "项目",
-      prop: "ProjectName"
+      label: "申请人",
+      prop: "AccountName"
     },
     {
       label: "审批角色",
       prop: "ApprovalRoleName"
     },
     {
-      label: "创建时间",
-      prop: "CreateTime"
+      label: "合同各类型",
+      prop: "TypeName"
     },
     {
-      label: "开工审批状态",
+      label: "审核状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "申请时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -98,13 +98,14 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLeaseApprovePage
-    const { Code, Data } = await api.api.get_Lease_GetLeaseApprovePage({
-      PageSize: pagination.pageSize,
-      PageNumber: pagination.currentPage,
-      Count: pagination.total,
-      ...toRaw(searchForm)
-    });
+    ///GetOfficialInfoApprovePage
+    const { Code, Data } =
+      await api.api.get_Official_GetOfficialInfoApprovePage({
+        PageSize: pagination.pageSize,
+        PageNumber: pagination.currentPage,
+        Count: pagination.total,
+        ...toRaw(searchForm)
+      });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
@@ -173,8 +174,8 @@ export function useHook() {
               return;
             }
             try {
-              ////// LeaseRejectApi
-              const res = await api.api.post_Lease_LeaseRejectApi(row);
+              ////// OfficialInfoApprove
+              const res = await api.api.post_Official_OfficialInfoReject(row);
               if (res.Code === 0) {
                 message(`您已拒绝该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
@@ -206,8 +207,8 @@ export function useHook() {
               return;
             }
             try {
-              ///LeaseApproveApi
-              const res = await api.api.post_Lease_LeaseApproveApi(row);
+              ///OfficialInfoApprove
+              const res = await api.api.post_Official_OfficialInfoApprove(row);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });

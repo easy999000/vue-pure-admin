@@ -8,7 +8,7 @@ import {
   type Laborinfo
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog, closeDialog } from "@/components/ReDialog";
+import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
@@ -23,23 +23,23 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的零工租赁");
+  const pageName = ref("我的公章");
   const columns: TableColumnList = [
     {
       label: "标题",
       prop: "Title"
     },
     {
-      label: "项目",
-      prop: "ProjectName"
+      label: "合同各类型",
+      prop: "TypeName"
     },
     {
-      label: "开工审核状态",
+      label: "审核状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "申请时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -87,8 +87,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetMyLeasePage
-    const { Code, Data } = await api.api.get_Lease_GetMyLeasePage({
+    ///GetOfficialInfoPage
+    const { Code, Data } = await api.api.get_Official_GetOfficialInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -149,71 +149,15 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LeaseApplyApi
-        api.api.post_Lease_LeaseApplyApi(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////UpdateOfficialInfo
+        api.api.post_Official_UpdateOfficialInfo(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
       }
     });
   }
-  function openFinshDialog(title = "新增", row?: Laborinfo) {
-    addDialog({
-      title: `${title}${pageName.value}`,
-      props: {
-        formInline: {
-          ...row,
-          higherDeptOptions: []
-        }
-      },
-      width: "80%",
-      draggable: true,
-      fullscreen: deviceDetection(),
-      fullscreenIcon: true,
-      closeOnClickModal: false,
-      contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
-      footerButtons: [
-        {
-          label: "取消",
-          text: true,
-          bg: true,
-          btnClick: ({ dialog: { options, index } }) => {
-            closeDialog(options, index, { command: "cancel" });
-          }
-        },
-        {
-          label: "结束工作",
-          type: "primary",
-          text: true,
-          bg: true,
-          btnClick: ({ dialog: { options, index } }) => {
-            const done = () => closeDialog(options, index, { command: "sure" });
-            const closeLoading = () => {};
-            options.beforeSure(done, { options, index, closeLoading });
-          }
-        }
-      ],
-      beforeSure: (done, { options }) => {
-        const curData = options.props.formInline as Laborinfo;
-        function chores(res2: any) {
-          if (res2.Code !== 0) {
-            message(`操作失败，${res2.Message}`, { type: "error" });
-            return;
-          }
-          message(`您${title}了任务名称为${curData.Title}的这条数据`, {
-            type: "success"
-          });
-          done(); // 关闭弹框
-          onSearch(); // 刷新表格数据
-        }
-        // 表单规则校验通过  ///////LeaseCompletionApply
-        api.api.post_Lease_LeaseCompletionApply(toRaw(curData)).then(res => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores(res);
-        });
-      }
-    });
-  }
+
   return {
     searchForm,
     onSearch,
@@ -228,7 +172,6 @@ export function useHook() {
     handleCurrentChange,
     handleSelectionChange,
     handleDelete,
-    openFinshDialog,
     pageName,
     loading
   };
