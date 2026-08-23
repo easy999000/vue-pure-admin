@@ -58,7 +58,6 @@ const {
   handleSelectionChange,
   handleDelete,
   pageName,
-  openFinshDialog,
   loading
 } = useHook();
 
@@ -117,15 +116,7 @@ onMounted(() => {
         :columns="columns"
         @refresh="onSearch"
       >
-        <template #buttons>
-          <el-button
-            type="primary"
-            :icon="useRenderIcon(AddFill)"
-            @click="openDialog()"
-          >
-            新增{{ pageName }}
-          </el-button>
-        </template>
+        <template #buttons />
         <template v-slot="{ size, dynamicColumns }">
           <pure-table
             ref="tableRef"
@@ -160,17 +151,6 @@ onMounted(() => {
                 @click="openDialog('修改', row)"
               >
                 修改
-              </el-button>
-              <el-button
-                v-if="row.Status == 6 && row.CompletionStatus == 0"
-                class="reset-margin"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(EditPen)"
-                @click="openFinshDialog('结束工作', row)"
-              >
-                结束工作
               </el-button>
             </template>
           </pure-table>

@@ -23,7 +23,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的零工租赁");
+  const pageName = ref("付款单");
   const columns: TableColumnList = [
     {
       label: "标题",
@@ -34,12 +34,24 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "开工审核状态",
+      label: "状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "供应商名称",
+      prop: "PartBName"
+    },
+    {
+      label: "开户行",
+      prop: "PartBBank"
+    },
+    {
+      label: "账户名称",
+      prop: "PartBBankAccount"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
     },
     {
       label: "操作",
@@ -87,8 +99,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetMyLeasePage
-    const { Code, Data } = await api.api.get_Lease_GetMyLeasePage({
+    ///GetCreditPayInfoPage
+    const { Code, Data } = await api.api.get_Credit_GetCreditPayInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -149,8 +161,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LeaseApplyApi
-        api.api.post_Lease_LeaseApplyApi(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////CreditPayInfoApply
+        api.api.post_Credit_CreditPayInfoApply(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
