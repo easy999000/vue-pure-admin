@@ -35,8 +35,8 @@ const loadData = async () => {
   if (newFormInline?.value?.ID) {
     loading.value = true;
     try {
-      // 假设   GetLeaseFullById
-      const res = await api.api.get_Lease_GetLeaseFullById({
+      // 假设   GetContractInfoByID
+      const res = await api.api.get_Contract_GetContractInfoByID({
         ID: Number(newFormInline?.value?.ID)
       });
       Object.assign(newFormInline.value, res.Data);
@@ -82,6 +82,19 @@ const getProjectOptions = async (): Promise<any[]> => {
 
   return res;
 };
+
+// 模拟一个从后端获取下拉数据的API
+const ContractTypeList = async (): Promise<any[]> => {
+  // 这里替换为你的实际请求   GetContractTypeList()
+
+  const selectRes = await api.api.get_Contract_GetContractTypeList();
+  var res = selectRes.Data.map(item => ({
+    label: item.Name,
+    value: item.ID
+  }));
+
+  return res;
+};
 // 模拟一个从后端获取下拉数据的API
 const getEnquiryGroupSelect = async (): Promise<any[]> => {
   // 这里替换为你的实际请求
@@ -103,10 +116,15 @@ const columns: PlusColumn[] = [
     valueType: "input"
   },
   {
-    label: "所属项目",
-    prop: "ProjectID",
+    label: "申请人",
+    prop: "AccountName",
+    valueType: "input"
+  },
+  {
+    label: "合同类型",
+    prop: "TypeID",
     valueType: "select",
-    options: getProjectOptions()
+    options: ContractTypeList()
   },
   {
     label: "付款方式",
@@ -126,6 +144,36 @@ const columns: PlusColumn[] = [
         value: 2
       }
     ]
+  },
+  {
+    label: "签约方",
+    prop: "SignedWith",
+    valueType: "input"
+  },
+  {
+    label: "签约时间",
+    prop: "SigningTime",
+    valueType: "date-picker"
+  },
+  {
+    label: "合同期限",
+    prop: "Term",
+    valueType: "input"
+  },
+  {
+    label: "合同税率",
+    prop: "TaxRate",
+    valueType: "input"
+  },
+  {
+    label: "合同金额",
+    prop: "Price",
+    valueType: "input"
+  },
+  {
+    label: "合同形式",
+    prop: "Mode",
+    valueType: "input"
   },
   {
     label: "供应商名称",
@@ -148,119 +196,9 @@ const columns: PlusColumn[] = [
     valueType: "input"
   },
   {
-    label: "附件1",
-    prop: "Annex1",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}
-          <ElUpload
-            ref={uploadRef}
-            httpRequest={(options: any) => {
-              uploadRef.value?.clearFiles();
-              return api.api
-                .post_Common_UploadFile({ file: options.file })
-                .then(res => {
-                  if (res.Code === 0 && res.Data?.NewFullPath) {
-                    onChange(JSON.stringify(res.Data));
-                    options.onSuccess(res, options.file);
-                  } else {
-                    ElMessage.error(res.Message || "上传失败");
-                    options.onError(new Error(res.Message || "上传失败"));
-                  }
-                })
-                .catch(err => {
-                  ElMessage.error("上传异常");
-                  options.onError(err);
-                });
-            }}
-          >
-            <ElButton type="primary">上传附件</ElButton>
-          </ElUpload>
-        </>
-      );
-    }
-  },
-  {
-    label: "附件2",
-    prop: "Annex2",
-    renderField: (value, onChange) => {
-      const p = (() => {
-        if (!value) return null;
-        try {
-          return JSON.parse(value as string);
-        } catch {
-          return null;
-        }
-      })();
-      const oldName = p?.OldName || "";
-      const NewFullPath = p?.NewFullPath || "";
-      const uploadRef = ref();
-      return (
-        <>
-          {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
-              {oldName}
-            </a>
-          )}
-          <ElUpload
-            ref={uploadRef}
-            httpRequest={(options: any) => {
-              uploadRef.value?.clearFiles();
-              return api.api
-                .post_Common_UploadFile({ file: options.file })
-                .then(res => {
-                  if (res.Code === 0 && res.Data?.NewFullPath) {
-                    onChange(JSON.stringify(res.Data));
-                    options.onSuccess(res, options.file);
-                  } else {
-                    ElMessage.error(res.Message || "上传失败");
-                    options.onError(new Error(res.Message || "上传失败"));
-                  }
-                })
-                .catch(err => {
-                  ElMessage.error("上传异常");
-                  options.onError(err);
-                });
-            }}
-          >
-            <ElButton type="primary">上传附件</ElButton>
-          </ElUpload>
-        </>
-      );
-    }
-  },
-  {
-    label: "采购清单",
-    prop: "Items",
-    // valueType 只需占位，实际渲染由 renderField 接管
-    renderField: (value, onChange, row) => {
-      const items = (value as any[]) || [];
-      return (
-        <ItemList
-          title=""
-          data={items}
-          columns={subTableColumns}
-          //onSelection-change={rows => console.log("子表格选中行：", rows)}
-          onAdd-row={handleAddRow}
-        />
-      );
-    }
+    label: "合同条款",
+    prop: "Notes",
+    valueType: "textarea"
   }
 ];
 function onDel(row: any, index: number) {
@@ -268,46 +206,19 @@ function onDel(row: any, index: number) {
   newFormInline.value.Items.splice(index, 1);
 }
 
+// 物料编码
+// 物料名称
+// 物料规格
+// 物料单位
+// 物料类型
+// 采购数量
+// 单价
+// 税率
+// 运费单价
+// 合计
+// 备注
+
 const subTableColumns: TableColumnList = [
-  {
-    label: "操作",
-    width: 210,
-    slot: "operation",
-    cellRenderer: ({ row, column, $index }) => (
-      <div>
-        <el-button
-          class="reset-margin"
-          link
-          type="primary"
-          icon={useRenderIcon(Delete)}
-          onClick={() => ShowJobChoose(row, $index)}
-        >
-          关联任务
-        </el-button>
-        <el-button
-          class="reset-margin"
-          link
-          type="primary"
-          icon={useRenderIcon(Delete)}
-          onClick={() => onDel(row, $index)}
-        >
-          删除
-        </el-button>
-      </div>
-    )
-  },
-  {
-    label: "任务编码",
-    prop: "JobCode"
-  },
-  {
-    label: "任务名称",
-    prop: "JobName"
-  },
-  {
-    label: "任务工程量",
-    prop: "PreQuantity"
-  },
   {
     label: "物料编码",
     prop: "MaterialCode"
@@ -321,12 +232,12 @@ const subTableColumns: TableColumnList = [
     prop: "MaterialSpecifications"
   },
   {
-    label: "物料规格",
-    prop: "MaterialSpecifications"
+    label: "物料单位",
+    prop: "MaterialUnit"
   },
   {
     label: "物料类型",
-    prop: "MaterialUnit"
+    prop: "MaterialTypeStr"
   },
   {
     label: "单价",
@@ -344,7 +255,7 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "申请工程量",
+    label: "采购数量",
     prop: "Quantity",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
@@ -359,13 +270,28 @@ const subTableColumns: TableColumnList = [
     )
   },
   {
-    label: "实际工程量",
-    prop: "CompletionQuantity",
+    label: "税率",
+    prop: "TaxRate",
     cellRenderer: ({ row, column, $index }) => (
       <ElInput
-        modelValue={row.CompletionQuantity}
+        modelValue={row.TaxRate}
         onUpdate:modelValue={(val: string) => {
-          row.CompletionQuantity = val;
+          row.TaxRate = val;
+        }}
+        placeholder="数量"
+        clearable
+        size="small"
+      />
+    )
+  },
+  {
+    label: "运费单价",
+    prop: "Freight",
+    cellRenderer: ({ row, column, $index }) => (
+      <ElInput
+        modelValue={row.Freight}
+        onUpdate:modelValue={(val: string) => {
+          row.Freight = val;
         }}
         placeholder="数量"
         clearable

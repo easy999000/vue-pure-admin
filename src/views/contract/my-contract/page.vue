@@ -161,17 +161,6 @@ onMounted(() => {
               >
                 修改
               </el-button>
-              <el-button
-                v-if="row.Status == 6 && row.CompletionStatus == 0"
-                class="reset-margin"
-                link
-                type="primary"
-                :size="size"
-                :icon="useRenderIcon(EditPen)"
-                @click="openFinshDialog('结束工作', row)"
-              >
-                结束工作
-              </el-button>
             </template>
           </pure-table>
         </template>

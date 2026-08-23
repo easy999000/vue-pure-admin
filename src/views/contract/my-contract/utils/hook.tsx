@@ -23,23 +23,27 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的零工租赁");
+  const pageName = ref("我的合同");
+  // 标题;
+  // 创建时间;
+  // 状态;
+  // 操作;
   const columns: TableColumnList = [
     {
       label: "标题",
       prop: "Title"
     },
     {
-      label: "项目",
-      prop: "ProjectName"
+      label: "合同各类型",
+      prop: "TypeName"
     },
     {
-      label: "开工审核状态",
+      label: "审核状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "创建时间",
+      prop: "CreateTime"
     },
     {
       label: "操作",
@@ -87,8 +91,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetMyLeasePage
-    const { Code, Data } = await api.api.get_Lease_GetMyLeasePage({
+    ///GetMyContractInfoPage
+    const { Code, Data } = await api.api.get_Contract_GetMyContractInfoPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
@@ -149,8 +153,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LeaseApplyApi
-        api.api.post_Lease_LeaseApplyApi(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////UpdateContractInfo
+        api.api.post_Contract_UpdateContractInfo(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
@@ -182,7 +186,7 @@ export function useHook() {
           }
         },
         {
-          label: "结束工作",
+          label: "确定",
           type: "primary",
           text: true,
           bg: true,
@@ -206,8 +210,8 @@ export function useHook() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
         }
-        // 表单规则校验通过  ///////LeaseCompletionApply
-        api.api.post_Lease_LeaseCompletionApply(toRaw(curData)).then(res => {
+        // 表单规则校验通过  ///////OfficeApply
+        api.api.post_Office_OfficeApply(toRaw(curData)).then(res => {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });

@@ -33,24 +33,24 @@ export function useHook() {
       prop: "Title"
     },
     {
-      label: "项目",
-      prop: "ProjectName"
+      label: "申请人",
+      prop: "AccountName"
+    },
+    {
+      label: "合同各类型",
+      prop: "TypeName"
+    },
+    {
+      label: "申请时间",
+      prop: "CreateTime"
+    },
+    {
+      label: "审核状态",
+      prop: "StatusName"
     },
     {
       label: "审批角色",
       prop: "ApprovalRoleName"
-    },
-    {
-      label: "创建时间",
-      prop: "CreateTime"
-    },
-    {
-      label: "开工审批状态",
-      prop: "StatusName"
-    },
-    {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
     },
     {
       label: "操作",
@@ -98,13 +98,14 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLeaseApprovePage
-    const { Code, Data } = await api.api.get_Lease_GetLeaseApprovePage({
-      PageSize: pagination.pageSize,
-      PageNumber: pagination.currentPage,
-      Count: pagination.total,
-      ...toRaw(searchForm)
-    });
+    ///GetContractInfoApprovePage
+    const { Code, Data } =
+      await api.api.get_Contract_GetContractInfoApprovePage({
+        PageSize: pagination.pageSize,
+        PageNumber: pagination.currentPage,
+        Count: pagination.total,
+        ...toRaw(searchForm)
+      });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
@@ -173,8 +174,8 @@ export function useHook() {
               return;
             }
             try {
-              ////// LeaseRejectApi
-              const res = await api.api.post_Lease_LeaseRejectApi(row);
+              ////// post_Contract_ContractInfoApprove
+              const res = await api.api.post_Contract_ContractInfoReject(row);
               if (res.Code === 0) {
                 message(`您已拒绝该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
@@ -206,8 +207,8 @@ export function useHook() {
               return;
             }
             try {
-              ///LeaseApproveApi
-              const res = await api.api.post_Lease_LeaseApproveApi(row);
+              ///ContractInfoApprove
+              const res = await api.api.post_Contract_ContractInfoApprove(row);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
