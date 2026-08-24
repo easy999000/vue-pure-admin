@@ -105,7 +105,7 @@ const columns: PlusColumn[] = [
           title=""
           data={items}
           columns={subTableColumns}
-          onSelection-change={rows => console.log("子表格选中行：", rows)}
+          //onSelection-change={rows => console.log("子表格选中行：", rows)}
           onAdd-row={handleAddRow}
         />
       );

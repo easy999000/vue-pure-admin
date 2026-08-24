@@ -1,0 +1,4 @@
+﻿pnpm dev 
+npx ts-node ./src/swaggerGen/swagger.config.ts
+pnpm build
+
