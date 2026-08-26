@@ -97,8 +97,8 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLeasePageFinish
-    const { Code, Data } = await api.api.get_Lease_GetLeasePageFinish({
+    ///GetCreditPayInfoEndPage
+    const { Code, Data } = await api.api.get_Credit_GetCreditPayInfoEndPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,

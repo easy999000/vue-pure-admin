@@ -97,13 +97,14 @@ export function useHook() {
   });
   async function onSearch() {
     loading.value = true;
-    ///GetLeaseApprovePage
-    const { Code, Data } = await api.api.get_Lease_GetLeaseApprovePage({
-      PageSize: pagination.pageSize,
-      PageNumber: pagination.currentPage,
-      Count: pagination.total,
-      ...toRaw(searchForm)
-    });
+    ///GetCreditPayInfoApprovalPage
+    const { Code, Data } =
+      await api.api.get_Credit_GetCreditPayInfoApprovalPage({
+        PageSize: pagination.pageSize,
+        PageNumber: pagination.currentPage,
+        Count: pagination.total,
+        ...toRaw(searchForm)
+      });
     if (Code === 0) {
       dataList.value = Data.Data;
       pagination.total = Data.Count;
@@ -172,8 +173,8 @@ export function useHook() {
               return;
             }
             try {
-              ////// LeaseRejectApi
-              const res = await api.api.post_Lease_LeaseRejectApi(row);
+              ////// CreditPayInfoReject
+              const res = await api.api.post_Credit_CreditPayInfoReject(row);
               if (res.Code === 0) {
                 message(`您已拒绝该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
@@ -205,8 +206,8 @@ export function useHook() {
               return;
             }
             try {
-              ///LeaseApproveApi
-              const res = await api.api.post_Lease_LeaseApproveApi(row);
+              ///CreditPayInfoApprove
+              const res = await api.api.post_Credit_CreditPayInfoApply(row);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
