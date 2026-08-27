@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, nextTick, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { api } from "@/api";
@@ -20,6 +20,7 @@ const newFormInline = ref(props.formInline);
 
 const loadData = async () => {
   await loadMenuTree();
+  await nextTick();
   if (newFormInline?.value?.RoleID) {
     loading.value = true;
     try {
@@ -28,6 +29,11 @@ const loadData = async () => {
         param: Number(newFormInline?.value?.RoleID)
       });
       Object.assign(newFormInline.value, res.Data);
+      const checkedKeys = (res.Data?.RoleAPIRelation1 ?? [])
+        .map(item => item.APIID)
+        .filter(id => id !== undefined && id !== null);
+      await nextTick();
+      treeRef.value?.setCheckedKeys(checkedKeys);
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
