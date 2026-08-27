@@ -154,6 +154,11 @@ export function useRole(treeRef: Ref) {
           });
           if (valid) {
             console.log("curData", curData);
+            const checkedPermissionIds =
+              formRef.value?.getCheckedPermissionIds?.() ?? [];
+            curData.RoleApiList = checkedPermissionIds.map(id => ({
+              ID: Number(id)
+            }));
             // 表单规则校验通过
             if (title === "新增") {
               api.api.post_System_UpdateRole(toRaw(curData)).then(_ => {

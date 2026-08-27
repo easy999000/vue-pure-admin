@@ -17,6 +17,7 @@ const menusData = ref<any[]>([]);
 const ruleFormRef = ref();
 const treeRef = ref();
 const newFormInline = ref(props.formInline);
+const checkedPermissionIds = ref<Array<number | string>>([]);
 
 const loadData = async () => {
   await loadMenuTree();
@@ -31,7 +32,8 @@ const loadData = async () => {
       Object.assign(newFormInline.value, res.Data);
       const checkedKeys = (res.Data?.RoleAPIRelation1 ?? [])
         .map(item => item.APIID)
-        .filter(id => id !== undefined && id !== null);
+        .filter((id): id is number => id !== undefined && id !== null);
+      checkedPermissionIds.value = checkedKeys;
       await nextTick();
       treeRef.value?.setCheckedKeys(checkedKeys);
     } catch (error) {
@@ -49,6 +51,14 @@ const loadMenuTree = async () => {
 
 function getRef() {
   return ruleFormRef.value;
+}
+
+function getCheckedPermissionIds() {
+  return checkedPermissionIds.value;
+}
+
+function handleCheck(_data: any, info: any) {
+  checkedPermissionIds.value = info.checkedKeys ?? [];
 }
 
 const dataProps = {
@@ -79,7 +89,7 @@ const filterMethod = (query: string, node: any) => {
 // 在 setup 中直接调用，尽早触发数据请求
 loadData();
 
-defineExpose({ getRef });
+defineExpose({ getRef, getCheckedPermissionIds });
 </script>
 
 <template>
@@ -100,6 +110,7 @@ defineExpose({ getRef });
       :height="500"
       :filter-method="filterMethod"
       :default-expanded-keys="expandedKeys"
+      @check="handleCheck"
     >
       <template #default="{ data }">
         <span>{{ transformI18n(data.meta.title) }}</span>
