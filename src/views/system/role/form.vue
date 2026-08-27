@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { formRules } from "./utils/rule";
 import { FormProps } from "./utils/types";
 import { api } from "@/api";
+import { transformI18n } from "@/plugins/i18n";
+
+const props = withDefaults(defineProps<FormProps>(), {
+  formInline: () => ({
+    Name: "",
+    Updatetime: ""
+  })
+});
+
 const loading = ref(true);
+const menusData = ref<any[]>([]);
+const ruleFormRef = ref();
+const treeRef = ref();
+const newFormInline = ref(props.formInline);
 
 const loadData = async () => {
   await loadMenuTree();
@@ -25,29 +38,41 @@ const loadData = async () => {
 const loadMenuTree = async () => {
   ////GetFullMenuTree
   const res = await api.api.get_System_GetFullMenuTree();
-  menusData.value = res.Data;
+  menusData.value = res.Data ?? [];
 };
-
-// 在 setup 中直接调用，尽早触发数据请求
-loadData();
-const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    Name: "",
-    Updatetime: ""
-  })
-});
-
-const menusData = ref();
-const ruleFormRef = ref();
-const newFormInline = ref(props.formInline);
 
 function getRef() {
   return ruleFormRef.value;
 }
-const dataProps = ref({
-  value: "uniqueId",
+
+const dataProps = {
+  value: "id",
   children: "children"
+};
+
+const expandedKeys = computed(() => {
+  const keys: Array<number | string> = [];
+  const collectKeys = (nodes: any[]) => {
+    for (const node of nodes ?? []) {
+      if (node.id !== undefined && node.id !== null) {
+        keys.push(node.id);
+      }
+      collectKeys(node.children ?? []);
+    }
+  };
+  collectKeys(menusData.value);
+  return keys;
 });
+
+const filterMethod = (query: string, node: any) => {
+  return String(transformI18n(node.meta?.title ?? ""))
+    .toLowerCase()
+    .includes(query.toLowerCase());
+};
+
+// 在 setup 中直接调用，尽早触发数据请求
+loadData();
+
 defineExpose({ getRef });
 </script>
 
