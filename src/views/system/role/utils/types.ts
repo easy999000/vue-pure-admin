@@ -1,5 +1,6 @@
 // 虽然字段很少 但是抽离出来 后续有扩展字段需求就很方便了
 
+import type { Role } from "@/api";
 interface FormItemProps {
   /** 角色名称 */
   Name: string;
@@ -9,7 +10,7 @@ interface FormItemProps {
   Updatetime: string;
 }
 interface FormProps {
-  formInline: FormItemProps;
+  formInline: Role;
 }
 
 export type { FormItemProps, FormProps };

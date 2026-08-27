@@ -2759,6 +2759,17 @@ export interface RolePageResultResult {
   Ext4?: any | null;
 }
 
+export interface RoleResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: Role;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
+}
+
 export interface RoleUpdateParam {
   /** @format int32 */
   RoleID?: number;
@@ -4879,6 +4890,11 @@ export interface GetSystemGetRolePageParams {
   PageSize?: number;
   /** @format int64 */
   Count?: number;
+}
+
+export interface GetSystemGetRoleFullParams {
+  /** @format int32 */
+  param?: number;
 }
 
 export interface GetSystemGetApiInfoPageParams {
@@ -7925,6 +7941,21 @@ export class Api<
      * No description
      *
      * @tags System
+     * @name GetSystemGetFullMenuTree
+     * @request GET:/api/System/GetFullMenuTree
+     */
+    get_System_GetFullMenuTree: (params: RequestParams = {}) =>
+      this.request<PureMenuDTOListResult, any>({
+        path: `/api/System/GetFullMenuTree`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
      * @name GetSystemGetRolePage
      * @request GET:/api/System/GetRolePage
      */
@@ -8003,6 +8034,25 @@ export class Api<
         method: "POST",
         body: data,
         type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags System
+     * @name GetSystemGetRoleFull
+     * @request GET:/api/System/GetRoleFull
+     */
+    get_System_GetRoleFull: (
+      query: GetSystemGetRoleFullParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<RoleResult, any>({
+        path: `/api/System/GetRoleFull`,
+        method: "GET",
+        query: query,
         format: "json",
         ...params,
       }),
