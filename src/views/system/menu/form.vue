@@ -88,6 +88,29 @@ defineExpose({ getRef });
       </re-col>
 
       <re-col :value="24" :xs="24" :sm="24">
+        <el-form-item label="区域" prop="Area">
+          <el-input v-model="newFormInline.Area" clearable placeholder="区域" />
+        </el-form-item>
+      </re-col>
+      <re-col :value="24" :xs="24" :sm="24">
+        <el-form-item label="控制器" prop="Controller">
+          <el-input
+            v-model="newFormInline.Controller"
+            clearable
+            placeholder="请输入控制器"
+          />
+        </el-form-item>
+      </re-col>
+      <re-col :value="24" :xs="24" :sm="24">
+        <el-form-item label="方法" prop="Action">
+          <el-input
+            v-model="newFormInline.Action"
+            clearable
+            placeholder="请输入方法"
+          />
+        </el-form-item>
+      </re-col>
+      <re-col :value="24" :xs="24" :sm="24">
         <el-form-item label="路由路径" prop="Path">
           <el-input
             v-model="newFormInline.Path"
