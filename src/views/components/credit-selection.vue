@@ -65,10 +65,7 @@ const materialTypeOptions = [
 
 // ---- 搜索条件 ----
 const searchForm = ref({
-  Code: "",
-  Name: "",
-  Specifications: "",
-  Type: undefined as number | undefined
+  Title: ""
 });
 const searchFormRef = ref();
 
@@ -79,10 +76,7 @@ function handleSearch() {
 
 function handleReset() {
   searchForm.value = {
-    Code: "",
-    Name: "",
-    Specifications: "",
-    Type: undefined
+    Title: ""
   };
   pagination.currentPage = 1;
   loadData();
@@ -158,7 +152,7 @@ loadData();
 const columns: TableColumnList = [
   {
     label: "标题",
-    prop: "Code"
+    prop: "Title"
   },
   {
     label: "项目",
@@ -201,35 +195,13 @@ const columns: TableColumnList = [
   <el-form ref="searchFormRef" :model="searchForm" inline class="search-form">
     <el-form-item label="编码">
       <el-input
-        v-model="searchForm.Code"
+        v-model="searchForm.Title"
         placeholder="请输入编码"
         clearable
         style="width: 180px"
       />
     </el-form-item>
-    <el-form-item label="名称">
-      <el-input
-        v-model="searchForm.Name"
-        placeholder="请输入名称"
-        clearable
-        style="width: 180px"
-      />
-    </el-form-item>
-    <el-form-item label="物料类型">
-      <el-select
-        v-model="searchForm.Type"
-        placeholder="请选择物料类型"
-        clearable
-        style="width: 180px"
-      >
-        <el-option
-          v-for="opt in materialTypeOptions"
-          :key="opt.value"
-          :label="opt.label"
-          :value="opt.value"
-        />
-      </el-select>
-    </el-form-item>
+
     <el-form-item>
       <el-button
         type="primary"

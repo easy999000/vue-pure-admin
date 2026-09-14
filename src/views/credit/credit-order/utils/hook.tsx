@@ -23,7 +23,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的零工租赁");
+  const pageName = ref("挂帐单");
   const columns: TableColumnList = [
     {
       label: "标题",

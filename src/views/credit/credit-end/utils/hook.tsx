@@ -3,16 +3,15 @@ import type { PaginationProps } from "@pureadmin/table";
 
 import {
   api,
-  type LaborInfoParam,
   type EnquiryGroupPageParam,
   type GetLaborGetLaborInfoPageApiParams,
   type LeaseParam
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog, closeDialog } from "@/components/ReDialog";
+import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
-import { ElMessageBox } from "element-plus";
+import {} from "element-plus";
 export function useHook() {
   const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
@@ -25,7 +24,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的采购");
+  const pageName = ref("完结付款审核");
 
   const columns: TableColumnList = [
     {
@@ -37,20 +36,28 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
-      label: "审批角色",
-      prop: "ApprovalRoleName"
-    },
-    {
       label: "创建时间",
       prop: "CreateTime"
     },
     {
-      label: "开工审批状态",
+      label: "状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "供应商名称",
+      prop: "PartBName"
+    },
+    {
+      label: "开户行",
+      prop: "PartBBank"
+    },
+    {
+      label: "账户名称",
+      prop: "PartBBankUser"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
     },
     {
       label: "操作",
@@ -147,7 +154,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
 
-      beforeSure: (done, { options }) => {
+      beforeSure: (done, {}) => {
         done(); // 关闭弹框
       }
     });

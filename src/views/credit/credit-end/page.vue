@@ -112,19 +112,11 @@ onMounted(() => {
       <PureTableBar
         :class="['w-full']"
         style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-        :title="pageName + '管理'"
+        :title="pageName"
         :columns="columns"
         @refresh="onSearch"
       >
-        <template #buttons>
-          <el-button
-            type="primary"
-            :icon="useRenderIcon(AddFill)"
-            @click="openDialog()"
-          >
-            新增{{ pageName }}
-          </el-button>
-        </template>
+        <template #buttons />
         <template v-slot="{ size, dynamicColumns }">
           <pure-table
             ref="tableRef"

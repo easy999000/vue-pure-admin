@@ -25,7 +25,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("我的采购");
+  const pageName = ref("付款的审核");
 
   const columns: TableColumnList = [
     {
@@ -65,7 +65,7 @@ export function useHook() {
       prop: "PartBBankUser"
     },
     {
-      label: "总金额",
+      label: "申请付款金额",
       prop: "TotalAmount"
     },
     {
@@ -223,7 +223,7 @@ export function useHook() {
             }
             try {
               ///CreditPayInfoApprove
-              const res = await api.api.post_Credit_CreditPayInfoApply(row);
+              const res = await api.api.post_Credit_CreditPayInfoApprove(row);
               if (res.Code === 0) {
                 message(`您已同意该${pageName.value}`, { type: "success" });
                 closeDialog(options, index, { command: "sure" });
