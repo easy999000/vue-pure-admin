@@ -26,7 +26,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
-  const pageName = ref("询价组");
+  const pageName = ref("报价审核");
   const columns: TableColumnList = [
     {
       label: "标题",
