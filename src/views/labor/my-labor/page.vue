@@ -122,7 +122,7 @@ onMounted(() => {
             :icon="useRenderIcon(AddFill)"
             @click="openDialog()"
           >
-            新增{{ pageName }}
+            新增劳务申请
           </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">

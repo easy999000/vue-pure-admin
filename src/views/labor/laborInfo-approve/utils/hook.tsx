@@ -8,9 +8,10 @@ import {
   type GetLaborGetLaborInfoPageApiParams
 } from "@/api";
 import editForm from "../form.vue";
-import { addDialog } from "@/components/ReDialog";
+import { addDialog, closeDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
+import { ElMessageBox } from "element-plus";
 export function useHook() {
   const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
   const pagination = reactive<PaginationProps>({
@@ -177,7 +178,86 @@ export function useHook() {
           // 实际开发先调用修改接口，再进行下面操作
           chores(res);
         });
-      }
+      },
+      footerButtons: [
+        {
+          label: "拒绝",
+          type: "danger",
+          plain: true,
+          size: "large",
+          btnClick: async ({ dialog: { options, index } }) => {
+            try {
+              await ElMessageBox.confirm(
+                "确定要拒绝该审批吗？拒绝后将无法恢复。",
+                "拒绝确认",
+                {
+                  confirmButtonText: "确定拒绝",
+                  cancelButtonText: "取消",
+                  confirmButtonClass: "el-button--danger",
+                  type: "warning",
+                  center: true,
+                  distinguishCancelAndClose: true,
+                  closeOnClickModal: false
+                }
+              );
+            } catch {
+              return;
+            }
+            try {
+              ////// post_Labor_LaborInfoApprove
+              const res = await api.api.post_Labor_LaborInfoReject(row);
+              if (res.Code === 0) {
+                message(`您已拒绝该${pageName.value}`, { type: "success" });
+                closeDialog(options, index, { command: "sure" });
+                onSearch();
+              } else {
+                message(`操作失败，${res.Message}`, { type: "error" });
+              }
+            } catch {
+              message(`操作失败`, { type: "error" });
+            }
+          }
+        },
+        {
+          label: "同意",
+          type: "success",
+          size: "large",
+          btnClick: async ({ dialog: { options, index } }) => {
+            try {
+              await ElMessageBox.confirm("确定要通过该审批吗？", "同意确认", {
+                confirmButtonText: "确定同意",
+                cancelButtonText: "取消",
+                confirmButtonClass: "el-button--success",
+                type: "success",
+                center: true,
+                distinguishCancelAndClose: true,
+                closeOnClickModal: false
+              });
+            } catch {
+              return;
+            }
+            try {
+              // // 表单规则校验通过  ///////LaborInfoApprove
+              // api.api.post_Labor_LaborInfoApprove(toRaw(curData)).then(res => {
+              //   // 实际开发先调用修改接口，再进行下面操作
+              //   chores(res);
+              // });
+
+              ///post_Labor_LaborInfoApprove
+              const res = await api.api.post_Labor_LaborInfoApprove(row);
+              if (res.Code === 0) {
+                message(`您已同意该${pageName.value}`, { type: "success" });
+                closeDialog(options, index, { command: "sure" });
+                onSearch();
+              } else {
+                message(`操作失败，${res.Message}`, { type: "error" });
+              }
+            } catch {
+              message(`操作失败`, { type: "error" });
+            }
+          }
+        }
+      ]
     });
   }
   return {
