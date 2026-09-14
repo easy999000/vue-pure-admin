@@ -37,6 +37,10 @@ export function useHook() {
       prop: "ProjectName"
     },
     {
+      label: "申请人",
+      prop: "AccountName"
+    },
+    {
       label: "审批角色",
       prop: "ApprovalRoleName"
     },
@@ -45,12 +49,24 @@ export function useHook() {
       prop: "CreateTime"
     },
     {
-      label: "开工审批状态",
+      label: "状态",
       prop: "StatusName"
     },
     {
-      label: "完工审批状态",
-      prop: "CompletionStatusName"
+      label: "供应商名称",
+      prop: "PartBName"
+    },
+    {
+      label: "开户行",
+      prop: "PartBBank"
+    },
+    {
+      label: "账户名称",
+      prop: "PartBBankUser"
+    },
+    {
+      label: "总金额",
+      prop: "TotalAmount"
     },
     {
       label: "操作",

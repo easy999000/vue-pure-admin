@@ -194,10 +194,6 @@ const subTableColumns: TableColumnList = [
     prop: "Title"
   },
   {
-    label: "项目",
-    prop: "ProjectName"
-  },
-  {
     label: "账单类型",
     prop: "CreditTypeName"
   },
@@ -211,6 +207,10 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "账户名称",
+    prop: "PartBBankAccount"
+  },
+  {
+    label: "银行账号",
     prop: "PartBBankAccount"
   },
   {
