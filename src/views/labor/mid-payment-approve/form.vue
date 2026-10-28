@@ -96,6 +96,20 @@ const getEnquiryGroupSelect = async (): Promise<any[]> => {
 
   return res;
 };
+const approvalColumns: TableColumnList = [
+  {
+    label: "审批人",
+    prop: "AccountName"
+  },
+  {
+    label: "审批结果",
+    prop: "StatusName"
+  },
+  {
+    label: "审批时间",
+    prop: "ApprovalTime"
+  }
+];
 const columns: PlusColumn[] = [
   {
     label: "标题",
@@ -127,6 +141,20 @@ const columns: PlusColumn[] = [
     label: "本期应付工程款",
     prop: "TotalReviewAmount",
     valueType: "text"
+  },
+  {
+    label: "审批列表",
+    prop: "ApprovalRecordList",
+    renderField: value => {
+      return (
+        <pure-table
+          data={Array.isArray(value) ? value : []}
+          columns={approvalColumns}
+          stripe
+          border
+        />
+      );
+    }
   },
   {
     label: "采购清单",
