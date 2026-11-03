@@ -199,6 +199,34 @@ const columns: PlusColumn[] = [
     label: "合同条款",
     prop: "Notes",
     valueType: "textarea"
+  },
+  {
+    label: "审批列表",
+    prop: "ApprovalRecordList",
+    renderField: value => {
+      return (
+        <pure-table
+          data={Array.isArray(value) ? value : []}
+          columns={approvalColumns}
+          stripe
+          border
+        />
+      );
+    }
+  }
+];
+const approvalColumns: TableColumnList = [
+  {
+    label: "审批人",
+    prop: "AccountName"
+  },
+  {
+    label: "审批结果",
+    prop: "StatusName"
+  },
+  {
+    label: "审批时间",
+    prop: "ApprovalTime"
   }
 ];
 function onDel(row: any, index: number) {
