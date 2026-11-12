@@ -81,9 +81,17 @@ onMounted(() => {
       :model="searchForm"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item :label="pageName + '名称:'" prop="Title">
+      <el-form-item :label="pageName + '账号:'" prop="AccountNumber">
         <el-input
-          v-model="searchForm.Title"
+          v-model="searchForm.AccountNumber"
+          :placeholder="'请输入' + pageName + '账号'"
+          clearable
+          class="w-45!"
+        />
+      </el-form-item>
+      <el-form-item :label="pageName + '名称:'" prop="Name">
+        <el-input
+          v-model="searchForm.Name"
           :placeholder="'请输入' + pageName + '名称'"
           clearable
           class="w-45!"

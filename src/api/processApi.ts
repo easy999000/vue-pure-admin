@@ -190,6 +190,7 @@ export interface ApprovalRecords {
   ApprovalTime?: string;
   /** @format int32 */
   FlowType?: number;
+  StatusName?: string | null;
 }
 
 export interface ChangeMyPasswordDTO {
@@ -512,6 +513,7 @@ export interface Creditpayinfo {
   /** @format double */
   PaidAmount?: number;
   ApprovalRecordList?: ApprovalRecords[] | null;
+  ApprovalRoleName?: string | null;
 }
 
 export interface CreditpayinfoPageResult {
@@ -3061,6 +3063,7 @@ export interface WorkflowStep {
 export interface GetAccount1GetAccountPageParams {
   /** @format int32 */
   AccountID?: number;
+  AccountNumber?: string;
   Name?: string;
   Telephone?: string;
   /** @format int32 */
@@ -3078,6 +3081,7 @@ export interface GetAccount1GetAccountPageParams {
 export interface GetAccount1GetAccountModelParams {
   /** @format int32 */
   AccountID?: number;
+  AccountNumber?: string;
   Name?: string;
   Telephone?: string;
   /** @format int32 */
@@ -3419,6 +3423,7 @@ export interface GetCreditGetCreditPayInfoFullParams {
   /** @format double */
   PaidAmount?: number;
   ApprovalRecordList?: ApprovalRecords[];
+  ApprovalRoleName?: string;
 }
 
 export interface GetCreditGetCreditPayInfoEndPageParams {

@@ -6,14 +6,14 @@ import {
   api,
   type UpdateAccountDTO,
   type EnquiryGroupPageParam,
-  type GetLaborGetLaborInfoPageApiParams
+  type GetAccount1GetAccountPageParams
 } from "@/api";
 import editForm from "../form.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
 export function useHook() {
-  const searchForm: GetLaborGetLaborInfoPageApiParams = reactive({});
+  const searchForm: GetAccount1GetAccountPageParams = reactive({});
   const pagination = reactive<PaginationProps>({
     total: 0,
     pageSize: 10,
