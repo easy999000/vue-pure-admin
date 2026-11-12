@@ -6,9 +6,11 @@ import {
   api,
   type UpdateAccountDTO,
   type EnquiryGroupPageParam,
-  type GetAccount1GetAccountPageParams
+  type GetAccount1GetAccountPageParams,
+  type Account
 } from "@/api";
 import editForm from "../form.vue";
+import changePassword from "../change-password.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
@@ -161,6 +163,43 @@ export function useHook() {
       }
     });
   }
+
+  function openChangePageword(row?: UpdateAccountDTO) {
+    addDialog({
+      title: `重置密码`,
+      props: {
+        formInline: {
+          ...row
+        }
+      },
+      width: "80%",
+      draggable: true,
+      fullscreen: deviceDetection(),
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () =>
+        h(changePassword, { ref: formRef, formInline: null }),
+      beforeSure: (done, { options }) => {
+        const curData = options.props.formInline as Account;
+        function chores(res2: any) {
+          if (res2.Code !== 0) {
+            message(`操作失败，${res2.Message}`, { type: "error" });
+            return;
+          }
+          message(`操作成功`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+        // 表单规则校验通过  ///////UpdateAccount
+        api.api.post_Account1_ChangePassword(toRaw(curData)).then(res => {
+          // 实际开发先调用修改接口，再进行下面操作
+          chores(res);
+        });
+      }
+    });
+  }
   return {
     searchForm,
     onSearch,
@@ -176,6 +215,7 @@ export function useHook() {
     handleSelectionChange,
     handleDelete,
     pageName,
-    loading
+    loading,
+    openChangePageword
   };
 }

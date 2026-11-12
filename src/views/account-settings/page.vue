@@ -53,6 +53,7 @@ const {
   resetForm,
   rowStyle,
   openDialog,
+  openChangePageword,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange,
@@ -163,7 +164,15 @@ onMounted(() => {
                 link
                 type="primary"
                 :size="size"
-                :icon="useRenderIcon(EditPen)"
+                @click="openChangePageword(row)"
+              >
+                重置密码
+              </el-button>
+              <el-button
+                class="reset-margin"
+                link
+                type="primary"
+                :size="size"
                 @click="openDialog('修改', row)"
               >
                 编辑
