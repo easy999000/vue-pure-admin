@@ -42,10 +42,6 @@ export function useHook() {
       prop: "Name"
     },
     {
-      label: "项目特征",
-      prop: "Describe"
-    },
-    {
       label: "单位",
       prop: "Unit"
     },
@@ -64,6 +60,11 @@ export function useHook() {
     {
       label: "其他",
       prop: "Ext1"
+    },
+    {
+      label: "项目特征",
+      prop: "Describe",
+      minWidth: 300
     },
     {
       label: "备注",
@@ -122,7 +123,7 @@ export function useHook() {
     const { Code, Data } = await api.api.get_Project_GetProjectItemPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
-      Count: pagination.total,
+      // Count: pagination.total,
       ...toRaw(searchForm)
     });
     if (Code === 0) {

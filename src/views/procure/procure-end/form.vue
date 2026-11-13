@@ -299,7 +299,7 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "采购数量",
-    prop: "TypeStr"
+    prop: "Quantity"
   },
   {
     label: "单价",

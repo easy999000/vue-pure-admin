@@ -81,10 +81,18 @@ onMounted(() => {
       :model="searchForm"
       class="search-form bg-bg_color w-full pl-8 pt-3 overflow-auto"
     >
-      <el-form-item :label="pageName + '名称:'" prop="name">
+      <el-form-item :label="'名称:'" prop="name">
         <el-input
           v-model="searchForm.Name"
-          placeholder="'请输入'+pageName+'名称'"
+          placeholder="名称"
+          clearable
+          class="w-45!"
+        />
+      </el-form-item>
+      <el-form-item :label="'编码:'" prop="code">
+        <el-input
+          v-model="searchForm.Code"
+          placeholder="编码"
           clearable
           class="w-45!"
         />
