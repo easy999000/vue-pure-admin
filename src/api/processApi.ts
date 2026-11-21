@@ -2087,6 +2087,12 @@ export interface Procurematerialitem {
   LastQuotationTime?: string | null;
 }
 
+export interface ProjectAccountRelationDTO {
+  /** @format int32 */
+  ProjectId?: number;
+  AccountIds?: number[] | null;
+}
+
 export interface ProjectItemMaterialResult {
   /** @format int64 */
   ID?: number;
@@ -2283,6 +2289,17 @@ export interface ProjectAccountRelation {
   /** @format int32 */
   ProjectId?: number;
   Name?: string | null;
+}
+
+export interface ProjectAccountRelationListResult {
+  /** @format int32 */
+  Code?: number;
+  Message?: string | null;
+  Data?: ProjectAccountRelation[] | null;
+  Ext1?: string | null;
+  Ext2?: string | null;
+  Ext3?: any | null;
+  Ext4?: any | null;
 }
 
 export interface Projectinfo {
@@ -4646,6 +4663,11 @@ export interface GetProjectGetProjectByIdParams {
   /** @format date-time */
   StartDate?: string;
   AccountList?: ProjectAccountRelation[];
+}
+
+export interface GetProjectGetProjectAccountListParams {
+  /** @format int32 */
+  projectId?: number;
 }
 
 export interface GetProjectGetProjectPhaseAllParams {
@@ -7591,6 +7613,85 @@ export class Api<
       this.request<ProjectinfoListResult, any>({
         path: `/api/Project/GetAccountProjectList`,
         method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Project
+     * @name GetProjectGetProjectAccountList
+     * @request GET:/api/Project/GetProjectAccountList
+     */
+    get_Project_GetProjectAccountList: (
+      query: GetProjectGetProjectAccountListParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<ProjectAccountRelationListResult, any>({
+        path: `/api/Project/GetProjectAccountList`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Project
+     * @name PostProjectAddProjectAccountRelation
+     * @request POST:/api/Project/AddProjectAccountRelation
+     */
+    post_Project_AddProjectAccountRelation: (
+      data: ProjectAccountRelation,
+      params: RequestParams = {},
+    ) =>
+      this.request<Result, any>({
+        path: `/api/Project/AddProjectAccountRelation`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Project
+     * @name PostProjectDeleteProjectAccountRelation
+     * @request POST:/api/Project/DeleteProjectAccountRelation
+     */
+    post_Project_DeleteProjectAccountRelation: (
+      data: ProjectAccountRelation,
+      params: RequestParams = {},
+    ) =>
+      this.request<Result, any>({
+        path: `/api/Project/DeleteProjectAccountRelation`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Project
+     * @name PostProjectSaveProjectAccountRelations
+     * @request POST:/api/Project/SaveProjectAccountRelations
+     */
+    post_Project_SaveProjectAccountRelations: (
+      data: ProjectAccountRelationDTO,
+      params: RequestParams = {},
+    ) =>
+      this.request<Result, any>({
+        path: `/api/Project/SaveProjectAccountRelations`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
         format: "json",
         ...params,
       }),
