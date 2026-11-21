@@ -1,43 +1,35 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { FormProps } from "../job/utils/types";
+import { ProjectAccountRelationDTO } from "@/api";
 import {
   type PlusColumn,
   type FieldValues,
   PlusForm
 } from "plus-pro-components";
 import { api } from "@/api";
-const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    ID: "",
-    Code: "",
-    Name: "",
-    Describe: "",
-    Ext1: "",
-    Notes: "",
-    Unit: "",
-    Updatetime: "",
-    ProjectID: "",
-    Loss: 0,
-    PreQuantity: 0,
-    MaxQuantity: 0,
-    PhaseID: ""
-  })
-});
+import { relAccountProps } from "./utils/types";
+const props = withDefaults(defineProps<relAccountProps>(), {});
 
 const loading = ref(true);
 const ruleFormRef = ref();
+// const newFormInline = ref(props);
 const newFormInline = ref(props.formInline);
-
 const loadData = async () => {
-  if (newFormInline?.value?.ID) {
+  console.log("props", props);
+  console.log("newFormInline", newFormInline);
+  if (newFormInline.value?.ProjectId) {
     loading.value = true;
     try {
       // 假设 getTableData 是你的 API 请求函数 GetLaborFullByID
-      const res = await api.api.get_Labor_GetLaborFullByID({
-        ID: Number(newFormInline?.value?.ID)
+      const res = await api.api.get_Project_GetProjectAccountList({
+        projectId: Number(newFormInline?.value?.ProjectId)
       });
-      Object.assign(newFormInline.value, res.Data);
+      var AccountIds = res.Data.map(item => item.AccountId);
+      // newFormInline.value.AccountIds = AccountIds;
+
+      Object.assign(newFormInline.value, {
+        AccountIds: AccountIds
+      });
     } catch (error) {
       console.error("数据加载失败:", error);
     } finally {
@@ -69,16 +61,28 @@ const getProjectOptions = async (): Promise<any[]> => {
   return res;
 };
 
+// 模拟一个从后端获取下拉数据的API
+const getAccountsOptions = async (): Promise<any[]> => {
+  // 这里替换为你的实际请求
+  const selectRes = await api.api.get_Account1_GetAccountSelectList();
+  var res = selectRes.Data.map(item => ({
+    label: item.Name,
+    value: item.AccountID
+  }));
+
+  return res;
+};
 const columns: PlusColumn[] = [
   {
     label: "项目名称",
-    prop: "Code",
-    valueType: "input"
+    prop: "Name",
+    valueType: "text"
   },
   {
     label: "关联人员",
-    prop: "Name",
-    valueType: "input"
+    prop: "AccountIds",
+    valueType: "checkbox",
+    options: getAccountsOptions()
   }
 ];
 function getRef() {

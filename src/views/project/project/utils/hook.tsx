@@ -2,7 +2,7 @@
 import type { PaginationProps } from "@pureadmin/table";
 
 import { api, type Projectinfo, type ProjectItemPageParam } from "@/api";
-import type { FormItemProps } from "../utils/types";
+import type { FormItemProps, relAccountProps } from "../utils/types";
 import editForm from "../form.vue";
 import relAccountForm from "../rel-account.vue";
 import { addDialog } from "@/components/ReDialog";
@@ -133,6 +133,7 @@ export function useHook() {
       props: {
         formInline: {
           ...row,
+          ProjectId: row?.ID,
           higherDeptOptions: []
         }
       },
@@ -144,8 +145,8 @@ export function useHook() {
       contentRenderer: () =>
         h(relAccountForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as UploadProjectItem;
+        // const FormRef = formRef.value.getRef();
+        const curData = options.props as relAccountProps;
         function chores() {
           done(); // 关闭弹框
           onSearch(); // 刷新表格数据
@@ -154,10 +155,12 @@ export function useHook() {
         console.log("curData", curData);
         // 表单规则校验通过
 
-        api.api.post_Project_UpdateProjectItem(toRaw(curData)).then(() => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores();
-        });
+        api.api
+          .post_Project_SaveProjectAccountRelations(toRaw(curData.formInline))
+          .then(() => {
+            // 实际开发先调用修改接口，再进行下面操作
+            chores();
+          });
       }
     });
   }
