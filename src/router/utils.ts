@@ -363,9 +363,16 @@ function addAsyncRoutes(arrRoutes: Array<RouteRecordRaw>) {
   arrRoutes.forEach((v: RouteRecordRaw) => {
     // 将backstage属性加入meta，标识此路由为后端返回路由
     v.meta.backstage = true;
-    // 父级的redirect属性取值：如果子级存在且父级的redirect属性不存在，默认取第一个子级的path；如果子级存在且父级的redirect属性存在，取存在的redirect属性，会覆盖默认值
-    if (v?.children && v.children.length && !v.redirect)
-      v.redirect = v.children[0].path;
+    // 父级的redirect属性取值：如果子级存在且父级的redirect属性不存在，默认取第一个可见子级的path；
+    // 如果子级存在且父级的redirect属性存在，取存在的redirect属性，会覆盖默认值。
+    // 注意：这里不能取第一个隐藏子级（showLink为false）作为默认重定向目标，
+    // 否则像“任务管理”这样自身是页面、仅带有隐藏详情子路由的菜单，点击后会错误地跳到隐藏详情页。
+    if (v?.children && v.children.length && !v.redirect) {
+      const firstVisibleChild = v.children.find(
+        child => (child as RouteRecordRaw).meta?.showLink !== false
+      );
+      if (firstVisibleChild) v.redirect = firstVisibleChild.path;
+    }
     // 父级的name属性取值：如果子级存在且父级的name属性不存在，默认取第一个子级的name；如果子级存在且父级的name属性存在，取存在的name属性，会覆盖默认值（注意：测试中发现父级的name不能和子级name重复，如果重复会造成重定向无效（跳转404），所以这里给父级的name起名的时候后面会自动加上`Parent`，避免重复）
     if (v?.children && v.children.length && !v.name)
       v.name = (v.children[0].name as string) + "Parent";
