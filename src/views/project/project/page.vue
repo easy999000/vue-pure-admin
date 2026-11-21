@@ -57,6 +57,7 @@ const {
   handleCurrentChange,
   handleSelectionChange,
   handleDelete,
+  openRelAccount,
   loading
 } = useHook();
 
@@ -149,6 +150,15 @@ onMounted(() => {
             @page-current-change="handleCurrentChange"
           >
             <template #operation="{ row }">
+              <el-button
+                class="reset-margin"
+                link
+                type="primary"
+                :size="size"
+                @click="openRelAccount(row)"
+              >
+                关联人员
+              </el-button>
               <el-button
                 class="reset-margin"
                 link

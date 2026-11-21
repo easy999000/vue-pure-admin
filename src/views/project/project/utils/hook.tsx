@@ -4,6 +4,7 @@ import type { PaginationProps } from "@pureadmin/table";
 import { api, type Projectinfo, type ProjectItemPageParam } from "@/api";
 import type { FormItemProps } from "../utils/types";
 import editForm from "../form.vue";
+import relAccountForm from "../rel-account.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
@@ -126,6 +127,40 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
+  function openRelAccount(row?: FormItemProps) {
+    addDialog({
+      title: `关联账号`,
+      props: {
+        formInline: {
+          ...row,
+          higherDeptOptions: []
+        }
+      },
+      width: "40%",
+      draggable: true,
+      fullscreen: deviceDetection(),
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () =>
+        h(relAccountForm, { ref: formRef, formInline: null }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as UploadProjectItem;
+        function chores() {
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+
+        console.log("curData", curData);
+        // 表单规则校验通过
+
+        api.api.post_Project_UpdateProjectItem(toRaw(curData)).then(() => {
+          // 实际开发先调用修改接口，再进行下面操作
+          chores();
+        });
+      }
+    });
+  }
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
       title: `${title}项目`,
@@ -182,6 +217,7 @@ export function useHook() {
     handleCurrentChange,
     handleSelectionChange,
     handleDelete,
+    openRelAccount,
     loading
   };
 }
