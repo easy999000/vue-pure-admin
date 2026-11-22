@@ -9,6 +9,7 @@ import {
 } from "@/api";
 import type { FormItemProps } from "../utils/types";
 import editForm from "../form.vue";
+import importData from "../import-data.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
@@ -153,6 +154,38 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
+  function openImportDataDialog() {
+    addDialog({
+      title: `导入数据`,
+      props: {
+        formInline: {}
+      },
+      width: "40%",
+      draggable: true,
+      fullscreen: deviceDetection(),
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      contentRenderer: () => h(importData, { ref: formRef, formInline: null }),
+      beforeSure: (done, { options }) => {
+        const FormRef = formRef.value.getRef();
+        const curData = options.props.formInline as UploadProjectItem;
+        function chores() {
+          message(`导入完成`, {
+            type: "success"
+          });
+          done(); // 关闭弹框
+          onSearch(); // 刷新表格数据
+        }
+
+        // 表单规则校验通过
+
+        api.api.post_Project_UpdateProjectItem(toRaw(curData)).then(() => {
+          // 实际开发先调用修改接口，再进行下面操作
+          chores();
+        });
+      }
+    });
+  }
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
       title: `${title}角色`,

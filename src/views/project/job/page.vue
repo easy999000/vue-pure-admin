@@ -131,6 +131,13 @@ onMounted(() => {
           >
             新增任务
           </el-button>
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(AddFill)"
+            @click="openDialog()"
+          >
+            批量导入
+          </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">
           <pure-table

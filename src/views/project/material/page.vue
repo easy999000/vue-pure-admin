@@ -132,6 +132,9 @@ onMounted(() => {
           >
             新增{{ pageName }}
           </el-button>
+          <el-button type="primary" :icon="useRenderIcon(AddFill)" @click="">
+            批量导入{{ pageName }}
+          </el-button>
         </template>
         <template v-slot="{ size, dynamicColumns }">
           <pure-table
