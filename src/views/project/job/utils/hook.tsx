@@ -154,35 +154,32 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
+  const importFormRef = ref();
   function openImportDataDialog() {
     addDialog({
-      title: `导入数据`,
-      props: {
-        formInline: {}
-      },
+      title: `批量导入任务`,
       width: "40%",
       draggable: true,
       fullscreen: deviceDetection(),
       fullscreenIcon: true,
       closeOnClickModal: false,
-      contentRenderer: () => h(importData, { ref: formRef, formInline: null }),
-      beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
-        const curData = options.props.formInline as UploadProjectItem;
-        function chores() {
-          message(`导入完成`, {
-            type: "success"
-          });
-          done(); // 关闭弹框
-          onSearch(); // 刷新表格数据
+      sureBtnLoading: true,
+      contentRenderer: () => h(importData, { ref: importFormRef }),
+      beforeSure: (done, { closeLoading }) => {
+        const form = importFormRef.value;
+        if (!form) {
+          done();
+          return;
         }
-
-        // 表单规则校验通过
-
-        api.api.post_Project_UpdateProjectItem(toRaw(curData)).then(() => {
-          // 实际开发先调用修改接口，再进行下面操作
-          chores();
-        });
+        form
+          .submit()
+          .then(() => {
+            done();
+            onSearch();
+          })
+          .catch(() => {
+            closeLoading();
+          });
       }
     });
   }
@@ -202,7 +199,7 @@ export function useHook() {
       closeOnClickModal: false,
       contentRenderer: () => h(editForm, { ref: formRef, formInline: null }),
       beforeSure: (done, { options }) => {
-        const FormRef = formRef.value.getRef();
+        // const FormRef = formRef.value.getRef();
         const curData = options.props.formInline as UploadProjectItem;
         function chores() {
           message(`您${title}了任务名称为${curData.Name}的这条数据`, {
@@ -242,6 +239,7 @@ export function useHook() {
     handleCurrentChange,
     handleSelectionChange,
     handleDelete,
+    openImportDataDialog,
     loading
   };
 }

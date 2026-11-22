@@ -57,6 +57,7 @@ const {
   handleCurrentChange,
   handleSelectionChange,
   handleDelete,
+  openImportDataDialog,
   loading
 } = useHook();
 
@@ -134,7 +135,7 @@ onMounted(() => {
           <el-button
             type="primary"
             :icon="useRenderIcon(AddFill)"
-            @click="openDialog()"
+            @click="openImportDataDialog()"
           >
             批量导入
           </el-button>

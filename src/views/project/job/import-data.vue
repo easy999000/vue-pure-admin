@@ -1,127 +1,103 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { FormProps } from "./utils/types";
-import {
-  type PlusColumn,
-  type FieldValues,
-  PlusForm
-} from "plus-pro-components";
+import type { UploadFile } from "element-plus";
 import { api } from "@/api";
-const props = withDefaults(defineProps<FormProps>(), {
-  formInline: () => ({
-    ID: "",
-    Code: "",
-    Name: "",
-    Describe: "",
-    Ext1: "",
-    Notes: "",
-    Unit: "",
-    Updatetime: "",
-    ProjectID: "",
-    Loss: 0,
-    PreQuantity: 0,
-    MaxQuantity: 0,
-    PhaseID: ""
-  })
-});
+import { message } from "@/utils/message";
 
-const ruleFormRef = ref();
-const newFormInline = ref(props.formInline);
+const fileList = ref<UploadFile[]>([]);
+const selectedFile = ref<File | null>(null);
+const uploading = ref(false);
 
-const state = ref<FieldValues>({
-  status: "1",
-  name: "",
-  rate: 4,
-  progress: 100,
-  switch: true,
-  time: new Date().toString(),
-  endTime: []
-});
-// 模拟一个从后端获取下拉数据的API
-const getProjectOptions = async (): Promise<any[]> => {
-  // 这里替换为你的实际请求
-  const selectRes = await api.api.get_Project_GetAccountProjectList();
-  var res = selectRes.Data.map(item => ({
-    label: item.Name,
-    value: item.ID
-  }));
-
-  return res;
+const handleChange = (uploadFile: UploadFile) => {
+  selectedFile.value = (uploadFile.raw as File) ?? null;
 };
 
-const columns: PlusColumn[] = [
-  {
-    label: "任务编码",
-    prop: "Code",
-    valueType: "input"
-  },
-  {
-    label: "任务名称",
-    prop: "Name",
-    valueType: "input"
-  },
-  {
-    label: "任务单位",
-    prop: "Unit",
-    valueType: "input"
-  },
-  {
-    label: "所属项目",
-    prop: "ProjectID",
-    valueType: "select",
-    options: getProjectOptions()
-  },
-  {
-    label: "任务损失率",
-    prop: "Loss",
-    valueType: "input-number"
-  },
-  {
-    label: "合同工程量",
-    prop: "PreQuantity",
-    valueType: "input-number"
-  },
-  {
-    label: "最大工程量",
-    prop: "MaxQuantity",
-    valueType: "input-number"
-  },
-  {
-    label: "单位工程",
-    prop: "PhaseID",
-    valueType: "input"
-  },
-  {
-    label: "任务描述",
-    prop: "Describe",
-    valueType: "input"
-  },
-  {
-    label: "任务其他",
-    prop: "Ext1",
-    valueType: "input"
-  },
-  {
-    label: "任务备注",
-    prop: "Notes",
-    valueType: "input"
+const handleRemove = () => {
+  selectedFile.value = null;
+};
+
+const submit = () => {
+  const file = selectedFile.value;
+
+  if (!file) {
+    message("请先选择要导入的 Excel 文件", { type: "warning" });
+    return Promise.reject(new Error("未选择文件"));
   }
-];
-function getRef() {
-  return ruleFormRef.value;
-}
-defineExpose({ getRef });
+
+  const ext = file.name.split(".").pop()?.toLowerCase();
+
+  if (!ext || !["xlsx", "xls"].includes(ext)) {
+    message("请选择 Excel 文件（.xlsx 或 .xls）", { type: "error" });
+    return Promise.reject(new Error("文件格式不正确"));
+  }
+
+  uploading.value = true;
+  return api.api
+    .post_Material_UploadMaterialInfoItem({ file })
+    .then(res => {
+      if (res.Code === 0) {
+        message("导入成功", { type: "success" });
+        return res;
+      } else {
+        message(res.Message || "导入失败", { type: "error" });
+        return Promise.reject(new Error(res.Message || "导入失败"));
+      }
+    })
+    .finally(() => {
+      uploading.value = false;
+    });
+};
+
+defineExpose({ submit });
 </script>
 
 <template>
-  <div>
-    <PlusForm
-      ref="ruleFormRef"
-      v-model="newFormInline"
-      class="w-112.5 m-auto"
-      :columns="columns"
-      label-position="right"
-      :has-footer="false"
-    />
+  <div class="import-data">
+    <el-upload
+      v-model:file-list="fileList"
+      drag
+      accept=".xlsx,.xls"
+      :auto-upload="false"
+      :limit="1"
+      :show-file-list="true"
+      :disabled="uploading"
+      :on-change="handleChange"
+      :on-remove="handleRemove"
+    >
+      <div class="el-upload__text">
+        {{ uploading ? "正在导入..." : "将 Excel 文件拖到此处，或" }}
+        <em v-if="!uploading">点击选择文件</em>
+      </div>
+    </el-upload>
+    <p class="import-tip">仅支持 .xlsx / .xls 格式的 Excel 文件</p>
+    <div>
+      <div>excel导入模板</div>
+      <div>
+        <a href="/files/template/任务主材.xlsx" download="任务主材.xlsx">
+          [任务主材导入模板]</a
+        >
+      </div>
+      <div>
+        <a href="/files/template/材料导入.xlsx" download="材料导入.xlsx">
+          [材料导入模板]</a
+        >
+      </div>
+      <div>
+        <a href="/files/template/任务导入.xlsx" download="任务导入.xlsx">
+          [任务导入模板]</a
+        >
+      </div>
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.import-data {
+  .import-tip {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--el-text-color-secondary);
+    text-align: center;
+  }
+}
+</style>
