@@ -8,6 +8,7 @@ import {
 } from "@/api";
 import type { FormItemProps } from "../utils/types";
 import editForm from "../form.vue";
+import importData from "../import-data.vue";
 import { addDialog } from "@/components/ReDialog";
 import { message } from "@/utils/message";
 import { deviceDetection } from "@pureadmin/utils";
@@ -23,6 +24,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
+  const importFormRef = ref();
   const pageName = ref("材料");
   const columns: TableColumnList = [
     {
@@ -125,6 +127,35 @@ export function useHook() {
     console.log("handleSelectionChange", val);
   }
 
+  function openImportDataDialog() {
+    addDialog({
+      title: `批量导入${pageName.value}`,
+      width: "40%",
+      draggable: true,
+      fullscreen: deviceDetection(),
+      fullscreenIcon: true,
+      closeOnClickModal: false,
+      sureBtnLoading: true,
+      contentRenderer: () => h(importData, { ref: importFormRef }),
+      beforeSure: (done, { closeLoading }) => {
+        const form = importFormRef.value;
+        if (!form) {
+          done();
+          return;
+        }
+        form
+          .submit()
+          .then(() => {
+            done();
+            onSearch();
+          })
+          .catch(() => {
+            closeLoading();
+          });
+      }
+    });
+  }
+
   function openDialog(title = "新增", row?: FormItemProps) {
     addDialog({
       title: `${title}${pageName.value}`,
@@ -177,6 +208,7 @@ export function useHook() {
     resetForm,
     rowStyle,
     openDialog,
+    openImportDataDialog,
     handleSizeChange,
     handleCurrentChange,
     handleSelectionChange,

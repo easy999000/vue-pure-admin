@@ -53,6 +53,7 @@ const {
   resetForm,
   rowStyle,
   openDialog,
+  openImportDataDialog,
   handleSizeChange,
   handleCurrentChange,
   handleSelectionChange,
@@ -132,7 +133,11 @@ onMounted(() => {
           >
             新增{{ pageName }}
           </el-button>
-          <el-button type="primary" :icon="useRenderIcon(AddFill)" @click="">
+          <el-button
+            type="primary"
+            :icon="useRenderIcon(AddFill)"
+            @click="openImportDataDialog"
+          >
             批量导入{{ pageName }}
           </el-button>
         </template>
