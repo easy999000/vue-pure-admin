@@ -179,7 +179,7 @@ const columns: PlusColumn[] = [
       return (
         <>
           {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
+            <a href={NewFullPath} download={oldName} style="margin-right: 8px;">
               {oldName}
             </a>
           )}
@@ -228,7 +228,7 @@ const columns: PlusColumn[] = [
       return (
         <>
           {oldName && (
-            <a href={NewFullPath} target="_blank" style="margin-right: 8px;">
+            <a href={NewFullPath} download={oldName} style="margin-right: 8px;">
               {oldName}
             </a>
           )}
