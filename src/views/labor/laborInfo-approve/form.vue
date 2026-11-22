@@ -384,48 +384,15 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "单价",
-    prop: "UnitPrice",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.UnitPrice}
-        onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "UnitPrice"
   },
   {
     label: "采购数量",
-    prop: "Quantity",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Quantity}
-        onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Quantity"
   },
   {
     label: "合计",
-    prop: "TotalAmount",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.TotalAmount}
-        onUpdate:modelValue={(val: string) => {
-          row.TotalAmount = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "TotalAmount"
   },
   {
     label: "备注",

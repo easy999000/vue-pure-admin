@@ -303,19 +303,19 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "单价",
-    prop: "TypeStr"
+    prop: "UnitPrice"
   },
   {
     label: "税率",
-    prop: "TypeStr"
+    prop: "Taxrate"
   },
   {
     label: "运费单价",
-    prop: "TypeStr"
+    prop: "Freight"
   },
   {
     label: "合计",
-    prop: "TypeStr"
+    prop: ""
   },
   {
     label: "备注",

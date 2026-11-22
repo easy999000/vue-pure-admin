@@ -303,48 +303,15 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "单价",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.UnitPrice}
-        onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "UnitPrice"
   },
   {
     label: "税率",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Taxrate}
-        onUpdate:modelValue={(val: string) => {
-          row.Taxrate = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Taxrate"
   },
   {
     label: "运费单价",
-    prop: "TypeStr",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Freight}
-        onUpdate:modelValue={(val: string) => {
-          row.Freight = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Freight"
   },
   {
     label: "合计",
