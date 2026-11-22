@@ -321,87 +321,28 @@ const subTableColumns: TableColumnList = [
     prop: "MaterialSpecifications"
   },
   {
-    label: "物料规格",
-    prop: "MaterialSpecifications"
-  },
-  {
     label: "物料类型",
     prop: "MaterialUnit"
   },
   {
     label: "单价",
-    prop: "UnitPrice",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.UnitPrice}
-        onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "UnitPrice"
   },
   {
     label: "申请工程量",
-    prop: "Quantity",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Quantity}
-        onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Quantity"
   },
   {
     label: "实际工程量",
-    prop: "CompletionQuantity",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.CompletionQuantity}
-        onUpdate:modelValue={(val: string) => {
-          row.CompletionQuantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "CompletionQuantity"
   },
   {
     label: "合计",
-    prop: "TotalAmount",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.TotalAmount}
-        onUpdate:modelValue={(val: string) => {
-          row.TotalAmount = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "TotalAmount"
   },
   {
     label: "备注",
-    prop: "Notes",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Notes}
-        onUpdate:modelValue={(val: string) => {
-          row.Notes = val;
-        }}
-        placeholder="备注"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Notes"
   }
 ];
 
