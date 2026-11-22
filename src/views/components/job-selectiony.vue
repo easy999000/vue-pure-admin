@@ -12,6 +12,7 @@ import {
 
 import AddFill from "~icons/ep/plus";
 import Delete from "~icons/ep/delete";
+import Refresh from "~icons/ep/refresh";
 
 // 获取透传属性并显式声明 tableBarAttrs 的类型
 const attrs = useAttrs();
@@ -27,6 +28,10 @@ const pagination = reactive<PaginationProps>({
 const dataList = ref([]);
 
 const loading = ref(true);
+const searchForm = reactive<{ Code?: string; Name?: string }>({
+  Code: "",
+  Name: ""
+});
 // 定义 MyTable 组件自身需要的 Props
 interface MyTableProps {
   title?: string; // 表格标题
@@ -77,7 +82,9 @@ const loadData = async () => {
   try {
     // 假设 getTableData 是你的 API 请求函数
     const { Code, Data } = await api.api.get_Project_GetProjectItemPage({
-      ProjectID: props.projectId || undefined
+      ProjectID: props.projectId || undefined,
+      Code: searchForm.Code || undefined,
+      Name: searchForm.Name || undefined
     });
 
     if (Code === 0) {
@@ -91,6 +98,16 @@ const loadData = async () => {
   } finally {
     loading.value = false;
   }
+};
+
+const onSearch = () => {
+  loadData();
+};
+
+const resetForm = () => {
+  searchForm.Code = "";
+  searchForm.Name = "";
+  loadData();
 };
 
 // 在 setup 中直接调用，尽早触发数据请求
@@ -127,7 +144,8 @@ const columns: TableColumnList = [
   },
   {
     label: "描述",
-    prop: "Describe"
+    prop: "Describe",
+    minWidth: 300
   },
   {
     label: "操作",
@@ -138,48 +156,90 @@ const columns: TableColumnList = [
 </script>
 
 <template>
-  <PureTableBar
-    :class="['w-full']"
-    style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
-    :title="title"
-    :columns="columns"
-    :tableRef="tableRef"
-    v-bind="tableBarAttrs"
-  >
-    <template #buttons />
-    <template v-slot="{ size, dynamicColumns }">
-      <pure-table
-        ref="tableRef"
-        stripe
-        border
-        align-whole="center"
-        showOverflowTooltip
-        table-layout="auto"
-        :size="size"
-        adaptive
-        :row-style="rowStyle"
-        :adaptiveConfig="{ offsetBottom: 108 }"
-        :data="dataList"
-        :columns="dynamicColumns || columns"
-        v-bind="$attrs"
-        :header-cell-style="{
-          background: 'var(--el-fill-color-light)',
-          color: 'var(--el-text-color-primary)'
-        }"
-      >
-        <template #operation="{ row }">
-          <el-button
-            class="reset-margin"
-            link
-            type="primary"
-            @click.stop="handleSelect(row)"
-          >
-            选择</el-button
-          >
-        </template>
-      </pure-table>
-    </template>
-  </PureTableBar>
+  <div class="job-selectiony">
+    <el-form :inline="true" class="search-form">
+      <el-form-item label="编码：">
+        <el-input
+          v-model="searchForm.Code"
+          placeholder="编码"
+          clearable
+          class="w-45!"
+          @keyup.enter="onSearch"
+        />
+      </el-form-item>
+      <el-form-item label="名称：">
+        <el-input
+          v-model="searchForm.Name"
+          placeholder="名称"
+          clearable
+          class="w-45!"
+          @keyup.enter="onSearch"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button
+          type="primary"
+          :icon="useRenderIcon('ri/search-line')"
+          :loading="loading"
+          @click="onSearch"
+        >
+          搜索
+        </el-button>
+        <el-button :icon="useRenderIcon(Refresh)" @click="resetForm">
+          重置
+        </el-button>
+      </el-form-item>
+    </el-form>
+
+    <PureTableBar
+      :class="['w-full']"
+      style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
+      :title="title"
+      :columns="columns"
+      :tableRef="tableRef"
+      v-bind="tableBarAttrs"
+    >
+      <template #buttons />
+      <template v-slot="{ size, dynamicColumns }">
+        <pure-table
+          ref="tableRef"
+          stripe
+          border
+          align-whole="center"
+          showOverflowTooltip
+          table-layout="auto"
+          :size="size"
+          adaptive
+          :row-style="rowStyle"
+          :adaptiveConfig="{ offsetBottom: 108 }"
+          :data="dataList"
+          :columns="dynamicColumns || columns"
+          v-bind="$attrs"
+          :header-cell-style="{
+            background: 'var(--el-fill-color-light)',
+            color: 'var(--el-text-color-primary)'
+          }"
+        >
+          <template #operation="{ row }">
+            <el-button
+              class="reset-margin"
+              link
+              type="primary"
+              @click.stop="handleSelect(row)"
+            >
+              选择</el-button
+            >
+          </template>
+        </pure-table>
+      </template>
+    </PureTableBar>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.job-selectiony {
+  .search-form {
+    padding: 12px 16px 0;
+  }
+}
+</style>
