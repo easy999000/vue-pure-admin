@@ -70,6 +70,24 @@ defineExpose({ submit });
       </div>
     </el-upload>
     <p class="import-tip">仅支持 .xlsx / .xls 格式的 Excel 文件</p>
+    <div>
+      <div>excel导入模板</div>
+      <div>
+        <a href="/files/template/任务主材.xlsx" download="任务主材.xlsx">
+          [任务主材导入模板]</a
+        >
+      </div>
+      <div>
+        <a href="/files/template/材料导入.xlsx" download="材料导入.xlsx">
+          [材料导入模板]</a
+        >
+      </div>
+      <div>
+        <a href="/files/template/任务导入.xlsx" download="任务导入.xlsx">
+          [任务导入模板]</a
+        >
+      </div>
+    </div>
   </div>
 </template>
 
