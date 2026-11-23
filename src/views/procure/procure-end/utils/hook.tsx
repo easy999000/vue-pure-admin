@@ -286,41 +286,9 @@ export function useHook() {
       bg: true,
       btnClick: ({ dialog: { options, index } }) => {
         const done = () => closeDialog(options, index, { command: "sure" });
-        if (options?.beforeSure && typeof options.beforeSure === "function") {
-          options.beforeSure(done, {
-            options,
-            index,
-            closeLoading: () => {}
-          });
-        } else {
-          done();
-        }
-      }
-    };
 
-    const beforeSure = (
-      done: Function,
-      { options }: { options: DialogOptions }
-    ) => {
-      const curData = options.props.formInline as EnquiryInfoDTO;
-      function chores(res2: any) {
-        console.log("res2", res2);
-        if (res2.Code !== 0) {
-          message(`操作失败，${res2.Message}`, { type: "error" });
-          return;
-        }
-        message(`您${title}了任务名称为${curData.Title}的这条数据`, {
-          type: "success"
-        });
-        done(); // 关闭弹框
-        onSearch(); // 刷新表格数据
+        done();
       }
-
-      // 表单规则校验通过
-      api.api.post_Enquiry_UpdateEnquiryInfo(toRaw(curData)).then(res => {
-        // 实际开发先调用修改接口，再进行下面操作
-        chores(res);
-      });
     };
 
     addDialog({
@@ -340,8 +308,7 @@ export function useHook() {
       footerButtons:
         title === "详情"
           ? [printButton, cancelButton, sureButton]
-          : [cancelButton, sureButton],
-      beforeSure
+          : [cancelButton, sureButton]
     });
   }
   return {
