@@ -270,33 +270,6 @@ function onDel(row: any, index: number) {
 
 const subTableColumns: TableColumnList = [
   {
-    label: "操作",
-    width: 210,
-    slot: "operation",
-    cellRenderer: ({ row, column, $index }) => (
-      <div>
-        <el-button
-          class="reset-margin"
-          link
-          type="primary"
-          icon={useRenderIcon(Delete)}
-          onClick={() => ShowJobChoose(row, $index)}
-        >
-          关联任务
-        </el-button>
-        <el-button
-          class="reset-margin"
-          link
-          type="primary"
-          icon={useRenderIcon(Delete)}
-          onClick={() => onDel(row, $index)}
-        >
-          删除
-        </el-button>
-      </div>
-    )
-  },
-  {
     label: "任务编码",
     prop: "JobCode"
   },
