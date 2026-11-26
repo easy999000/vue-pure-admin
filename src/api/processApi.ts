@@ -1432,11 +1432,11 @@ export interface Leaseitem {
   /** @format double */
   UnitPrice?: number;
   MaterialTypeStr?: string | null;
-  JobItemCode?: string | null;
-  JobItemName?: string | null;
-  JobItemDescribe?: string | null;
+  JobCode?: string | null;
+  JobName?: string | null;
+  JobDescribe?: string | null;
   /** @format double */
-  JobPreQuantity?: number;
+  PreQuantity?: number;
   PayModeStr?: string | null;
   /** @format double */
   TotalAmount?: number;
@@ -3839,6 +3839,31 @@ export interface GetLaborGetLaborForPayParams {
 }
 
 export interface GetLaborGetWinLaborApiParams {
+  RoleNames?: string[];
+  /** @format int32 */
+  ID?: number;
+  /** @format int32 */
+  AccountID?: number;
+  /** @format int32 */
+  ProjectID?: number;
+  ProjectIDList?: number[];
+  /** @format int32 */
+  Status?: number;
+  StatusList?: number[];
+  Title?: string;
+  /** @format int32 */
+  WinAccountID?: number;
+  /** @format int64 */
+  PageCount?: number;
+  /** @format int32 */
+  PageNumber?: number;
+  /** @format int32 */
+  PageSize?: number;
+  /** @format int64 */
+  Count?: number;
+}
+
+export interface GetLaborGetLaborChangeApplyPageParams {
   RoleNames?: string[];
   /** @format int32 */
   ID?: number;
@@ -6308,6 +6333,25 @@ export class Api<
      * No description
      *
      * @tags Labor
+     * @name GetLaborGetLaborChangeApplyPage
+     * @request GET:/api/Labor/GetLaborChangeApplyPage
+     */
+    get_Labor_GetLaborChangeApplyPage: (
+      query: GetLaborGetLaborChangeApplyPageParams,
+      params: RequestParams = {},
+    ) =>
+      this.request<LaborinfoPageResultResult, any>({
+        path: `/api/Labor/GetLaborChangeApplyPage`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Labor
      * @name GetLaborGetLaborPayApplyApi
      * @request GET:/api/Labor/GetLaborPayApplyAPI
      */
@@ -6551,6 +6595,26 @@ export class Api<
     ) =>
       this.request<LaborinfochangePageResultResult, any>({
         path: `/api/Labor/GetLaborChangeApproveAPI`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Labor
+     * @name PostLaborGetLaborChangeEndPage
+     * @request POST:/api/Labor/GetLaborChangeEndPage
+     */
+    post_Labor_GetLaborChangeEndPage: (
+      data: LaborInfoParam,
+      params: RequestParams = {},
+    ) =>
+      this.request<LaborinfochangePageResultResult, any>({
+        path: `/api/Labor/GetLaborChangeEndPage`,
         method: "POST",
         body: data,
         type: ContentType.Json,

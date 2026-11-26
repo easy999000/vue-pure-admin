@@ -111,7 +111,7 @@ export function useHook() {
   async function onSearch() {
     loading.value = true;
     ///GetWinLaborAPI
-    const { Code, Data } = await api.api.get_Labor_GetWinLaborAPI({
+    const { Code, Data } = await api.api.get_Labor_GetLaborChangeApplyPage({
       PageSize: pagination.pageSize,
       PageNumber: pagination.currentPage,
       Count: pagination.total,
