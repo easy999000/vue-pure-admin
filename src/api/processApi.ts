@@ -2167,6 +2167,7 @@ export interface ProjectItemPageParam {
   /** @format int32 */
   ProjectID?: number | null;
   Unit?: string | null;
+  ProjectIDList?: number[] | null;
 }
 
 export interface ProjectItemStatistics {
@@ -4717,6 +4718,7 @@ export interface GetProjectGetProjectItemPageParams {
   /** @format int32 */
   ProjectID?: number;
   Unit?: string;
+  ProjectIDList?: number[];
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */
@@ -4738,6 +4740,7 @@ export interface GetProjectGetProjectItemMaterialPageParams {
   /** @format int32 */
   ProjectID?: number;
   Unit?: string;
+  ProjectIDList?: number[];
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */
@@ -4829,6 +4832,7 @@ export interface GetProjectGetProjectPhasePageParams {
   /** @format int32 */
   ProjectID?: number;
   Unit?: string;
+  ProjectIDList?: number[];
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */

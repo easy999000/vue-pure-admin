@@ -25,6 +25,7 @@ export function useHook() {
   const dataList = ref([]);
   const curRow = ref();
   const formRef = ref();
+  const projectOptions = ref<{ label: string; value: number }[]>([]);
   const columns: TableColumnList = [
     {
       label: "项目名称",
@@ -117,8 +118,20 @@ export function useHook() {
     };
   }
   onMounted(async () => {
+    getProjectOptions();
     onSearch();
   });
+  async function getProjectOptions() {
+    const res = await api.api.get_Project_GetAccountProjectList();
+    if (res.Code === 0) {
+      projectOptions.value = (res.Data ?? [])
+        .filter(item => item.ID != null)
+        .map(item => ({
+          label: item.Name ?? "",
+          value: item.ID as number
+        }));
+    }
+  }
   async function onSearch() {
     loading.value = true;
     const { Code, Data } = await api.api.get_Project_GetProjectItemPage({
@@ -240,6 +253,7 @@ export function useHook() {
     handleSelectionChange,
     handleDelete,
     openImportDataDialog,
+    projectOptions,
     loading
   };
 }

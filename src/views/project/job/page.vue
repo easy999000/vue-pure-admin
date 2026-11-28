@@ -58,6 +58,7 @@ const {
   handleSelectionChange,
   handleDelete,
   openImportDataDialog,
+  projectOptions,
   loading
 } = useHook();
 
@@ -96,6 +97,22 @@ onMounted(() => {
           clearable
           class="w-45!"
         />
+      </el-form-item>
+      <el-form-item label="所属项目:" prop="ProjectID">
+        <el-select
+          v-model="searchForm.ProjectID"
+          placeholder="项目"
+          clearable
+          filterable
+          class="w-45!"
+        >
+          <el-option
+            v-for="item in projectOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <el-form-item>
