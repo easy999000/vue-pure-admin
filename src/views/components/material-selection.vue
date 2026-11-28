@@ -159,16 +159,20 @@ const columns: TableColumnList = [
     prop: "Name"
   },
   {
+    label: "类别",
+    prop: "TypeStr"
+  },
+  {
+    label: "是否报价",
+    prop: "HasPrice"
+  },
+  {
     label: "规格",
     prop: "Specifications"
   },
   {
     label: "单位",
     prop: "Unit"
-  },
-  {
-    label: "类别",
-    prop: "TypeStr"
   },
   {
     label: "操作",

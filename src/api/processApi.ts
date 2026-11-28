@@ -1488,6 +1488,9 @@ export interface MaterialInfoDTO {
   Price?: number;
   /** @format double */
   Taxrate?: number;
+  /** @format double */
+  Materialprice?: number | null;
+  HasPrice?: boolean;
 }
 
 export interface MaterialInfoDTOPageResult {
@@ -1566,6 +1569,9 @@ export interface Materialinfo {
   JobMaterialActualQuantity?: number;
   /** @format int64 */
   ProjectItemMaterialID?: number;
+  /** @format double */
+  Materialprice?: number | null;
+  HasPrice?: boolean;
 }
 
 export interface MaterialinfoPageResult {
@@ -2166,8 +2172,8 @@ export interface ProjectItemPageParam {
   PhaseID?: number | null;
   /** @format int32 */
   ProjectID?: number | null;
-  Unit?: string | null;
   ProjectIDList?: number[] | null;
+  Unit?: string | null;
 }
 
 export interface ProjectItemStatistics {
@@ -4717,8 +4723,8 @@ export interface GetProjectGetProjectItemPageParams {
   PhaseID?: number;
   /** @format int32 */
   ProjectID?: number;
-  Unit?: string;
   ProjectIDList?: number[];
+  Unit?: string;
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */
@@ -4739,8 +4745,8 @@ export interface GetProjectGetProjectItemMaterialPageParams {
   PhaseID?: number;
   /** @format int32 */
   ProjectID?: number;
-  Unit?: string;
   ProjectIDList?: number[];
+  Unit?: string;
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */
@@ -4831,8 +4837,8 @@ export interface GetProjectGetProjectPhasePageParams {
   PhaseID?: number;
   /** @format int32 */
   ProjectID?: number;
-  Unit?: string;
   ProjectIDList?: number[];
+  Unit?: string;
   /** @format int64 */
   PageCount?: number;
   /** @format int32 */
