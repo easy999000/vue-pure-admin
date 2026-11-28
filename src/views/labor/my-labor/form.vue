@@ -422,6 +422,10 @@ function getRef() {
 }
 defineExpose({ getRef });
 const handleAddRow = () => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
   addDialog({
     title: "选择物料",
     width: "80%",
@@ -433,6 +437,7 @@ const handleAddRow = () => {
     contentRenderer: ({ options, index }) =>
       h(MaterialSelection, {
         title: "物料列表",
+        projectId: newFormInline.value.ProjectID,
         onSelect: row => {
           handleMaterialSelect(row);
           closeDialog(options, index, { command: "sure" });

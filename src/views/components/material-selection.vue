@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { ref, useAttrs, computed, reactive } from "vue";
+import { ref, useAttrs, computed, reactive, watch } from "vue";
 import type { PaginationProps } from "@pureadmin/table";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
@@ -120,11 +120,19 @@ function rowStyle({ row: { id } }) {
     background: id === curRow.value?.id ? "var(--el-fill-color-light)" : ""
   };
 }
+const projectId = computed(() => {
+  const value = props.projectId;
+  if (value === undefined || value === null || value === "") {
+    return undefined;
+  }
+  const num = Number(value);
+  return Number.isNaN(num) ? undefined : num;
+});
 const loadData = async () => {
   loading.value = true;
   try {
     const { Code, Data } = await api.api.get_Material_GetMaterialInfoPage({
-      ProjectID: props.projectId ? Number(props.projectId) : undefined,
+      ProjectID: projectId.value,
       Code: searchForm.value.Code || undefined,
       Name: searchForm.value.Name || undefined,
       Specifications: searchForm.value.Specifications || undefined,
@@ -145,6 +153,11 @@ const loadData = async () => {
     loading.value = false;
   }
 };
+
+watch(projectId, () => {
+  pagination.currentPage = 1;
+  loadData();
+});
 
 // 在 setup 中直接调用，尽早触发数据请求
 loadData();
