@@ -281,15 +281,7 @@ const columns: PlusColumn[] = [
     // valueType 只需占位，实际渲染由 renderField 接管
     renderField: (value, onChange, row) => {
       const items = (value as any[]) || [];
-      return (
-        <ItemList
-          title=""
-          data={items}
-          columns={subTableColumns}
-          //onSelection-change={rows => console.log("子表格选中行：", rows)}
-          onAdd-row={handleAddRow}
-        />
-      );
+      return <ItemList title="" data={items} columns={subTableColumns} />;
     }
   }
 ];
@@ -329,63 +321,19 @@ const subTableColumns: TableColumnList = [
   },
   {
     label: "单价",
-    prop: "UnitPrice",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.UnitPrice}
-        onUpdate:modelValue={(val: string) => {
-          row.UnitPrice = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "UnitPrice"
   },
   {
     label: "采购数量",
-    prop: "Quantity",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Quantity}
-        onUpdate:modelValue={(val: string) => {
-          row.Quantity = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Quantity"
   },
   {
     label: "合计",
-    prop: "TotalAmount",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.TotalAmount}
-        onUpdate:modelValue={(val: string) => {
-          row.TotalAmount = val;
-        }}
-        placeholder="数量"
-        clearable
-        size="small"
-      />
-    )
+    prop: "TotalAmount"
   },
   {
     label: "备注",
-    prop: "Notes",
-    cellRenderer: ({ row, column, $index }) => (
-      <ElInput
-        modelValue={row.Notes}
-        onUpdate:modelValue={(val: string) => {
-          row.Notes = val;
-        }}
-        placeholder="备注"
-        clearable
-        size="small"
-      />
-    )
+    prop: "Notes"
   }
 ];
 
@@ -406,6 +354,7 @@ const handleAddRow = () => {
     contentRenderer: ({ options, index }) =>
       h(MaterialSelection, {
         title: "物料列表",
+        projectId: newFormInline.value.ProjectID,
         onSelect: row => {
           handleMaterialSelect(row);
           closeDialog(options, index, { command: "sure" });

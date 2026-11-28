@@ -334,6 +334,7 @@ const handleAddRow = () => {
     contentRenderer: ({ options, index }) =>
       h(MaterialSelection, {
         title: "物料列表",
+        projectId: newFormInline.value.ProjectID,
         onSelect: row => {
           handleMaterialSelect(row);
           closeDialog(options, index, { command: "sure" });
