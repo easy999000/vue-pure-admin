@@ -177,7 +177,8 @@ const columns: TableColumnList = [
   },
   {
     label: "是否报价",
-    prop: "HasPrice"
+    prop: "HasPrice",
+    cellRenderer: ({ row }) => (row.HasPrice ? "是" : "否")
   },
   {
     label: "规格",
