@@ -309,15 +309,7 @@ const columns: PlusColumn[] = [
     // valueType 只需占位，实际渲染由 renderField 接管
     renderField: (value, onChange, row) => {
       const items = (value as any[]) || [];
-      return (
-        <ItemList
-          title=""
-          data={items}
-          columns={subTableColumns}
-          //onSelection-change={rows => console.log("子表格选中行：", rows)}
-          onAdd-row={handleAddRow}
-        />
-      );
+      return <ItemList title="" data={items} columns={subTableColumns} />;
     }
   }
 ];

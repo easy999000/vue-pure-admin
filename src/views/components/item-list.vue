@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import { ref, useAttrs, computed } from "vue";
+import { ref, useAttrs, computed, getCurrentInstance } from "vue";
 import { PureTableBar } from "@/components/RePureTableBar";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import AddFill from "~icons/ep/plus";
@@ -9,6 +9,12 @@ const attrs = useAttrs();
 const loading = ref(false);
 const tableBarAttrs = computed(
   () => (attrs.tableBarAttrs as Record<string, any>) ?? {}
+);
+// 判断父组件是否监听了 add-row 事件，监听时才显示“添加一行数据”按钮
+const instance = getCurrentInstance();
+const rawProps = instance?.vnode?.props as Record<string, any> | undefined;
+const hasAddRowListener = Boolean(
+  rawProps?.onAddRow || rawProps?.["onAdd-row"]
 );
 
 // 定义 MyTable 组件自身需要的 Props
@@ -126,6 +132,7 @@ function onDel(row: any, index: number) {
       >
         <template #append>
           <el-button
+            v-if="hasAddRowListener"
             plain
             class="w-full my-2!"
             :icon="useRenderIcon(AddFill)"
