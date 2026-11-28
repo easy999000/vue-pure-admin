@@ -225,6 +225,10 @@ function getRef() {
 }
 defineExpose({ getRef });
 const handleAddRow = () => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
   addDialog({
     title: "关联账单",
     width: "80%",

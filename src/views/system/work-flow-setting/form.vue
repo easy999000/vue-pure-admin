@@ -122,6 +122,10 @@ const columns: PlusColumn[] = [
   }
 ];
 const handleAddRow = () => {
+  if (!newFormInline.value.ProjectID) {
+    ElMessage.warning("请先选择所属项目");
+    return;
+  }
   addDialog({
     title: "选择物料",
     width: "80%",
